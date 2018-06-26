@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 
 @Entity
-@Table(name = "students", schema = "public")
 public class Student {
 
     @Id
@@ -18,17 +17,18 @@ public class Student {
 
     /* Имя */
     @Column(name = "first_name")
-    private int firstName;
+    private String firstName;
 
     /* Фамилия */
     @Column(name = "last_name")
-    private int lastName;
+    private String lastName;
 
-    /* Специализация */
-    @Column(name = "specialization")
-    private String specialization;
+    /* Специальность */
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "specialty_id")
+    private Specialty specialty;
 
-    /* Направление */
+    /* Курс обучения */
     @Column(name = "course")
     private String course;
 
@@ -50,8 +50,8 @@ public class Student {
     List<Subject> students_subjects;
 
     /* Расписание для студентов */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_id")
-    private Schedule students_schedule;
+    private Schedule schedule;
 }
 

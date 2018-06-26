@@ -3,13 +3,13 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 /** Расписание */
 
 @Data
 
 @Entity
-@Table(name = "schedules", schema = "public")
 public class Schedule {
 
     @Id
@@ -18,13 +18,15 @@ public class Schedule {
 
     /* Преподаватель */
     @OneToMany(mappedBy = "teacher_id")
-    private Teacher teacher;
+    private List<Teacher> teachers;
 
     /* Предметы */
     @OneToMany(mappedBy = "subject_id")
-    private Subject subject;
+    private List<Subject> subjects;
 
     /* Студенты */
     @OneToMany(mappedBy = "student_id")
-    private Student student;
+    private List<Student> students;
 }
+
+

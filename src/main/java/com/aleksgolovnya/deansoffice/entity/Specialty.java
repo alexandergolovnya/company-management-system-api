@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 
 @Entity
-@Table(name = "specialties", schema = "public")
 public class Specialty {
 
     @Id
@@ -29,6 +28,10 @@ public class Specialty {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    /* Студенты, обучающиеся на данной специальности */
+    @OneToMany(mappedBy = "specialty")
+    private List<Student> students;
+
     /* Список предметов, для данной специальности */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -37,4 +40,6 @@ public class Specialty {
             inverseJoinColumns = { @JoinColumn(name = "subject_id") }
     )
     List<Subject> specialties_subjects;
+
+
 }
