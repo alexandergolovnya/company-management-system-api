@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 
 @Entity
-@Table(name = "subjects", schema = "public")
 public class Subject {
 
     @Id
@@ -29,11 +28,11 @@ public class Subject {
     private int hoursPerWeek;
 
     /* Специальности, на которой изучают данный предмет */
-    @ManyToMany(mappedBy = "specialties_id")
+    @ManyToMany(mappedBy = "specialties_subjects")
     private List<Specialty> specialties;
 
     /* Преподаватели данного предмета */
-    @ManyToMany(mappedBy = "teacher_id")
+    @ManyToMany(mappedBy = "teachers_subjects")
     private List<Teacher> teachers;
 
     /* Расписание для данных предметов */
@@ -42,6 +41,7 @@ public class Subject {
     private Schedule schedule;
 
     /* Студенты, которые изучают данный предмет */
-    @ManyToMany(mappedBy = "students_id")
+    @ManyToMany(mappedBy = "students_subjects")
     private List<Student> students;
 }
+
