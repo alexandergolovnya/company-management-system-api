@@ -18,13 +18,13 @@ public class Schedule {
 
     /* Преподаватель */
     @OneToMany(mappedBy = "teacher_schedule")
-    private Teacher teacher_schedule;
+    private Teacher teacher;
 
     /* Предметы */
     @OneToMany(mappedBy = "subjects_schedule")
-    private Subject subjects_schedule;
+    private Subject subject;
 
     /* Студенты */
     @OneToMany(mappedBy = "students_schedule")
-    private Student students_schedule;
+    private Student student;
 }

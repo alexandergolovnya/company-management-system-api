@@ -28,22 +28,20 @@ public class Subject {
     @Column(name = "hours_per_week")
     private int hoursPerWeek;
 
-    /* Преподаватель данного предмета */
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
-
-    /* Предметы представленные в расписании */
-    @ManyToOne
-    @JoinColumn(name = "subjects_id")
-    private Schedule subjects_schedule;
-
-    /* Студенты, которые изучают данный предмет */
-    @ManyToMany(mappedBy = "students_subjects")
-    private List<Student> students;
-
     /* Специальности, на которой изучают данный предмет */
-    @ManyToMany(mappedBy = "specialties_subjects")
+    @ManyToMany(mappedBy = "specialties_id")
     private List<Specialty> specialties;
 
+    /* Преподаватели данного предмета */
+    @ManyToMany(mappedBy = "teacher_id")
+    private List<Teacher> teachers;
+
+    /* Расписание для данных предметов */
+    @ManyToOne
+    @JoinColumn(name = "subjects_id")
+    private Schedule schedule;
+
+    /* Студенты, которые изучают данный предмет */
+    @ManyToMany(mappedBy = "students_id")
+    private List<Student> students;
 }

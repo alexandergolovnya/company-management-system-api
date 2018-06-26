@@ -14,7 +14,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int teacher_id;
 
     /* Имя */
     @Column(name = "first_name")
@@ -40,7 +40,13 @@ public class Teacher {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_id")
     private Schedule teacher_schedule;
+
     /* Список предметов для данного преподавателя */
-    @OneToMany(mappedBy = "teacher")
-    private List<Subject> subjectList;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "teachers_subjects",
+            joinColumns = { @JoinColumn(name = "teacher_id") },
+            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
+    )
+    List<Subject> teachers_subjects;
 }
