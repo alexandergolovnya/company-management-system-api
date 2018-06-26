@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 
 @Entity
-@Table(name = "teachers", schema = "public")
 public class Teacher {
 
     @Id
@@ -40,7 +39,7 @@ public class Teacher {
     /* Расписание */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_id")
-    private Schedule teacher_schedule;
+    private Schedule schedule;
 
     /* Список предметов для данного преподавателя */
     @ManyToMany(cascade = CascadeType.ALL)
