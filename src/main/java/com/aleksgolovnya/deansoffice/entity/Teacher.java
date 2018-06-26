@@ -24,9 +24,10 @@ public class Teacher {
     @Column(name = "last_name")
     private String lastName;
 
-    /* Кафедра */
-    @Column(name = "department")
-    private String department;
+    /* Кафедра преподавателя */
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     /* Должность */
     @Column(name = "position")

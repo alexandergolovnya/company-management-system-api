@@ -14,11 +14,15 @@ public class Department {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int department_id;
 
     /* Название кафедры */
     @Column(name = "name")
     private String name;
+
+    /* Описание кафедры */
+    @Column(name = "description")
+    private String description;
 
     /* Факультет к которому относится кафедра */
     @ManyToOne
@@ -28,4 +32,8 @@ public class Department {
     /* Список специализаций данной кафедры */
     @OneToMany(mappedBy = "department")
     private List<Specialty> specialtyList;
+
+    /* Список специализаций данной кафедры */
+    @OneToMany(mappedBy = "department")
+    private List<Teacher> teacherList;
 }

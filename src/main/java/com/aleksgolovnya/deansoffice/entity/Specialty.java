@@ -20,6 +20,10 @@ public class Specialty {
     @Column(name = "name")
     private String name;
 
+    /* Описание Специализации */
+    @Column(name = "description")
+    private String description;
+
     /* Кафедра для данного направления */
     @ManyToOne
     @JoinColumn(name = "department_id")
