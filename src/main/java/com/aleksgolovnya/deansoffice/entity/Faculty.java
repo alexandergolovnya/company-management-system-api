@@ -15,11 +15,15 @@ public class Faculty {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int faculty_id;
 
     /* Название факультета */
     @Column(name = "name")
     private String name;
+
+    /* Описание факультета */
+    @Column(name = "description")
+    private String description;
 
     /* Список кафедр данного факультета */
     @OneToMany(mappedBy = "faculty")

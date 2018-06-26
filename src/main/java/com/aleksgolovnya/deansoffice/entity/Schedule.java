@@ -14,17 +14,17 @@ public class Schedule {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int schedule_id;
 
     /* Преподаватель */
-    @OneToMany(mappedBy = "teacher_schedule")
+    @OneToMany(mappedBy = "teacher_id")
     private Teacher teacher;
 
     /* Предметы */
-    @OneToMany(mappedBy = "subjects_schedule")
+    @OneToMany(mappedBy = "subject_id")
     private Subject subject;
 
     /* Студенты */
-    @OneToMany(mappedBy = "students_schedule")
+    @OneToMany(mappedBy = "student_id")
     private Student student;
 }
