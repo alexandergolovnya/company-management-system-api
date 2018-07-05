@@ -3,7 +3,6 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 /** Расписание */
 
@@ -13,20 +12,32 @@ import java.util.List;
 public class Schedule {
 
     @Id
-    @GeneratedValue
-    private int schedule_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Преподаватель */
-    @OneToMany(mappedBy = "teacher_id")
-    private List<Teacher> teachers;
+    @Column
+    private Long subjectId;
 
-    /* Предметы */
-    @OneToMany(mappedBy = "subject_id")
-    private List<Subject> subjects;
+    @Column
+    private Long teacherId;
 
-    /* Студенты */
-    @OneToMany(mappedBy = "student_id")
-    private List<Student> students;
+    @Column
+    private Long studentsGroupId;
+
+    /** Предметы */
+    @ManyToOne
+    @JoinColumn(name = "subjectId", insertable = false, updatable = false)
+    private Subject subject;
+
+    /** Преподаватели */
+    @ManyToOne
+    @JoinColumn(name = "teacherId", insertable = false, updatable = false)
+    private Teacher teacher;
+
+    /** Преподаватели */
+    @ManyToOne
+    @JoinColumn(name = "studentsGroupId", insertable = false, updatable = false)
+    private StudentsGroup studentsGroup;
 }
 
 

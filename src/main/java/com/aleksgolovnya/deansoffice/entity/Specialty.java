@@ -12,34 +12,26 @@ import java.util.List;
 public class Specialty {
 
     @Id
-    @GeneratedValue
-    private int specialties_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Название специальности */
-    @Column(name = "name")
+    /** Название специальности */
+    @Column
     private String name;
 
-    /* Описание Специализации */
-    @Column(name = "description")
+    /** Описание Специализации */
+    @Column
     private String description;
 
-    /* Кафедра для данного направления */
+    @Column
+    private Long departmentId;
+
+    /** Кафедра для данной специализации */
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;
 
-    /* Студенты, обучающиеся на данной специальности */
-    @OneToMany(mappedBy = "specialty")
-    private List<Student> students;
-
-    /* Список предметов, для данной специальности */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "specialties_subjects",
-            joinColumns = { @JoinColumn(name = "specialties_id") },
-            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
-    )
-    List<Subject> specialties_subjects;
-
-
+//    /** Грыппы студентов, обучающиеся на данной специальности */
+//    @OneToMany(mappedBy = "specialty")
+//    private List<StudentsGroup> studentsGroups;
 }
