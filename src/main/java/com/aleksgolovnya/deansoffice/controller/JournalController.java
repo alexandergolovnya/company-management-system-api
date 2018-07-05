@@ -19,33 +19,60 @@ public class JournalController {
     @Autowired
     private JournalRepository journalRepository;
 
+    /** Получить все записи журнала */
     @GetMapping
     public List<Journal> retrieveAllJournals() {
         return journalService.getAll();
     }
 
+    /** Получить конкретную запись журнала */
     @GetMapping("/{id}")
     public Journal retrieveJournal(@PathVariable Long id) {
         Optional<Journal> journal = journalRepository.findById(id);
         return journal.get();
     }
 
+    /** Получить все записи студента по журналу */
+    @GetMapping("/scores/{id}")
+    public List<Journal> getStudentsScores(@PathVariable Long id) {
+        List<Journal> scores = journalService.getStudentScores(id);
+        return scores;
+    }
+
+    /** Получить все пропущенные занятия студента по журналу */
+    @GetMapping("/passes/{id}")
+    public List<Journal> getStudentsPasses(@PathVariable Long id) {
+        List<Journal> passes = journalService.getStudentPasses(id);
+        return passes;
+    }
+
+    /** Получить количетство пропущенных занятий студента по журналу */
+    @GetMapping("/passes-number/{id}")
+    public Long getStudentsPassesCount(@PathVariable Long id) {
+        Long passesCount = journalService.getStudentPassesCount(id);
+        return passesCount;
+    }
+
+    /** Получить все оценки студента по журналу */
     @GetMapping("/marks/{id}")
     public List<Journal> getStudentsMarks(@PathVariable Long id) {
-        List<Journal> marks = journalService.getStudentScores(id);
+        List<Journal> marks = journalService.getStudentMarks(id);
         return marks;
     }
 
+    /** Удалить запись журнала */
     @DeleteMapping("/{id}")
     public void deleteJournal(@PathVariable Long id) {
         journalRepository.deleteById(id);
     }
 
+    /** Добавить запись журнала */
     @PostMapping
     public Journal addJournal(@RequestBody JournalDto journalDto) {
         return journalService.addJournal(journalDto);
     }
 
+    /** Обновить запись журнала */
     @PutMapping("/{id}")
     public Journal updateJournal(@RequestBody JournalDto journalDto, @PathVariable Long id) {
         journalDto.setId(id);

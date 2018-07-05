@@ -31,7 +31,13 @@ public class ScheduleController {
         return scheduleService.getAll();
     }
 
-    @GetMapping("/count/{id}")
+    @GetMapping("/{id}")
+    public Schedule retrieveSchedule(@PathVariable Long id) {
+        Optional<Schedule> schedule = scheduleRepository.findById(id);
+        return schedule.get();
+    }
+
+    @GetMapping("/lessons-count/{id}")
     public Long getTeacherWorkLoad(@PathVariable Long id) {
         Long workLoad = scheduleService.getTeacherWorkLoad(id);
         return workLoad;
@@ -41,12 +47,6 @@ public class ScheduleController {
     public List<Schedule> getTeacherLessons(@PathVariable Long id) {
         List<Schedule> lessons = scheduleService.getTeacherLessons(id);
         return lessons;
-    }
-
-    @GetMapping("/{id}")
-    public Schedule retrieveSchedule(@PathVariable Long id) {
-        Optional<Schedule> schedule = scheduleRepository.findById(id);
-        return schedule.get();
     }
 
     @DeleteMapping("/{id}")

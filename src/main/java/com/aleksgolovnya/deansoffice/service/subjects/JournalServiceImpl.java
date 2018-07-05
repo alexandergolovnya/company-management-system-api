@@ -21,10 +21,10 @@ public class JournalServiceImpl implements JournalService {
     public Journal addJournal(JournalDto journalDto) {
         Journal journalToCreate = new Journal();
 
-        journalToCreate.setScoreId(journalDto.getScoreId());
         journalToCreate.setStudentId(journalDto.getStudentId());
         journalToCreate.setSubjectId(journalDto.getSubjectId());
         journalToCreate.setDate(journalDto.getDate());
+        journalToCreate.setMark(journalDto.getMark());
 
         Journal savedJournal = journalRepository.saveAndFlush(journalToCreate);
         return savedJournal;
@@ -57,16 +57,34 @@ public class JournalServiceImpl implements JournalService {
     @Override
     public Journal convertToEntity(JournalDto journalDto) {
         Journal journal = modelMapper.map(journalDto, Journal.class);
-        journal.setScoreId(journalDto.getScoreId());
         journal.setStudentId(journalDto.getStudentId());
         journal.setSubjectId(journalDto.getSubjectId());
         journal.setDate(journalDto.getDate());
+        journal.setMark(journalDto.getMark());
         return journal;
     }
 
     @Override
     public List<Journal> getStudentScores(Long id) {
         List<Journal> marks = journalRepository.getStudentScores(id);
+        return marks;
+    }
+
+    @Override
+    public List<Journal> getStudentPasses(Long id) {
+        List<Journal> passes = journalRepository.getStudentPasses(id);
+        return passes;
+    }
+
+    @Override
+    public Long getStudentPassesCount(Long id) {
+        Long passesCount = journalRepository.getStudentPassesCount(id);
+        return passesCount;
+    }
+
+    @Override
+    public List<Journal> getStudentMarks(Long id) {
+        List<Journal> marks = journalRepository.getStudentMarks(id);
         return marks;
     }
 }

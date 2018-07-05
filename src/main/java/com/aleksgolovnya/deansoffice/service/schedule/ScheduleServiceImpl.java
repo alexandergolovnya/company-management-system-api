@@ -63,7 +63,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Long getTeacherWorkLoad(Long id) {
-//        .orElse(Optional.empty())
         Long teacherWorkLoad = scheduleRepository.getTeacherWorkLoad(id);
         return teacherWorkLoad;
     }
