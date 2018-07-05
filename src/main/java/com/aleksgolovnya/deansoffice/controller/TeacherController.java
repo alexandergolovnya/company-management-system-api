@@ -1,7 +1,9 @@
 package com.aleksgolovnya.deansoffice.controller;
 
+import com.aleksgolovnya.deansoffice.dto.TeacherDto;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
+import com.aleksgolovnya.deansoffice.service.people.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,49 +14,40 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/teachers")
 public class TeacherController {
 
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private TeacherService teacherService;
 
 
-    @GetMapping("/teachers")
+    @GetMapping
     public List<Teacher> retrieveAllTeachers() {
         return teacherRepository.findAll();
     }
 
-    @GetMapping("/teachers/{id}")
+    @GetMapping("/{id}")
     public Teacher retrieveTeacher(@PathVariable Long id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
 
         return teacher.get();
     }
 
-    @DeleteMapping("/teachers/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTeacher(@PathVariable Long id) {
         teacherRepository.deleteById(id);
     }
 
-    @PostMapping("/teachers")
-    public ResponseEntity<Object> createTeacher(@RequestBody Teacher teacher) {
-        Teacher savedTeacher = teacherRepository.save(teacher);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedTeacher.getId()).toUri();
-
-        return ResponseEntity.created(location).build();
+    @PostMapping
+    public Teacher createTeacher(@RequestBody TeacherDto teacherDto) {
+        return teacherService.addTeacher(teacherDto);
     }
 
-    @PutMapping("/teachers/{id}")
-    public ResponseEntity<Object> updateTeacher(@RequestBody Teacher teacher, @PathVariable Long id) {
-
-        Optional<Teacher> teacherOptional = teacherRepository.findById(id);
-
-        if (!teacherOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        teacher.setId(id);
-        teacherRepository.save(teacher);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}")
+    public Teacher updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id) {
+        teacherDto.setId(id);
+        return teacherService.editTeacher(teacherDto);
     }
 }

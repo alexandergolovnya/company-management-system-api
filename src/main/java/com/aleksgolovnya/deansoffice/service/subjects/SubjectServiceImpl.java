@@ -1,7 +1,11 @@
 package com.aleksgolovnya.deansoffice.service.subjects;
 
+import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
+import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.repository.SubjectRepository;
+import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +16,21 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Autowired
     private SubjectRepository subjectRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public Subject addSubject(Subject subject) {
-        Subject savedSubject = subjectRepository.saveAndFlush(subject);
+    public Subject addSubject(SubjectDto subjectDto) {
+        Subject subjectToCreate = new Subject();
+
+        subjectToCreate.setName(subjectDto.getName());
+        subjectToCreate.setDescription(subjectDto.getDescription());
+        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
+        subjectToCreate.setTeachers(teachers);
+
+        Subject savedSubject = subjectRepository.saveAndFlush(subjectToCreate);
         return savedSubject;
     }
 
@@ -23,12 +38,13 @@ public class SubjectServiceImpl implements SubjectService {
     public void deleteSubject(Long id) {
         Subject deleteSubject = subjectRepository.getOne(id);
         subjectRepository.delete(deleteSubject);
-        
     }
 
     @Override
-    public Subject editSubject(Subject subject) {
-        return subjectRepository.saveAndFlush(subject);
+    public Subject editSubject(SubjectDto subjectDto) {
+        Subject subject = convertToEntity(subjectDto);
+        Subject savedSubject = subjectRepository.saveAndFlush(subject);
+        return savedSubject;
     }
 
     @Override
@@ -39,6 +55,16 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject getById(Long id) {
         Subject subject = subjectRepository.getOne(id);
+        return subject;
+    }
+
+    @Override
+    public Subject convertToEntity(SubjectDto subjectDto) {
+        Subject subject = modelMapper.map(subjectDto, Subject.class);
+        subject.setName(subjectDto.getName());
+        subject.setDescription(subjectDto.getDescription());
+        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
+        subject.setTeachers(teachers);
         return subject;
     }
 }

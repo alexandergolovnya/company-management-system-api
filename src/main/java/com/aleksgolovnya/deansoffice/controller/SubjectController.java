@@ -1,61 +1,50 @@
 package com.aleksgolovnya.deansoffice.controller;
 
-import com.aleksgolovnya.deansoffice.entity.Student;
+import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.repository.SubjectRepository;
+import com.aleksgolovnya.deansoffice.service.subjects.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/subjects")
 public class SubjectController {
 
     @Autowired
     private SubjectRepository subjectRepository;
+    @Autowired
+    private SubjectService subjectService;
 
-    @GetMapping("/subjects")
+    @GetMapping
     public List<Subject> retrieveAllSubjects() {
         return subjectRepository.findAll();
     }
 
-    @GetMapping("/subjects/{id}")
+    @GetMapping("/{id}")
     public Subject retrieveSubject(@PathVariable Long id) {
         Optional<Subject> subject = subjectRepository.findById(id);
 
         return subject.get();
     }
 
-    @DeleteMapping("/subjects/{id}")
+    @DeleteMapping("/{id}")
     public void deleteSubject(@PathVariable Long id) {
         subjectRepository.deleteById(id);
     }
 
-    @PostMapping("/subjects")
-    public ResponseEntity<Object> createSubject(@RequestBody Subject subject) {
-        Subject savedSubject = subjectRepository.save(subject);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedSubject.getId()).toUri();
-
-        return ResponseEntity.created(location).build();
+    @PostMapping
+    public Subject createSubject(@RequestBody SubjectDto subjectDto) {
+        return subjectService.addSubject(subjectDto);
 
     }
 
-    @PutMapping("/subjects/{id}")
-    public ResponseEntity<Object> updateSubject(@RequestBody Subject subject, @PathVariable Long id) {
-
-        Optional<Subject> subjectOptional = subjectRepository.findById(id);
-
-        if (!subjectOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        subject.setId(id);
-        subjectRepository.save(subject);
-        return ResponseEntity.noContent().build();
+    @PutMapping("{id}")
+    public Subject updateSubject(@RequestBody SubjectDto subjectDto, @PathVariable Long id) {
+        subjectDto.setId(id);
+        return subjectService.editSubject(subjectDto);
     }
 }

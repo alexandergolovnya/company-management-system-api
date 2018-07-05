@@ -28,16 +28,16 @@ public class Subject {
 //    private List<Specialty> specialties;
 
     /** Преподаватели данного предмета */
-    @ManyToMany(mappedBy = "teachers_subjects")
-    private List<Teacher> teachers;
+    @ManyToMany
+    @JoinTable(
+            name = "teachers_subjects",
+            joinColumns = { @JoinColumn(name = "subjectId", insertable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "teacherId", insertable = false, updatable = false) }
+    )
+    List<Teacher> teachers;
 
 //    /** Расписание для данных предметов */
 //    @OneToMany(mappedBy = "subject")
 //    private List<Schedule> scheduleList;
-
-    public Subject(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 }
 
