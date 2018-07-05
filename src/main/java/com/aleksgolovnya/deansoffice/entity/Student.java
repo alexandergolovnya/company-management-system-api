@@ -12,46 +12,36 @@ import java.util.List;
 public class Student {
 
     @Id
-    @GeneratedValue
-    private int student_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Имя */
-    @Column(name = "first_name")
+    /** Имя */
+    @Column
     private String firstName;
 
-    /* Фамилия */
-    @Column(name = "last_name")
+    /** Фамилия */
+    @Column
     private String lastName;
 
-    /* Специальность */
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "specialty_id")
-    private Specialty specialty;
+    /** Курс обучения */
+    @Column
+    private int course;
 
-    /* Курс обучения */
-    @Column(name = "course")
-    private String course;
+    @Column
+    private Long groupId;
 
-    /* Успеваемость - средний бал */
-    @Column(name = "average_score")
-    private int averageScore;
+    /** Группа */
+    @ManyToOne
+    @JoinColumn(name = "groupId", insertable = false, updatable = false)
+    private StudentsGroup studentsGroup;
 
-    /* Посещаемость */
-    @Column(name = "attendance")
-    private int attendance;
-
-    /* Список предметов, которые изучают студенты */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "students_subjects",
-            joinColumns = { @JoinColumn(name = "student_id") },
-            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
-    )
-    List<Subject> students_subjects;
-
-    /* Расписание для студентов */
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+//    /** Список предметов, которые изучают студенты */
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "students_subjects",
+//            joinColumns = { @JoinColumn(name = "student_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
+//    )
+//    List<Subject> students_subjects;
 }
 

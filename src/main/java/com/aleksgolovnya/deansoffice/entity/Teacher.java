@@ -12,36 +12,31 @@ import java.util.List;
 public class Teacher {
 
     @Id
-    @GeneratedValue
-    private int teacher_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Имя */
-    @Column(name = "first_name")
+    /** Имя */
+    @Column
     private String firstName;
 
-    /* Фамилия */
-    @Column(name = "last_name")
+    /** Фамилия */
+    @Column
     private String lastName;
 
-    /* Кафедра преподавателя */
+    /** Должность */
+    @Column
+    private String position;
+
+    /** Кафедра преподавателя */
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
-    /* Должность */
-    @Column(name = "position")
-    private String position;
+//    /** Расписание для данного преподавателя */
+//    @OneToMany(mappedBy = "teacher")
+//    private List<Schedule> schedules;
 
-    /* Нагрузка */
-    @Column(name = "work_load")
-    private String workLoad;
-
-    /* Расписание */
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
-
-    /* Список предметов для данного преподавателя */
+    /** Список предметов для данного преподавателя */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "teachers_subjects",
@@ -49,4 +44,10 @@ public class Teacher {
             inverseJoinColumns = { @JoinColumn(name = "subject_id") }
     )
     List<Subject> teachers_subjects;
+
+    public Teacher(String firstName, String lastName, String position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+    }
 }

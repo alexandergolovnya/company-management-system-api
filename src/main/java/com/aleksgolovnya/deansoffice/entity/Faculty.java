@@ -3,7 +3,8 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /** Сущность "Факультет" */
 
@@ -13,18 +14,27 @@ import java.util.List;
 public class Faculty {
 
     @Id
-    @GeneratedValue
-    private int faculty_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Название факультета */
-    @Column(name = "name")
+    /** Название факультета */
+    @Column
     private String name;
 
-    /* Описание факультета */
-    @Column(name = "description")
+    /** Описание факультета */
+    @Column
     private String description;
 
-    /* Список кафедр данного факультета */
-    @OneToMany(mappedBy = "faculty")
-    private List<Department> departmentList;
+    @Column
+    private Long departmentId;
+
+//    /** Список кафедр данного факультета */
+//    @OneToMany(mappedBy = "faculty")
+//    private Set<Department> departmentList = new HashSet<>();
+
+    public Faculty(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }
+
