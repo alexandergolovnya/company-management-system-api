@@ -1,8 +1,8 @@
 package com.aleksgolovnya.deansoffice.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import java.util.List;
 
 /** Сущность "Кафедра" */
 
@@ -12,27 +12,27 @@ import java.util.List;
 public class Department {
 
     @Id
-    @GeneratedValue
-    private int department_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    /* Название кафедры */
-    @Column(name = "name")
+    /** Название кафедры */
+    @Column
     private String name;
 
-    /* Описание кафедры */
-    @Column(name = "description")
+    /** Описание кафедры */
+    @Column
     private String description;
 
-    /* Факультет к которому относится кафедра */
+    @Column
+    private Long facultyId;
+
+    /** Факультет к которому относится кафедра */
     @ManyToOne
-    @JoinColumn(name = "faculty_id")
+    @JoinColumn(name = "facultyId", insertable = false, updatable = false)
     private Faculty faculty;
 
-    /* Список специализаций данной кафедры */
-    @OneToMany(mappedBy = "department")
-    private List<Specialty> specialtyList;
-
-    /* Список специализаций данной кафедры */
-    @OneToMany(mappedBy = "department")
-    private List<Teacher> teacherList;
+//    public Department(String name, String description) {
+//        this.name = name;
+//        this.description = description;
+//    }
 }
