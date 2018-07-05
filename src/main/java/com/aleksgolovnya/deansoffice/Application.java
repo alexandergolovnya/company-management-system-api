@@ -28,13 +28,13 @@ public class Application {
         };
     }
 
-    @Bean
-    public CommandLineRunner demoTeacher(TeacherRepository teacherRepository) {
-        return (args) -> {
-            teacherRepository.save(new Teacher("Александр", "Головня", "Доцент"));
-            teacherRepository.save(new Teacher("Елена", "Шалимова", "Старший преподаватель"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demoTeacher(TeacherRepository teacherRepository) {
+//        return (args) -> {
+//            teacherRepository.save(new Teacher("Александр", "Головня", "Доцент"));
+//            teacherRepository.save(new Teacher("Елена", "Шалимова", "Старший преподаватель"));
+//        };
+//    }
 
 //    @Bean
 //    public CommandLineRunner demoDepartment(DepartmentRepository departmentRepository) {
@@ -52,31 +52,19 @@ public class Application {
 //        };
 //    }
 
-    @Bean
-    public CommandLineRunner demoSubject(SubjectRepository subjectRepository) {
-        return (args) -> {
-            subjectRepository.save(new Subject("Операционные системы", "Дичь"));
-            subjectRepository.save(new Subject("Алгоритмы и методы вычислений", "Полезная штука"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demoSubject(SubjectRepository subjectRepository) {
+//        return (args) -> {
+//            subjectRepository.save(new Subject("Операционные системы", "Дичь"));
+//            subjectRepository.save(new Subject("Алгоритмы и методы вычислений", "Полезная штука"));
+//        };
+//    }
 
     @Bean
     public CommandLineRunner demoStudentsGroup(StudentsGroupRepository studentsGroupRepository) {
         return (args) -> {
             studentsGroupRepository.save(new StudentsGroup("ИС-41о"));
             studentsGroupRepository.save(new StudentsGroup("ИВТ/б-41о"));
-        };
-    }
-
-    @Bean
-    public CommandLineRunner demoScore(ScoreRepository scoreRepository) {
-        return (args) -> {
-            scoreRepository.save(new Score("60"));
-            scoreRepository.save(new Score("75"));
-            scoreRepository.save(new Score("80"));
-            scoreRepository.save(new Score("90"));
-            scoreRepository.save(new Score("100"));
-            scoreRepository.save(new Score("н"));
         };
     }
 

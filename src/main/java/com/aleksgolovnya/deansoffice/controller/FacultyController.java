@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "faculties")
+@RequestMapping("faculties")
 public class FacultyController {
 
     @Autowired

@@ -1,9 +1,12 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
+import com.aleksgolovnya.deansoffice.dto.TeacherDto;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -12,10 +15,19 @@ public class TeacherServiceImpl implements  TeacherService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public Teacher addTeacher(Teacher teacher) {
-        Teacher savedTeacher = teacherRepository.saveAndFlush(teacher);
+    public Teacher addTeacher(TeacherDto teacherDto) {
+        Teacher teacherToCreate = new Teacher();
+
+        teacherToCreate.setFirstName(teacherDto.getFirstName());
+        teacherToCreate.setLastName(teacherDto.getLastName());
+        teacherToCreate.setPosition(teacherDto.getPosition());
+        teacherToCreate.setDepartmentId(teacherDto.getDepartmentId());
+
+        Teacher savedTeacher = teacherRepository.saveAndFlush(teacherToCreate);
         return savedTeacher;
     }
 
@@ -26,8 +38,11 @@ public class TeacherServiceImpl implements  TeacherService {
     }
 
     @Override
-    public Teacher editTeacher(Teacher teacher) {
-        return teacherRepository.saveAndFlush(teacher);
+    public Teacher editTeacher(TeacherDto teacherDto) {
+        Teacher teacher = convertToEntity(teacherDto);
+
+        Teacher savedTeacher = teacherRepository.saveAndFlush(teacher);
+        return savedTeacher;
     }
 
     @Override
@@ -40,4 +55,16 @@ public class TeacherServiceImpl implements  TeacherService {
         Teacher teacher = teacherRepository.getOne(id);
         return teacher;
     }
+
+    @Override
+    public Teacher convertToEntity(TeacherDto teacherDto) {
+        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        teacher.setFirstName(teacherDto.getFirstName());
+        teacher.setLastName(teacherDto.getLastName());
+        teacher.setPosition(teacherDto.getPosition());
+        teacher.setDepartmentId(teacherDto.getDepartmentId());
+        return teacher;
+    }
+
+
 }

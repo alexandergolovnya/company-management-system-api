@@ -12,29 +12,30 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/groups")
 public class StudentsGroupController {
 
     @Autowired
     private StudentsGroupRepository studentsGroupRepository;
 
-    @GetMapping("/groups")
+    @GetMapping
     public List<StudentsGroup> retrieveAllStudentsGroups() {
         return studentsGroupRepository.findAll();
     }
 
-    @GetMapping("/groups/{id}")
+    @GetMapping("/{id}")
     public StudentsGroup retrieveStudentsGroup(@PathVariable Long id) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(id);
 
         return studentsGroup.get();
     }
 
-    @DeleteMapping("/groups/{id}")
+    @DeleteMapping("/{id}")
     public void deleteStudentsGroup(@PathVariable Long id) {
         studentsGroupRepository.deleteById(id);
     }
 
-    @PostMapping("/groups")
+    @PostMapping
     public ResponseEntity<Object> createStudentsGroup(@RequestBody StudentsGroup studentsGroup) {
         StudentsGroup savedStudentsGroup = studentsGroupRepository.save(studentsGroup);
 
@@ -45,7 +46,7 @@ public class StudentsGroupController {
 
     }
 
-    @PutMapping("/groups/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Object> updateStudentsGroup(@RequestBody StudentsGroup studentsGroup, @PathVariable Long id) {
 
         Optional<StudentsGroup> studentsGroupOptional = studentsGroupRepository.findById(id);

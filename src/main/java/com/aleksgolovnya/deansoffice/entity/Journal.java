@@ -21,9 +21,9 @@ public class Journal {
     @Column
     private Long studentId;
     @Column
-    private Long scoreId;
-    @Column
     private Date date;
+    @Column
+    private String mark;
 
     /** Предметы */
     @ManyToOne
@@ -34,9 +34,4 @@ public class Journal {
     @ManyToOne
     @JoinColumn(name = "studentId", insertable = false, updatable = false)
     private Student student;
-
-    /** Отметки */
-    @ManyToOne
-    @JoinColumn(name = "scoreId", insertable = false, updatable = false)
-    private Score score;
 }
