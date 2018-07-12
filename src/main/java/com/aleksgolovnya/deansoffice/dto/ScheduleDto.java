@@ -1,15 +1,28 @@
 package com.aleksgolovnya.deansoffice.dto;
 
-import com.aleksgolovnya.deansoffice.entity.Schedule;
 import lombok.Data;
 
+/**
+ * DTO class for entity @link Schedule
+ */
+
 @Data
-
 public class ScheduleDto {
-    private Long id;
-    private Long subjectId;
-    private Long teacherId;
-    private Long studentsGroupId;
 
-    public ScheduleDto(Schedule schedule) {}
+    private Long id;
+
+    /**
+     * Subject in the schedule
+     */
+    private Long subjectId;
+
+    /**
+     * Teacher for the subject
+     */
+    private Long teacherId;
+
+    /**
+     * Students groups that studies subject
+     */
+    private Long studentsGroupId;
 }
