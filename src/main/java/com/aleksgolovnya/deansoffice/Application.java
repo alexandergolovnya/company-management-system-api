@@ -20,13 +20,13 @@ public class Application {
         return new ModelMapper();
     }
 
-    @Bean
-    public CommandLineRunner demoFaculty(FacultyRepository facultyRepository) {
-        return (args) -> {
-            facultyRepository.save(new Faculty("АВТ", "Описание факультета АВТ"));
-            facultyRepository.save(new Faculty("Девочки", "Описание факультета девочек"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demoFaculty(FacultyRepository facultyRepository) {
+//        return (args) -> {
+//            facultyRepository.save(new FacultyDto("АВТ", "Описание факультета АВТ"));
+//            facultyRepository.save(new Faculty("Девочки", "Описание факультета девочек"));
+//        };
+//    }
 
 //    @Bean
 //    public CommandLineRunner demoTeacher(TeacherRepository teacherRepository) {
@@ -60,13 +60,13 @@ public class Application {
 //        };
 //    }
 
-    @Bean
-    public CommandLineRunner demoStudentsGroup(StudentsGroupRepository studentsGroupRepository) {
-        return (args) -> {
-            studentsGroupRepository.save(new StudentsGroup("ИС-41о"));
-            studentsGroupRepository.save(new StudentsGroup("ИВТ/б-41о"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demoStudentsGroup(StudentsGroupRepository studentsGroupRepository) {
+//        return (args) -> {
+//            studentsGroupRepository.save(new StudentsGroup("ИС-41о"));
+//            studentsGroupRepository.save(new StudentsGroup("ИВТ/б-41о"));
+//        };
+//    }
 
 //    @Bean
 //    public CommandLineRunner demoStudent(StudentRepository studentRepository) {
