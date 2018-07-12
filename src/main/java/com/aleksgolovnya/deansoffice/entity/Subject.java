@@ -23,10 +23,6 @@ public class Subject {
     @Column
     private String description;
 
-//    /** Специальности, на которой изучают данный предмет */
-//    @ManyToMany(mappedBy = "specialties_subjects")
-//    private List<Specialty> specialties;
-
     /** Преподаватели данного предмета */
     @ManyToMany
     @JoinTable(
@@ -35,9 +31,5 @@ public class Subject {
             inverseJoinColumns = { @JoinColumn(name = "teacherId", insertable = false, updatable = false) }
     )
     List<Teacher> teachers;
-
-//    /** Расписание для данных предметов */
-//    @OneToMany(mappedBy = "subject")
-//    private List<Schedule> scheduleList;
 }
 
