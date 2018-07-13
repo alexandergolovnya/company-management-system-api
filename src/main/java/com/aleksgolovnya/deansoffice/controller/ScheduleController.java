@@ -2,18 +2,11 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
-import com.aleksgolovnya.deansoffice.entity.Student;
 import com.aleksgolovnya.deansoffice.repository.ScheduleRepository;
-import com.aleksgolovnya.deansoffice.repository.StudentRepository;
-import com.aleksgolovnya.deansoffice.service.schedule.ScheduleService;
-import com.aleksgolovnya.deansoffice.service.schedule.ScheduleServiceImpl;
-import org.modelmapper.ModelMapper;
+import com.aleksgolovnya.deansoffice.service.studying.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.aleksgolovnya.deansoffice.service.subjects;
+package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;

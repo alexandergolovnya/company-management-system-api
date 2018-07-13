@@ -1,4 +1,4 @@
-package com.aleksgolovnya.deansoffice.service.schedule;
+package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
