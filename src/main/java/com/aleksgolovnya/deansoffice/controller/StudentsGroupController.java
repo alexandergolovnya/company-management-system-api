@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.repository.StudentsGroupRepository;
+import com.aleksgolovnya.deansoffice.service.people.StudentsGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +18,18 @@ public class StudentsGroupController {
 
     @Autowired
     private StudentsGroupRepository studentsGroupRepository;
+    @Autowired
+    private StudentsGroupService studentsGroupService;
 
     @GetMapping
-    public List<StudentsGroup> retrieveAllStudentsGroups() {
-        return studentsGroupRepository.findAll();
+    public List<StudentsGroup> getAllStudentsGroups() {
+        return studentsGroupService.getAll();
     }
 
     @GetMapping("/{id}")
-    public StudentsGroup retrieveStudentsGroup(@PathVariable Long id) {
-        Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(id);
-
-        return studentsGroup.get();
+    public StudentsGroup getStudentsGroup(@PathVariable Long id) {
+        StudentsGroup studentsGroup = studentsGroupService.getById(id);
+        return studentsGroup;
     }
 
     @DeleteMapping("/{id}")

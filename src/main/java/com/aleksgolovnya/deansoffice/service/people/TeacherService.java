@@ -1,8 +1,8 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
-import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
+import com.aleksgolovnya.deansoffice.service.CommonCrudService;
 
 import java.util.List;
 
