@@ -3,7 +3,7 @@ package com.aleksgolovnya.deansoffice.controller;
 import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.repository.SubjectRepository;
-import com.aleksgolovnya.deansoffice.service.subjects.SubjectService;
+import com.aleksgolovnya.deansoffice.service.studying.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
