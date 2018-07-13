@@ -24,12 +24,12 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public List<Student> retrieveAllStudents() {
+    public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Student retrieveStudent(@PathVariable Long id) {
+    public Student getStudent(@PathVariable Long id) {
         Optional<Student> student = studentRepository.findById(id);
 
         return student.get();
@@ -37,7 +37,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
-        studentRepository.deleteById(id);
+        studentService.deleteStudent(id);
     }
 
     @PostMapping
