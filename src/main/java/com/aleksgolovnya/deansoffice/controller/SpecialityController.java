@@ -5,11 +5,7 @@ import com.aleksgolovnya.deansoffice.entity.Specialty;
 import com.aleksgolovnya.deansoffice.repository.SpecialtyRepository;
 import com.aleksgolovnya.deansoffice.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 

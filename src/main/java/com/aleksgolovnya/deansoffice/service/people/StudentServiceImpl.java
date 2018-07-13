@@ -19,12 +19,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(StudentDto studentDto) {
-        Student studentToCreate = new Student();
-
-        studentToCreate.setFirstName(studentDto.getFirstName());
-        studentToCreate.setLastName(studentDto.getLastName());
-        studentToCreate.setCourse(studentDto.getCourse());
-        studentToCreate.setGroupId(studentDto.getGroupId());
+        Student studentToCreate = convertToEntity(studentDto);
 
         Student savedStudent = studentRepository.saveAndFlush(studentToCreate);
         return savedStudent;
@@ -38,9 +33,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student editStudent(StudentDto studentDto) {
-        Student student = convertToEntity(studentDto);
+        Student studentToEdit = convertToEntity(studentDto);
 
-        Student savedStudent = studentRepository.saveAndFlush(student);
+        Student savedStudent = studentRepository.saveAndFlush(studentToEdit);
         return savedStudent;
     }
 
@@ -64,4 +59,14 @@ public class StudentServiceImpl implements StudentService {
         student.setGroupId(studentDto.getGroupId());
         return student;
     }
+
+//    @Override
+//    public StudentDto covertToDto(Student student) {
+//        StudentDto studentDto = modelMapper.map(student, StudentDto.class);
+//        studentDto.setFirstName(student.getFirstName());
+//        studentDto.setLastName(student.getLastName());
+//        studentDto.setCourse(student.getCourse());
+//        studentDto.setGroupId(student.getGroupId());
+//        return studentDto;
+//    }
 }
