@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST controller for the Student Group.
+ * REST controller for a Student Group.
  * Provides CRUD operations.
  */
 

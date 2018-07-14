@@ -2,46 +2,74 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
-import com.aleksgolovnya.deansoffice.repository.SubjectRepository;
 import com.aleksgolovnya.deansoffice.service.studying.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * REST controller for a Subject.
+ * Provides CRUD operations.
+ */
 
 @RestController
-@RequestMapping("/subjects")
+@RequestMapping("/api/subjects")
 public class SubjectController {
 
     @Autowired
-    private SubjectRepository subjectRepository;
-    @Autowired
     private SubjectService subjectService;
 
+    /**
+     * Method returns all subjects
+     *
+     * @return [Subject]
+     */
     @GetMapping
-    public List<Subject> retrieveAllSubjects() {
-        return subjectRepository.findAll();
+    public List<Subject> getAllSubjects() {
+        return subjectService.getAll();
     }
 
+    /**
+     * Method returns subject by id
+     *
+     * @param id of the subject
+     * @return subject
+     */
     @GetMapping("/{id}")
-    public Subject retrieveSubject(@PathVariable Long id) {
-        Optional<Subject> subject = subjectRepository.findById(id);
-
-        return subject.get();
+    public Subject getSubject(@PathVariable Long id) {
+        Subject subject = subjectService.getById(id);
+        return subject;
     }
 
+    /**
+     * Method deletes subject by id
+     *
+     * @param id of the subject
+     */
     @DeleteMapping("/{id}")
     public void deleteSubject(@PathVariable Long id) {
-        subjectRepository.deleteById(id);
+        subjectService.deleteSubject(id);
     }
 
+    /**
+     * Method creates new subject
+     *
+     * @param subjectDto
+     * @return subject
+     */
     @PostMapping
     public Subject createSubject(@RequestBody SubjectDto subjectDto) {
         return subjectService.addSubject(subjectDto);
 
     }
 
+    /**
+     * Method edits information of the subject by id
+     *
+     * @param subjectDto
+     * @param id of the subject
+     * @return subject
+     */
     @PutMapping("{id}")
     public Subject updateSubject(@RequestBody SubjectDto subjectDto, @PathVariable Long id) {
         subjectDto.setId(id);
