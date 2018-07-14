@@ -2,58 +2,99 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
-import com.aleksgolovnya.deansoffice.repository.ScheduleRepository;
 import com.aleksgolovnya.deansoffice.service.studying.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * REST controller for a Schedule.
+ * Provides CRUD operations.
+ */
 
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     @Autowired
     private ScheduleService scheduleService;
-    @Autowired
-    private ScheduleRepository scheduleRepository;
 
+    /**
+     * Method returns all records of schedule
+     *
+     * @return [Schedule]
+     */
     @GetMapping
-    public List<Schedule> retrieveAllSchedules() {
+    public List<Schedule> getAllScheduleRecords() {
         return scheduleService.getAll();
     }
 
+    /**
+     * Method returns record of schedule by id
+     *
+     * @param id of the schedule
+     * @return schedule
+     */
     @GetMapping("/{id}")
-    public Schedule retrieveSchedule(@PathVariable Long id) {
-        Optional<Schedule> schedule = scheduleRepository.findById(id);
-        return schedule.get();
+    public Schedule getScheduleRecord(@PathVariable Long id) {
+        Schedule schedule = scheduleService.getById(id);
+        return schedule;
     }
 
+    /**
+     * Method returns the number of teachers lessons
+     *
+     * @param id of the teacher
+     * @return workLoad
+     */
     @GetMapping("/lessons-count/{id}")
     public Long getTeacherWorkLoad(@PathVariable Long id) {
         Long workLoad = scheduleService.getTeacherWorkLoad(id);
         return workLoad;
     }
 
+    /**
+     * Method returns the all teachers lessons
+     *
+     * @param id of the teacher
+     * @return lessons
+     */
     @GetMapping("/lessons/{id}")
     public List<Schedule> getTeacherLessons(@PathVariable Long id) {
         List<Schedule> lessons = scheduleService.getTeacherLessons(id);
         return lessons;
     }
 
+    /**
+     * Method deletes record of schedule by id
+     *
+     * @param id of the schedule
+     */
     @DeleteMapping("/{id}")
-    public void deleteSchedule(@PathVariable Long id) {
-        scheduleRepository.deleteById(id);
+    public void deleteScheduleReord(@PathVariable Long id) {
+        scheduleService.deleteSchedule(id);
     }
 
+    /**
+     * Method creates new record of schedule
+     *
+     * @param scheduleDto
+     * @return schedule
+     */
     @PostMapping
-    public Schedule addSchedule(@RequestBody ScheduleDto scheduleDto) {
+    public Schedule createScheduleRecord(@RequestBody ScheduleDto scheduleDto) {
         return scheduleService.addSchedule(scheduleDto);
     }
 
+    /**
+     * Method edits information of schedule record by id
+     *
+     * @param scheduleDto
+     * @param id of the schedule
+     * @return schedule
+     */
     @PutMapping("/{id}")
-    public Schedule updateSchedule(@RequestBody ScheduleDto scheduleDto, @PathVariable Long id) {
+    public Schedule updateScheduleRecord(@RequestBody ScheduleDto scheduleDto, @PathVariable Long id) {
         scheduleDto.setId(id);
         return scheduleService.editSchedule(scheduleDto);
     }
