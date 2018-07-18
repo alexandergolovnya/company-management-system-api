@@ -5,6 +5,8 @@ import com.aleksgolovnya.deansoffice.entity.Department;
 import com.aleksgolovnya.deansoffice.service.university.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -14,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/departments")
-@CrossOrigin(origins = "http://localhost:8081")
 public class DepartmentController {
 
     @Autowired
