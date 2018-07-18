@@ -10,14 +10,33 @@ import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
+/**
+ * Service class for Teacher.
+ * It contains implementation of CRUD operations
+ * and entity-DTO conversion.
+ *
+ * It uses @link TeacherRepository that extends JpaRepository
+ * and ModelMapper library that provides methods
+ * for entity-DTO conversion.
+ */
+
 @Service
 public class TeacherServiceImpl implements  TeacherService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * Method creates new teacher
+     * It takes DTO, converts it to entity
+     * and returns entity
+     *
+     * @param teacherDto
+     * @return savedTeacher
+     */
     @Override
     public Teacher addTeacher(TeacherDto teacherDto) {
         Teacher teacherToCreate = new Teacher();

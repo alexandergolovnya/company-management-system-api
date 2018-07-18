@@ -2,79 +2,124 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.JournalDto;
 import com.aleksgolovnya.deansoffice.entity.Journal;
-import com.aleksgolovnya.deansoffice.repository.JournalRepository;
 import com.aleksgolovnya.deansoffice.service.studying.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * REST controller for a Journal.
+ * Provides CRUD operations.
+ */
 
 @RestController
-@RequestMapping("/journal")
+@RequestMapping("/api/journal")
 public class JournalController {
 
     @Autowired
     private JournalService journalService;
-    @Autowired
-    private JournalRepository journalRepository;
 
-    /** Получить все записи журнала */
+    /**
+     * Method returns all records of journal
+     *
+     * @return [Journal]
+     */
     @GetMapping
-    public List<Journal> retrieveAllJournals() {
+    public List<Journal> getAllJournalRecords() {
         return journalService.getAll();
     }
 
-    /** Получить конкретную запись журнала */
+    /**
+     * Method returns record of journal by id
+     *
+     * @param id of the journal
+     * @return journal
+     */
     @GetMapping("/{id}")
-    public Journal retrieveJournal(@PathVariable Long id) {
-        Optional<Journal> journal = journalRepository.findById(id);
-        return journal.get();
+    public Journal getJournalRecord(@PathVariable Long id) {
+        Journal journal = journalService.getById(id);
+        return journal;
     }
 
-    /** Получить все записи студента по журналу */
+    /**
+     * Method returns all journal records of student by id
+     * Include student marks and passes.
+     *
+     * @param id of the student
+     * @return studentRecords
+     */
     @GetMapping("/scores/{id}")
-    public List<Journal> getStudentsScores(@PathVariable Long id) {
-        List<Journal> scores = journalService.getStudentScores(id);
-        return scores;
+    public List<Journal> getAllJournalRecordsByStudent(@PathVariable Long id) {
+        List<Journal> studentRecords = journalService.getStudentScores(id);
+        return studentRecords;
     }
 
-    /** Получить все пропущенные занятия студента по журналу */
+    /**
+     * Method returns all passes of student by id
+     *
+     * @param id of the student
+     * @return studentPasses
+     */
     @GetMapping("/passes/{id}")
     public List<Journal> getStudentsPasses(@PathVariable Long id) {
-        List<Journal> passes = journalService.getStudentPasses(id);
-        return passes;
+        List<Journal> studentPasses = journalService.getStudentPasses(id);
+        return studentPasses;
     }
 
-    /** Получить количетство пропущенных занятий студента по журналу */
+    /**
+     * Method returns the number of student passes
+     *
+     * @param id of the tudent
+     * @return passesCount
+     */
     @GetMapping("/passes-number/{id}")
     public Long getStudentsPassesCount(@PathVariable Long id) {
         Long passesCount = journalService.getStudentPassesCount(id);
         return passesCount;
     }
 
-    /** Получить все оценки студента по журналу */
+    /**
+     * Method returns all marks of student by id
+     *
+     * @param id of the student
+     * @return marks
+     */
     @GetMapping("/marks/{id}")
     public List<Journal> getStudentsMarks(@PathVariable Long id) {
         List<Journal> marks = journalService.getStudentMarks(id);
         return marks;
     }
 
-    /** Удалить запись журнала */
+    /**
+     * Method deletes record of journal by id
+     *
+     * @param id of the journal record
+     */
     @DeleteMapping("/{id}")
-    public void deleteJournal(@PathVariable Long id) {
-        journalRepository.deleteById(id);
+    public void deleteJournalRecord(@PathVariable Long id) {
+        journalService.deleteJournal(id);
     }
 
-    /** Добавить запись журнала */
+    /**
+     * Method creates new record of journal
+     *
+     * @param journalDto
+     * @return journal record
+     */
     @PostMapping
-    public Journal addJournal(@RequestBody JournalDto journalDto) {
+    public Journal addJournalRecord(@RequestBody JournalDto journalDto) {
         return journalService.addJournal(journalDto);
     }
 
-    /** Обновить запись журнала */
+    /**
+     * Method edits information of schedule journal by id
+     *
+     * @param journalDto
+     * @param id of the journal
+     * @return journal record
+     */
     @PutMapping("/{id}")
-    public Journal updateJournal(@RequestBody JournalDto journalDto, @PathVariable Long id) {
+    public Journal updateJournalRecord(@RequestBody JournalDto journalDto, @PathVariable Long id) {
         journalDto.setId(id);
         return journalService.editJournal(journalDto);
     }

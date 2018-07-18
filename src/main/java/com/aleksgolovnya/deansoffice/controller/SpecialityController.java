@@ -30,7 +30,7 @@ public class SpecialityController {
     }
 
     /**
-     * Method returns specialtiy by id
+     * Method returns specialty by id
      *
      * @param id of the specialty
      * @return specialty

@@ -8,6 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ * Service class for StudentsGroup.
+ * It contains implementation of CRUD operations
+ * and entity-DTO conversion.
+ *
+ * It uses @link StudentsGroupRepository that extends JpaRepository
+ * and ModelMapper library that provides methods
+ * for entity-DTO conversion.
+ */
+
 @Service
 public class StudentsGroupServiceImpl implements StudentsGroupService {
 
