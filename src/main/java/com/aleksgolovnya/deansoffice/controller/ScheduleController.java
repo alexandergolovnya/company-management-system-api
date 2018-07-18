@@ -68,7 +68,7 @@ public class ScheduleController {
     /**
      * Method deletes record of schedule by id
      *
-     * @param id of the schedule
+     * @param id of the schedule record
      */
     @DeleteMapping("/{id}")
     public void deleteScheduleReord(@PathVariable Long id) {
