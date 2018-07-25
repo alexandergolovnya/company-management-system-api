@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.university;
 
 import com.aleksgolovnya.deansoffice.dto.FacultyDto;
+import com.aleksgolovnya.deansoffice.entity.Department;
 import com.aleksgolovnya.deansoffice.entity.Faculty;
 import com.aleksgolovnya.deansoffice.repository.FacultyRepository;
 import org.modelmapper.ModelMapper;
@@ -93,6 +94,18 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty getById(Long id) {
         Faculty faculty = facultyRepository.getOne(id);
         return faculty;
+    }
+
+    /**
+     * Method receives departments of this faculty
+     *
+     * @param id of the Faculty
+     * @return departmentsOfTheFaculty
+     */
+    @Override
+    public List<Department> getFacultyDepartments(Long id) {
+        List<Department> departmentsOfTheFaculty = facultyRepository.getFacultyDepartments(id);
+        return departmentsOfTheFaculty;
     }
 
     /**
