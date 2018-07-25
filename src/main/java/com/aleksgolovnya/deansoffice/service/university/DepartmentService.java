@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.service.university;
 
 import com.aleksgolovnya.deansoffice.dto.DepartmentDto;
 import com.aleksgolovnya.deansoffice.entity.Department;
+import com.aleksgolovnya.deansoffice.entity.Specialty;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ public interface DepartmentService {
     List<Department> getAll();
     Department getById(Long id);
     Department convertToEntity(DepartmentDto departmentDto);
+    List<Specialty> getDepartmentSpecialties(Long id);
 
 }

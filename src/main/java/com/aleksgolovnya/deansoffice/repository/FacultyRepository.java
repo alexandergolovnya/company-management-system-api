@@ -14,7 +14,7 @@ public interface FacultyRepository extends JpaRepository<Faculty, Long> {
 
     Faculty getById(Long id);
 
-    /** Получить все записи журнала по студенту */
+    /** Получить все кафедры данного факультета */
     @Query("SELECT d FROM Department d WHERE d.facultyId=:id")
     List<Department> getFacultyDepartments(@Param("id") Long id);
 }
