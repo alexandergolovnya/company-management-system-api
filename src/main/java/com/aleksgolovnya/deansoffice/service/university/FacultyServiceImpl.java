@@ -100,12 +100,12 @@ public class FacultyServiceImpl implements FacultyService {
      * Method receives departments of this faculty
      *
      * @param id of the Faculty
-     * @return departmentsOfTheFaculty
+     * @return facultyDepartments
      */
     @Override
     public List<Department> getFacultyDepartments(Long id) {
-        List<Department> departmentsOfTheFaculty = facultyRepository.getFacultyDepartments(id);
-        return departmentsOfTheFaculty;
+        List<Department> facultyDepartments = facultyRepository.getFacultyDepartments(id);
+        return facultyDepartments;
     }
 
     /**
