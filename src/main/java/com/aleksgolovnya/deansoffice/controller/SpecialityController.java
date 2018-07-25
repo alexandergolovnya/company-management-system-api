@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.SpecialtyDto;
 import com.aleksgolovnya.deansoffice.entity.Specialty;
+import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,16 @@ public class SpecialityController {
     public Specialty getSpecialty(@PathVariable Long id) {
         Specialty specialty = specialtyService.getById(id);
         return specialty;
+    }
+
+    /**
+     * Method returns all student groups of this specialty
+     *
+     * @return [StudentsGroup]
+     */
+    @GetMapping("/{id}/student-groups")
+    public List<StudentsGroup> getSpecialtyStudentGroups(@PathVariable Long id) {
+        return specialtyService.getSpecialtyStudentGroups(id);
     }
 
     /**
