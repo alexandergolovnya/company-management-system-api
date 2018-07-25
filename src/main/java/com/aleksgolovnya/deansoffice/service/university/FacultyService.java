@@ -13,6 +13,7 @@ public interface FacultyService extends CommonCrudService<Faculty, FacultyDto> {
     Faculty editFaculty(FacultyDto facultyDto);
     List<Faculty> getAll();
     Faculty getById(Long id);
+    List<Department> getFacultyDepartments(Long id);
 
     @Override
     default FacultyDto covertToDto(Faculty faculty) {

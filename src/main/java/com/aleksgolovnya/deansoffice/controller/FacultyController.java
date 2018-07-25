@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.FacultyDto;
+import com.aleksgolovnya.deansoffice.entity.Department;
 import com.aleksgolovnya.deansoffice.entity.Faculty;
 import com.aleksgolovnya.deansoffice.service.university.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/faculties")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin
 public class FacultyController {
 
     @Autowired
@@ -28,6 +29,7 @@ public class FacultyController {
     @GetMapping
     public List<Faculty> getAllFaculties() {
         return facultyService.getAll();
+
     }
 
     /**
@@ -40,6 +42,16 @@ public class FacultyController {
     public Faculty getFaculty(@PathVariable Long id) {
         Faculty faculty = facultyService.getById(id);
         return faculty;
+    }
+
+    /**
+     * Method returns all departments of this faculty
+     *
+     * @return [Department]
+     */
+    @GetMapping("/{id}/departments")
+    public List<Department> getFacultyDepartments(@PathVariable Long id) {
+        return facultyService.getFacultyDepartments(id);
     }
 
     /**
