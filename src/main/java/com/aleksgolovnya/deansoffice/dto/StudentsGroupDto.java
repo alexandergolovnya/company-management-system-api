@@ -15,4 +15,9 @@ public class StudentsGroupDto {
      * Name of the student group
      */
     private String groupName;
+
+    /**
+     * Specialty for this student group
+     */
+    private Long specialtyId;
 }
