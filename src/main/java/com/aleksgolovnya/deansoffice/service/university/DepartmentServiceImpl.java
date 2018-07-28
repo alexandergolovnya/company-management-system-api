@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.service.university;
 
 import com.aleksgolovnya.deansoffice.dto.DepartmentDto;
 import com.aleksgolovnya.deansoffice.entity.Department;
+import com.aleksgolovnya.deansoffice.entity.Specialty;
 import com.aleksgolovnya.deansoffice.repository.DepartmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         department.setDescription(departmentDto.getDescription());
         department.setFacultyId(departmentDto.getFacultyId());
         return department;
+    }
+
+    /**
+     * Method receives all specialties of this department
+     * @param id of the Department
+     * @return departmentSpecialties
+     */
+    @Override
+    public List<Specialty> getDepartmentSpecialties(Long id) {
+        List<Specialty> departmentSpecialties = departmentRepository.getDepartmentSpecialties(id);
+        return departmentSpecialties;
     }
 }
