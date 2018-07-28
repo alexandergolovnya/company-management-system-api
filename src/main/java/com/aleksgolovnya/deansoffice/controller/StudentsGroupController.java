@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.StudentsGroupDto;
+import com.aleksgolovnya.deansoffice.entity.Student;
 import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.service.people.StudentsGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,18 @@ public class StudentsGroupController {
     public StudentsGroup getStudentsGroup(@PathVariable Long id) {
         StudentsGroup studentsGroup = studentsGroupService.getById(id);
         return studentsGroup;
+    }
+
+    /**
+     * Method returns all students for this student group by id
+     *
+     * @param id of the student group
+     * @return [Student]
+     */
+    @GetMapping("/{id}/students")
+    public List<Student> getStudentGroupStudents(@PathVariable Long id) {
+        List<Student> students = studentsGroupService.getStudentGroupStudents(id);
+        return students;
     }
 
     /**
