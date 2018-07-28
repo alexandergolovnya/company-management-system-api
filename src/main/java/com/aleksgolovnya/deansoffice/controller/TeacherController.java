@@ -2,46 +2,73 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
-import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
 import com.aleksgolovnya.deansoffice.service.people.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * REST controller for a Teacher.
+ * Provides CRUD operations.
+ */
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/api/teachers")
 public class TeacherController {
 
     @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
     private TeacherService teacherService;
 
-
+    /**
+     * Method returns all teachers
+     *
+     * @return [Teacher]
+     */
     @GetMapping
-    public List<Teacher> retrieveAllTeachers() {
-        return teacherRepository.findAll();
+    public List<Teacher> getAllTeachers() {
+        return teacherService.getAll();
     }
 
+    /**
+     * Method returns teacher by id
+     *
+     * @param id of the teacher
+     * @return teacher
+     */
     @GetMapping("/{id}")
-    public Teacher retrieveTeacher(@PathVariable Long id) {
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-
-        return teacher.get();
+    public Teacher getTeacher(@PathVariable Long id) {
+        Teacher teacher = teacherService.getById(id);
+        return teacher;
     }
 
+    /**
+     * Method deletes teacher by id
+     *
+     * @param id of the teacher
+     */
     @DeleteMapping("/{id}")
     public void deleteTeacher(@PathVariable Long id) {
-        teacherRepository.deleteById(id);
+        teacherService.getById(id);
     }
 
+    /**
+     * Method creates new teacher
+     *
+     * @param teacherDto
+     * @return teacher
+     */
     @PostMapping
     public Teacher createTeacher(@RequestBody TeacherDto teacherDto) {
         return teacherService.addTeacher(teacherDto);
     }
 
+    /**
+     * Method edits information of the teacher by id
+     *
+     * @param teacherDto
+     * @param id of the teacher
+     * @return teacher
+     */
     @PutMapping("/{id}")
     public Teacher updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id) {
         teacherDto.setId(id);

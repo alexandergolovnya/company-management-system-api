@@ -1,12 +1,23 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.StudentsGroupDto;
+import com.aleksgolovnya.deansoffice.entity.Student;
 import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.repository.StudentsGroupRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
+/**
+ * Service class for StudentsGroup.
+ * It contains implementation of CRUD operations
+ * and entity-DTO conversion.
+ *
+ * It uses @link StudentsGroupRepository that extends JpaRepository
+ * and ModelMapper library that provides methods
+ * for entity-DTO conversion.
+ */
 
 @Service
 public class StudentsGroupServiceImpl implements StudentsGroupService {
@@ -83,6 +94,18 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
     }
 
     /**
+     * Method receives all students for this student group
+     *
+     * @param id of the student group
+     * @return students
+     */
+    @Override
+    public List<Student> getStudentGroupStudents(Long id) {
+        List<Student> students = studentsGroupRepository.getStudentGroupStudents(id);
+        return students;
+    }
+
+    /**
      * Method of converting DTO into the entity
      * Uses ModelMapper library
      *
@@ -93,6 +116,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
     public StudentsGroup convertToEntity(StudentsGroupDto studentsGroupDto) {
         StudentsGroup studentsGroup = modelMapper.map(studentsGroupDto, StudentsGroup.class);
         studentsGroup.setGroupName(studentsGroupDto.getGroupName());
+        studentsGroup.setSpecialtyId(studentsGroupDto.getSpecialtyId());
         return studentsGroup;
     }
 }

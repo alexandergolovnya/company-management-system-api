@@ -1,60 +1,90 @@
 package com.aleksgolovnya.deansoffice.controller;
 
+import com.aleksgolovnya.deansoffice.dto.FacultyDto;
+import com.aleksgolovnya.deansoffice.entity.Department;
 import com.aleksgolovnya.deansoffice.entity.Faculty;
-import com.aleksgolovnya.deansoffice.repository.FacultyRepository;
+import com.aleksgolovnya.deansoffice.service.university.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * REST controller for a Faculty.
+ * Provides CRUD operations.
+ */
 
 @RestController
-@RequestMapping("faculties")
+@RequestMapping("/api/faculties")
+@CrossOrigin
 public class FacultyController {
 
     @Autowired
-    private FacultyRepository facultyRepository;
+    private FacultyService facultyService;
 
+    /**
+     * Method returns all faculties
+     *
+     * @return [Faculty]
+     */
     @GetMapping
-    public List<Faculty> retrieveAllFaculties() {
-        return facultyRepository.findAll();
+    public List<Faculty> getAllFaculties() {
+        return facultyService.getAll();
+
     }
 
+    /**
+     * Method returns faculty by id
+     *
+     * @param id of the faculty
+     * @return faculty
+     */
     @GetMapping("/{id}")
-    public Faculty retrieveFaculty(@PathVariable Long id) {
-        Optional<Faculty> faculty = facultyRepository.findById(id);
-
-        return faculty.get();
+    public Faculty getFaculty(@PathVariable Long id) {
+        Faculty faculty = facultyService.getById(id);
+        return faculty;
     }
 
+    /**
+     * Method returns all departments of this faculty
+     *
+     * @return [Department]
+     */
+    @GetMapping("/{id}/departments")
+    public List<Department> getFacultyDepartments(@PathVariable Long id) {
+        return facultyService.getFacultyDepartments(id);
+    }
+
+    /**
+     * Method deletes faculty by id
+     *
+     * @param id of the faculty
+     */
     @DeleteMapping("/{id}")
     public void deleteFaculty(@PathVariable Long id) {
-        facultyRepository.deleteById(id);
+        facultyService.deleteFaculty(id);
     }
 
+    /**
+     * Method creates new faculty
+     *
+     * @param facultyDto
+     * @return faculty
+     */
     @PostMapping
-    public ResponseEntity<Object> createFaculty(@RequestBody Faculty faculty) {
-        Faculty savedFaculty = facultyRepository.save(faculty);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedFaculty.getId()).toUri();
-
-        return ResponseEntity.created(location).build();
+    public Faculty createFaculty(@RequestBody FacultyDto facultyDto) {
+        return facultyService.addFaculty(facultyDto);
     }
 
+    /**
+     * Method edits information of faculty by id
+     *
+     * @param facultyDto
+     * @param id of the faculty
+     * @return faculty
+     */
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateFaculty(@RequestBody Faculty faculty, @PathVariable Long id) {
-
-        Optional<Faculty> facultyOptional = facultyRepository.findById(id);
-
-        if (!facultyOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        faculty.setId(id);
-        facultyRepository.save(faculty);
-        return ResponseEntity.noContent().build();
+    public Faculty updateFaculty(@RequestBody FacultyDto facultyDto, @PathVariable Long id) {
+        facultyDto.setId(id);
+        return facultyService.editFaculty(facultyDto);
     }
 }

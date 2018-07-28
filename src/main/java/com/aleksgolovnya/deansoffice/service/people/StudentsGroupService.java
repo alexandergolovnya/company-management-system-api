@@ -1,7 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.StudentsGroupDto;
-import com.aleksgolovnya.deansoffice.entity.Schedule;
+import com.aleksgolovnya.deansoffice.entity.Student;
 import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.service.CommonCrudService;
 
@@ -14,6 +14,7 @@ public interface StudentsGroupService extends CommonCrudService<StudentsGroup, S
     StudentsGroup editStudentsGroup(StudentsGroupDto studentsGroupDto);
     List<StudentsGroup> getAll();
     StudentsGroup getById(Long id);
+    List<Student> getStudentGroupStudents(Long id);
 
     @Override
     default StudentsGroupDto covertToDto(StudentsGroup studentsGroup) {

@@ -1,8 +1,7 @@
-package com.aleksgolovnya.deansoffice.service.subjects;
+package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.JournalDto;
 import com.aleksgolovnya.deansoffice.entity.Journal;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
