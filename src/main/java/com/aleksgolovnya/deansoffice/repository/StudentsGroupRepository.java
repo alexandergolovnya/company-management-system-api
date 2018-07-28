@@ -12,7 +12,7 @@ public interface StudentsGroupRepository extends JpaRepository<StudentsGroup, Lo
 
     StudentsGroup getById(Long id);
 
-    /** Получить все кафедры данного факультета */
+    /** Получить всех стдентов данной учебной группы */
     @Query("SELECT s FROM Student s WHERE s.groupId=:id")
     List<Student> getStudentGroupStudents(@Param("id") Long id);
 }

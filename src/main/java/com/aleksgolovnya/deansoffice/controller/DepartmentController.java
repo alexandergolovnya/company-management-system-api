@@ -3,6 +3,7 @@ package com.aleksgolovnya.deansoffice.controller;
 import com.aleksgolovnya.deansoffice.dto.DepartmentDto;
 import com.aleksgolovnya.deansoffice.entity.Department;
 import com.aleksgolovnya.deansoffice.entity.Specialty;
+import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.service.university.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,16 @@ public class DepartmentController {
     @GetMapping("/{id}/specialties")
     public List<Specialty> getDepartmentSpecialties(@PathVariable Long id) {
         return departmentService.getDepartmentSpecialties(id);
+    }
+
+    /**
+     * Method returns all teachers of this department
+     *
+     * @return [Teacher]
+     */
+    @GetMapping("/{id}/teachers")
+    public List<Teacher> getDepartmentTeachers(@PathVariable Long id) {
+        return departmentService.getDepartmentTeachers(id);
     }
 
     /**
