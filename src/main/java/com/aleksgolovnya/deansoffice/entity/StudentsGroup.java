@@ -20,4 +20,12 @@ public class StudentsGroup {
      */
     @Column
     private String groupName;
+
+    @Column
+    private Long specialtyId;
+
+    /** Специальность для данной группы студентов */
+    @ManyToOne
+    @JoinColumn(name = "specialtyId", insertable = false, updatable = false)
+    private Specialty specialty;
 }

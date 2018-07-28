@@ -3,6 +3,7 @@ package com.aleksgolovnya.deansoffice.service.university;
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
 import com.aleksgolovnya.deansoffice.dto.SpecialtyDto;
 import com.aleksgolovnya.deansoffice.entity.Specialty;
+import com.aleksgolovnya.deansoffice.entity.StudentsGroup;
 import com.aleksgolovnya.deansoffice.repository.SpecialtyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,18 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public Specialty getById(Long id) {
         Specialty specialty = specialtyRepository.getOne(id);
         return specialty;
+    }
+
+    /**
+     * Method receives all student groups fpr this specialty
+     *
+     * @param id of the Specialty
+     * @return specialtyStudentGroups
+     */
+    @Override
+    public List<StudentsGroup> getSpecialtyStudentGroups(Long id) {
+        List<StudentsGroup> specialtyStudentGroups = specialtyRepository.getSpecialtyStudentGroups(id);
+        return specialtyStudentGroups;
     }
 
     @Override
