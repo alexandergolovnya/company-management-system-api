@@ -4,7 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/** Сущность "Кафедра" */
+/**
+ * Entity class for Department
+ */
 
 @Data
 
@@ -15,24 +17,28 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Название кафедры */
+    /**
+     * Name of this department
+     */
     @Column
     private String name;
 
-    /** Описание кафедры */
+    /**
+     * Description of this department
+     */
     @Column(length = 4096)
     private String description;
 
+    /**
+     * Id af aaculty of this department
+     */
     @Column
     private Long facultyId;
 
-    /** Факультет к которому относится кафедра */
+    /**
+     * Faculty of this department
+     */
     @ManyToOne
     @JoinColumn(name = "facultyId", insertable = false, updatable = false)
     private Faculty faculty;
-
-//    public Department(String name, String description) {
-//        this.name = name;
-//        this.description = description;
-//    }
 }
