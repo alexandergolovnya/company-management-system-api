@@ -3,9 +3,10 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-/** Сущность "Факультет" */
+/**
+ * Entity class for Faculty
+ */
 
 @Data
 @Entity
@@ -15,16 +16,16 @@ public class Faculty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Название факультета */
+    /**
+     * Name of this faculty
+     */
     @Column
     private String name;
 
-    /** Описание факультета */
+    /**
+     * Description of this faculty
+     */
     @Column(length = 4096)
     private String description;
-
-//    /** Список кафедр данного факультета */
-//    @OneToMany(mappedBy = "faculty")
-//    private Set<Department> departmentList = new HashSet<>();
 }
 

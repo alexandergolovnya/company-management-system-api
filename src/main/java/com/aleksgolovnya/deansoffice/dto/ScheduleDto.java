@@ -22,7 +22,7 @@ public class ScheduleDto {
     private Long teacherId;
 
     /**
-     * Students groups that studies subject
+     * Student group that studies subject
      */
     private Long studentsGroupId;
 }

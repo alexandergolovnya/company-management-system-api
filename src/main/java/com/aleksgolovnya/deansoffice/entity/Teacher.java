@@ -4,7 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/** Сущность "Преподаватель" */
+/**
+ * Entity class for Teacher
+ */
 
 @Data
 
@@ -15,29 +17,36 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Имя */
+    /**
+     * First name of the teacher
+     */
     @Column
     private String firstName;
 
-    /** Фамилия */
+    /**
+     * Last name of the teacher
+     */
     @Column
     private String lastName;
 
-    /** Должность */
+    /**
+     * Position of the teacher
+     */
     @Column
     private String position;
 
+    /**
+     * Id of the department to which teacher belongs
+     */
     @Column
     private Long departmentId;
 
-    /** Кафедра преподавателя */
+    /**
+     * Department to which teacher belongs
+     */
     @ManyToOne
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;
-
-//    /** Расписание для данного преподавателя */
-//    @OneToMany(mappedBy = "teacher")
-//    private List<Schedule> schedules;
 
 //    /** Список предметов для данного преподавателя */
 //    @ManyToMany(mappedBy = "teachers_subjects")

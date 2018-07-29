@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * Entity class of student group
+ * Entity class for student group
  */
 
 @Data
@@ -24,7 +24,9 @@ public class StudentsGroup {
     @Column
     private Long specialtyId;
 
-    /** Специальность для данной группы студентов */
+    /**
+     * Specialty for this student group
+     */
     @ManyToOne
     @JoinColumn(name = "specialtyId", insertable = false, updatable = false)
     private Specialty specialty;
