@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Faculty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** Название факультета */
@@ -20,7 +20,7 @@ public class Faculty {
     private String name;
 
     /** Описание факультета */
-    @Column
+    @Column(length = 4096)
     private String description;
 
 //    /** Список кафедр данного факультета */
