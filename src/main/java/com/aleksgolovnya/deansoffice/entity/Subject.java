@@ -12,7 +12,7 @@ import java.util.List;
 public class Subject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** Название предмета */
@@ -20,7 +20,7 @@ public class Subject {
     private String name;
 
     /** Описание предмета */
-    @Column
+    @Column(length = 4096)
     private String description;
 
     /** Преподаватели данного предмета */

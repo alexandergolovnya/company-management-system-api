@@ -12,7 +12,7 @@ import java.util.List;
 public class Specialty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** Название специальности */
@@ -20,7 +20,7 @@ public class Specialty {
     private String name;
 
     /** Описание Специализации */
-    @Column
+    @Column(length = 4096)
     private String description;
 
     @Column

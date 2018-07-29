@@ -24,19 +24,6 @@ public class Application {
     }
 
 //    @Bean
-//    public CorsFilter corsFilter() {
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedOrigin("http://localhost:8081");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-//    }
-
-//    @Bean
 //    public CommandLineRunner demoFaculty(FacultyRepository facultyRepository) {
 //        return (args) -> {
 //            facultyRepository.save(new FacultyDto("АВТ", "Описание факультета АВТ"));
