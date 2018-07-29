@@ -30,15 +30,14 @@ public class StudentController {
     }
 
     /**
-     * Method returns all students
+     * Method returns student by id
      *
      * @param id of the student
      * @return student
      */
     @GetMapping("/{id}")
     public Student getStudent(@PathVariable Long id) {
-        Student student = studentService.getById(id);
-        return student;
+        return studentService.getById(id);
     }
 
     /**

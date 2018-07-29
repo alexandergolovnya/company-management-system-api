@@ -4,7 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/** Расписание */
+/**
+ * Entity class for Schedule
+ */
 
 @Data
 
@@ -15,26 +17,41 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Id of a subject in the schedule
+     */
     @Column
     private Long subjectId;
 
+    /**
+     * Id of a  teacher for the subject
+     */
     @Column
     private Long teacherId;
 
+    /**
+     * Id of a student group that studies subject
+     */
     @Column
     private Long studentsGroupId;
 
-    /** Предметы */
+    /**
+     * Subject in the schedule
+     */
     @ManyToOne
     @JoinColumn(name = "subjectId", insertable = false, updatable = false)
     private Subject subject;
 
-    /** Преподаватели */
+    /**
+     * Teacher for the subject
+     */
     @ManyToOne
     @JoinColumn(name = "teacherId", insertable = false, updatable = false)
     private Teacher teacher;
 
-    /** Преподаватели */
+    /**
+     * Student group that studies subject
+     */
     @ManyToOne
     @JoinColumn(name = "studentsGroupId", insertable = false, updatable = false)
     private StudentsGroup studentsGroup;

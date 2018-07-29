@@ -1,10 +1,12 @@
 package com.aleksgolovnya.deansoffice.entity;
 
 import lombok.Data;
-import javax.persistence.*;
-import java.util.List;
 
-/** Сущность "Специальность" */
+import javax.persistence.*;
+
+/**
+ * Entity class for Specialty
+ */
 
 @Data
 
@@ -15,18 +17,27 @@ public class Specialty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Название специальности */
+    /**
+     * Name of the speciality
+     */
     @Column
     private String name;
 
-    /** Описание Специализации */
+    /**
+     * Description of the speciality
+     */
     @Column(length = 4096)
     private String description;
 
+    /**
+     * Id of a department of this speciality
+     */
     @Column
     private Long departmentId;
 
-    /** Кафедра для данной специализации */
+    /**
+     * Department of this speciality
+     */
     @ManyToOne
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;

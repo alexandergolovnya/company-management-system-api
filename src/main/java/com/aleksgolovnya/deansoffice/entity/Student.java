@@ -1,10 +1,12 @@
 package com.aleksgolovnya.deansoffice.entity;
 
 import lombok.Data;
-import javax.persistence.*;
-import java.util.List;
 
-/** Сущность "Студент" */
+import javax.persistence.*;
+
+/**
+ * Entity class for Student
+ */
 
 @Data
 
@@ -15,22 +17,36 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Имя */
+    /**
+     * First name of the student
+     */
     @Column
     private String firstName;
 
-    /** Фамилия */
+    /**
+     * Last name of the student
+     */
     @Column
     private String lastName;
 
-    /** Курс обучения */
+    /**
+     * Number of the course on which
+     * student is studying
+     */
     @Column
     private int course;
 
+    /**
+     * Id of a student group to which the
+     * student belongs
+     */
     @Column
     private Long groupId;
 
-    /** Группа */
+    /**
+     * Student group to which the
+     * student belongs
+     */
     @ManyToOne
     @JoinColumn(name = "groupId", insertable = false, updatable = false)
     private StudentsGroup studentsGroup;

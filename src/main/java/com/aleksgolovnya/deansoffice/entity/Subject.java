@@ -4,7 +4,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
-/** Сущность "Предмет" */
+/**
+ * Entity class for Subject
+ */
 
 @Data
 
@@ -15,15 +17,21 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Название предмета */
+    /**
+     * Name of the subject
+     */
     @Column
     private String name;
 
-    /** Описание предмета */
+    /**
+     * Description of the subject
+     */
     @Column(length = 4096)
     private String description;
 
-    /** Преподаватели данного предмета */
+    /**
+     * Teachers of this subject
+     */
     @ManyToMany
     @JoinTable(
             name = "teachers_subjects",
