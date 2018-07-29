@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** Название кафедры */
@@ -20,7 +20,7 @@ public class Department {
     private String name;
 
     /** Описание кафедры */
-    @Column
+    @Column(length = 4096)
     private String description;
 
     @Column
