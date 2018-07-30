@@ -5,6 +5,8 @@ import com.aleksgolovnya.deansoffice.entity.Student;
 import com.aleksgolovnya.deansoffice.repository.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -79,8 +81,8 @@ public class StudentServiceImpl implements StudentService {
      * @return [Student]
      */
     @Override
-    public List<Student> getAll() {
-        return studentRepository.findAll();
+    public Page<Student> getAll(Pageable pageable) {
+        return studentRepository.findAll(pageable);
     }
 
     /**

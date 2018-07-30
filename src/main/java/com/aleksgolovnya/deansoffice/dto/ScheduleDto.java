@@ -2,6 +2,8 @@ package com.aleksgolovnya.deansoffice.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * DTO class for entity @link Schedule
  */
@@ -10,6 +12,16 @@ import lombok.Data;
 public class ScheduleDto {
 
     private Long id;
+
+    /**
+     * Date of the lesson
+     */
+    private Date date;
+
+    /**
+     * Number of the class in the schedule
+     */
+    private int classNumber;
 
     /**
      * Subject in the schedule
