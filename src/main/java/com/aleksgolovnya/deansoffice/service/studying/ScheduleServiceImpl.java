@@ -23,6 +23,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleToCreate.setStudentsGroupId(scheduleDto.getStudentsGroupId());
         scheduleToCreate.setSubjectId(scheduleDto.getSubjectId());
         scheduleToCreate.setTeacherId(scheduleDto.getTeacherId());
+        scheduleToCreate.setClassNumber(scheduleDto.getClassNumber());
+        scheduleToCreate.setDate(scheduleDto.getDate());
         Schedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToCreate);
         return savedSchedule;
     }
@@ -57,6 +59,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setStudentsGroupId(scheduleDto.getStudentsGroupId());
         schedule.setSubjectId(scheduleDto.getSubjectId());
         schedule.setTeacherId(scheduleDto.getTeacherId());
+        schedule.setClassNumber(scheduleDto.getClassNumber());
+        schedule.setDate(scheduleDto.getDate());
         return schedule;
     }
 
