@@ -10,7 +10,6 @@ import java.util.Date;
  */
 
 @Data
-
 @Entity
 public class Schedule {
 

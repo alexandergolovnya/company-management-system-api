@@ -1,15 +1,14 @@
 package com.aleksgolovnya.deansoffice.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Entity class for Journal
  */
 
 @Data
-
 @Entity
 public class Journal {
 
