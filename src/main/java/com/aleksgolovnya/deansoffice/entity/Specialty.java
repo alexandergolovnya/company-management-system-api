@@ -41,8 +41,4 @@ public class Specialty {
     @ManyToOne
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;
-
-//    /** Грыппы студентов, обучающиеся на данной специальности */
-//    @OneToMany(mappedBy = "specialty")
-//    private List<StudentsGroup> studentsGroups;
 }
