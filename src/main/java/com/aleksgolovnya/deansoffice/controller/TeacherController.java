@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
+import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.service.people.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,18 @@ public class TeacherController {
     public Teacher getTeacher(@PathVariable Long id) {
         Teacher teacher = teacherService.getById(id);
         return teacher;
+    }
+
+    /**
+     * Method returns all subjects of a teacher by id
+     *
+     * @param id of the teacher
+     * @return [Subject]
+     */
+    @GetMapping("/{id}/subjects")
+    public List<Subject> getTeacherSubjects(@PathVariable Long id) {
+        List<Subject> subjects = teacherService.getTeacherSubjects(id);
+        return subjects;
     }
 
     /**
