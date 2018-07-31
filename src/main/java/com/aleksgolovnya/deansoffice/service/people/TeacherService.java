@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
+import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.service.CommonCrudService;
 
@@ -12,6 +13,7 @@ public interface TeacherService extends CommonCrudService<Teacher, TeacherDto> {
     Teacher editTeacher(TeacherDto teacher);
     List<Teacher> getAll();
     Teacher getById(Long id);
+    List<Subject> getTeacherSubjects(Long id);
 
     @Override
     default TeacherDto covertToDto(Teacher entity) {

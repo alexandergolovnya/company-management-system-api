@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
+import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
 import org.modelmapper.ModelMapper;
@@ -73,6 +74,12 @@ public class TeacherServiceImpl implements  TeacherService {
     public Teacher getById(Long id) {
         Teacher teacher = teacherRepository.getOne(id);
         return teacher;
+    }
+
+    @Override
+    public List<Subject> getTeacherSubjects(Long id) {
+        List<Subject> subjects = teacherRepository.getTeacherSubjects(id);
+        return subjects;
     }
 
     @Override
