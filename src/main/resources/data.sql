@@ -395,7 +395,7 @@ INSERT INTO subject (id, name, description) VALUES
    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.')
 ;
 
-INSERT INTO teachers_subjects (subject_id, teacher_id) VALUES
+INSERT INTO teachers_subjects (teacher_id, subject_id) VALUES
 
   (1, 1),
   (1, 10),
