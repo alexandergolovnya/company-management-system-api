@@ -18,24 +18,6 @@ public class Journal {
     private Long id;
 
     /**
-     * Id af a subject in the journal
-     */
-    @Column
-    private Long subjectId;
-
-    /**
-     * Id af a student in the journal
-     */
-    @Column
-    private Long studentId;
-
-    /**
-     * Date of the record in the journal
-     */
-    @Column
-    private Date date;
-
-    /**
      * Mark for the student in the journal
      * on the subject on some date
      *
@@ -46,11 +28,24 @@ public class Journal {
     private String mark;
 
     /**
-     * Subject in the journal
+     * Id af a schedule item for the record of this journal
+     */
+    @Column
+    private Long scheduleId;
+
+    /**
+     * Id af a student in the journal
+     */
+    @Column
+    private Long studentId;
+
+
+    /**
+     * Schedule item for the record of this journal
      */
     @ManyToOne
-    @JoinColumn(name = "subjectId", insertable = false, updatable = false)
-    private Subject subject;
+    @JoinColumn(name = "scheduleId", insertable = false, updatable = false)
+    private Schedule schedule;
 
     /**
      * Student in the journal
