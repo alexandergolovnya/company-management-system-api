@@ -1,0 +1,14 @@
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (1, '4', 1, 1);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (2, 'н', 1, 1);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (3, '3', 1, 1);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (4, '2', 1, 3);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (5, '5', 1, 4);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (6, '5', 1, 2);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (7, '5', 1, 5);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (8, '3', 1, 7);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (9, 'н', 2, 10);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (10, '4', 2, 8);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (11, '4', 2, 5);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (12, 'н', 2, 3);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (13, 'н', 2, 2);
+INSERT INTO public.journal (id, mark, schedule_id, student_id) VALUES (14, '5', 2, 4);
