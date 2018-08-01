@@ -38,11 +38,10 @@ public class Journal {
     @Column
     private Long studentId;
 
-
     /**
      * Schedule item for the record of this journal
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "scheduleId", insertable = false, updatable = false)
     private Schedule schedule;
 

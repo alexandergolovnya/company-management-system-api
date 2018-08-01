@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.people;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
+import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.repository.TeacherRepository;
@@ -76,10 +77,28 @@ public class TeacherServiceImpl implements  TeacherService {
         return teacher;
     }
 
+    /**
+     * Method receives all subjects for this teacher
+     *
+     * @param id of the teacher
+     * @return [Subject]
+     */
     @Override
     public List<Subject> getTeacherSubjects(Long id) {
         List<Subject> subjects = teacherRepository.getTeacherSubjects(id);
         return subjects;
+    }
+
+    /**
+     * Method receives all records from the schedule for this teacher
+     *
+     * @param id of the teacher
+     * @return [Schedule]
+     */
+    @Override
+    public List<Schedule> getTeachersSchedule(Long id) {
+        List<Schedule> scheduleList = teacherRepository.getTeachersSchedule(id);
+        return scheduleList;
     }
 
     @Override
