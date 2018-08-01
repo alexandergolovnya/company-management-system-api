@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.TeacherDto;
+import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.service.people.TeacherService;
@@ -52,6 +53,18 @@ public class TeacherController {
     public List<Subject> getTeacherSubjects(@PathVariable Long id) {
         List<Subject> subjects = teacherService.getTeacherSubjects(id);
         return subjects;
+    }
+
+    /**
+     * Method returns all records from the schedule for this teacher by id
+     *
+     * @param id of the teacher
+     * @return [Schedule]
+     */
+    @GetMapping("/{id}/schedule")
+    public List<Schedule> getTeachersSchedule(@PathVariable Long id) {
+        List<Schedule> scheduleList = teacherService.getTeachersSchedule(id);
+        return scheduleList;
     }
 
     /**

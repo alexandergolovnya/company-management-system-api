@@ -406,3 +406,5 @@ INSERT INTO teachers_subjects (teacher_id, subject_id) VALUES
   (3, 4),
   (3, 7),
   (3, 8)
+
+INSERT INTO schedule (subject_id, teacher_id, students_group_id, ) VALUES
