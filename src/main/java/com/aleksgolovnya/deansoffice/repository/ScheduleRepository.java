@@ -1,5 +1,6 @@
 package com.aleksgolovnya.deansoffice.repository;
 
+import com.aleksgolovnya.deansoffice.entity.Journal;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
     List<Schedule> getTeacherLessons(@Param("id") Long id);
+
+    /** Получить всех преподавателей данной кафедры */
+    @Query("SELECT j FROM Journal j WHERE j.scheduleId=:id")
+    List<Journal> getJournalForScheduleRecord(@Param("id") Long id);
 }

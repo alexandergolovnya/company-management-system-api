@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
+import com.aleksgolovnya.deansoffice.entity.Teacher;
 import com.aleksgolovnya.deansoffice.service.studying.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,18 @@ public class SubjectController {
         Subject subject = subjectService.getById(id);
         return subject;
     }
+
+    /**
+     * Method returns all teachers of this subject by id
+     *
+     * @param id of the subject
+     * @return [Teacher]
+     */
+//    @GetMapping("/{id}/teachers")
+//    public List<Teacher> getSubjectTeachers(@PathVariable Long id) {
+//        List<Teacher> teachers = subjectService.getSubjectTeachers(id);
+//        return teachers;
+//    }
 
     /**
      * Method deletes subject by id
