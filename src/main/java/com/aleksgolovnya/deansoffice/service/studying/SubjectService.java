@@ -2,6 +2,7 @@ package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.SubjectDto;
 import com.aleksgolovnya.deansoffice.entity.Subject;
+import com.aleksgolovnya.deansoffice.entity.Teacher;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface SubjectService {
     List<Subject> getAll();
     Subject getById(Long id);
     Subject convertToEntity(SubjectDto subjectDto);
+//    List<Teacher> getSubjectTeachers(Long id);
 }

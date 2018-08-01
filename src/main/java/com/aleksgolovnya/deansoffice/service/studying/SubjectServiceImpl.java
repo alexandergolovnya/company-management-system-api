@@ -67,4 +67,16 @@ public class SubjectServiceImpl implements SubjectService {
         subject.setTeachers(teachers);
         return subject;
     }
+
+    /**
+     * Method receives all teachers of this subject
+     *
+     * @param id of the subject
+     * @return [Teacher]
+     */
+//    @Override
+//    public List<Teacher> getSubjectTeachers(Long id) {
+//        List<Teacher> teachers = subjectRepository.getSubjectTeachers(id);
+//        return teachers;
+//    }
 }

@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
+import com.aleksgolovnya.deansoffice.entity.Journal;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.repository.ScheduleRepository;
 import org.modelmapper.ModelMapper;
@@ -74,5 +75,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<Schedule> getTeacherLessons(Long id) {
         List<Schedule> lessons = scheduleRepository.getTeacherLessons(id);
         return lessons;
+    }
+
+    /**
+     * Method receives all journal records for the record in the schedule (lesson)
+     *
+     * @param id of the schedule
+     * @return [Journal]
+     */
+    @Override
+    public List<Journal> getJournalForScheduleRecord(Long id) {
+        List<Journal> journalRecords = scheduleRepository.getJournalForScheduleRecord(id);
+        return journalRecords;
     }
 }

@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
+import com.aleksgolovnya.deansoffice.entity.Journal;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.service.studying.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,18 @@ public class ScheduleController {
     public Schedule getScheduleRecord(@PathVariable Long id) {
         Schedule schedule = scheduleService.getById(id);
         return schedule;
+    }
+
+    /**
+     * Method returns record of the journal for record in the schedule (lesson) by id
+     *
+     * @param id of the schedule
+     * @return [Journal]
+     */
+    @GetMapping("/{id}/journal")
+    public List<Journal> getJournalForScheduleRecord(@PathVariable Long id) {
+        List<Journal> journalList = scheduleService.getJournalForScheduleRecord(id);
+        return journalList;
     }
 
     /**
