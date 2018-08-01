@@ -1,39 +1,27 @@
 # University SPA
 
-Разработка WEB-приложения "Деканат".
-Пользователи приложения имеют три роли:
-- анонимный пользователь;
-- авторизованный преподаватель;
-- авторизованный студент.
+## Build Setup
 
-В приложении должна быть отображена структура ВУЗа, т.е.:
-- Факультеты
-|- Кафедры
-  |- Специальности
-  
-Преподавательский состав:
-- Кафера;
-- Должность;
-- Нагрузка;
-- Расписание работы.
+## Requirements
 
-Студенты:
-- Cпециальность;
-- Курс;
-- Успеваемость;
-- Посещаемость.
+For building and running the application you need:
 
-Личный кабинет преподавателя должен обеспечивать следующие возможности:
-- редактирование своего профиля;
-- статистика по нагрузке (количество часов в неделю/месяц/выбранный период);
-- проставление оценок и графика посещаемости студентов.
+- [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Maven 3](https://maven.apache.org)
 
-Личный кабинет студента должен обеспечивать следующие возможности:
-- редактирование своего профиля;
-- просмотр успеваемости и посещаемости.
+## Running the application locally
+``` bash
+# Настройка базы данных
+# Создайте базу данных PostgreSQL и укажите в application.properties
+# Приложение должно быть запущенно на порту 8080
+spring.datasource.url
+spring.datasource.username
+spring.datasource.password
 
-# технологии
-BackEnd: Java 8, Spring Security, Spring MVC, Spring Rest, SpringBoot , Maven / Gradle, Hibernate.
-UnitTesting: JUnit, Mockito, Jersey.
-DB: PostgreSQL
-FrontEnd: HTML5, CSS3, Vanilla JS, AJAX (JSON), gulp / Webpack, less/sass, FontAwesome.
+# Создайте новую конфигурация Spring Boot
+# Укажите main class
+com.aleksgolovnya.deansoffice.Application
+
+#Run the app
+mvn spring-boot:run
+```
