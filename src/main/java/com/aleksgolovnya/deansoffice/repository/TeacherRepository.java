@@ -1,5 +1,6 @@
 package com.aleksgolovnya.deansoffice.repository;
 
+import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.entity.Subject;
 import com.aleksgolovnya.deansoffice.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "INNER JOIN s.teachers ts " +
             "WHERE ts.id=:id ")
     List<Subject> getTeacherSubjects(@Param("id") Long id);
+
+    /** Получить все записи из расписания для данного преподавателя */
+    @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
+    List<Schedule> getTeachersSchedule(@Param("id") Long id);
 }
