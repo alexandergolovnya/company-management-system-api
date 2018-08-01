@@ -25,3 +25,5 @@ com.aleksgolovnya.deansoffice.Application
 #Run the app
 mvn spring-boot:run
 ```
+
+Также можно загрузить дамп базы данных из src/main/resources/damp
