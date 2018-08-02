@@ -22,8 +22,7 @@ public class JournalServiceImpl implements JournalService {
         Journal journalToCreate = new Journal();
 
         journalToCreate.setStudentId(journalDto.getStudentId());
-        journalToCreate.setSubjectId(journalDto.getSubjectId());
-        journalToCreate.setDate(journalDto.getDate());
+        journalToCreate.setScheduleId(journalDto.getScheduleId());
         journalToCreate.setMark(journalDto.getMark());
 
         Journal savedJournal = journalRepository.saveAndFlush(journalToCreate);
@@ -58,8 +57,7 @@ public class JournalServiceImpl implements JournalService {
     public Journal convertToEntity(JournalDto journalDto) {
         Journal journal = modelMapper.map(journalDto, Journal.class);
         journal.setStudentId(journalDto.getStudentId());
-        journal.setSubjectId(journalDto.getSubjectId());
-        journal.setDate(journalDto.getDate());
+        journal.setScheduleId(journalDto.getScheduleId());
         journal.setMark(journalDto.getMark());
         return journal;
     }

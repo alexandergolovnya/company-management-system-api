@@ -3,19 +3,31 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Entity class for Schedule
  */
 
 @Data
-
 @Entity
 public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * Date of the lesson
+     */
+    @Column
+    private Date date;
+
+    /**
+     * Number of the class in the schedule
+     */
+    @Column
+    private int classNumber;
 
     /**
      * Id of a subject in the schedule

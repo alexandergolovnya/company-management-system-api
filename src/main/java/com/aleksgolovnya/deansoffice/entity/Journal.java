@@ -1,39 +1,20 @@
 package com.aleksgolovnya.deansoffice.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Entity class for Journal
  */
 
 @Data
-
 @Entity
 public class Journal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /**
-     * Id af a subject in the journal
-     */
-    @Column
-    private Long subjectId;
-
-    /**
-     * Id af a student in the journal
-     */
-    @Column
-    private Long studentId;
-
-    /**
-     * Date of the record in the journal
-     */
-    @Column
-    private Date date;
 
     /**
      * Mark for the student in the journal
@@ -46,11 +27,23 @@ public class Journal {
     private String mark;
 
     /**
-     * Subject in the journal
+     * Id af a schedule item for the record of this journal
      */
-    @ManyToOne
-    @JoinColumn(name = "subjectId", insertable = false, updatable = false)
-    private Subject subject;
+    @Column
+    private Long scheduleId;
+
+    /**
+     * Id af a student in the journal
+     */
+    @Column
+    private Long studentId;
+
+    /**
+     * Schedule item for the record of this journal
+     */
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "scheduleId", insertable = false, updatable = false)
+    private Schedule schedule;
 
     /**
      * Student in the journal

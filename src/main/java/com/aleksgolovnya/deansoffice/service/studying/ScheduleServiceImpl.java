@@ -1,6 +1,7 @@
 package com.aleksgolovnya.deansoffice.service.studying;
 
 import com.aleksgolovnya.deansoffice.dto.ScheduleDto;
+import com.aleksgolovnya.deansoffice.entity.Journal;
 import com.aleksgolovnya.deansoffice.entity.Schedule;
 import com.aleksgolovnya.deansoffice.repository.ScheduleRepository;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleToCreate.setStudentsGroupId(scheduleDto.getStudentsGroupId());
         scheduleToCreate.setSubjectId(scheduleDto.getSubjectId());
         scheduleToCreate.setTeacherId(scheduleDto.getTeacherId());
+        scheduleToCreate.setClassNumber(scheduleDto.getClassNumber());
+        scheduleToCreate.setDate(scheduleDto.getDate());
         Schedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToCreate);
         return savedSchedule;
     }
@@ -57,6 +60,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setStudentsGroupId(scheduleDto.getStudentsGroupId());
         schedule.setSubjectId(scheduleDto.getSubjectId());
         schedule.setTeacherId(scheduleDto.getTeacherId());
+        schedule.setClassNumber(scheduleDto.getClassNumber());
+        schedule.setDate(scheduleDto.getDate());
         return schedule;
     }
 
@@ -70,5 +75,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<Schedule> getTeacherLessons(Long id) {
         List<Schedule> lessons = scheduleRepository.getTeacherLessons(id);
         return lessons;
+    }
+
+    /**
+     * Method receives all journal records for the record in the schedule (lesson)
+     *
+     * @param id of the schedule
+     * @return [Journal]
+     */
+    @Override
+    public List<Journal> getJournalForScheduleRecord(Long id) {
+        List<Journal> journalRecords = scheduleRepository.getJournalForScheduleRecord(id);
+        return journalRecords;
     }
 }

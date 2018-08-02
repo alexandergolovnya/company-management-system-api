@@ -1,0 +1,11 @@
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (1, 1, 'Александр', 1, 'Головня');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (2, 1, 'Вера', 1, 'Федорова');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (3, 1, 'Александр', 1, 'Прокин');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (4, 1, 'Бекир', 1, ' Ибраимов');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (5, 1, 'Егор', 1, 'Дереволко');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (6, 1, 'Марк', 1, 'Цукерберг');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (7, 1, 'Джефф', 1, 'Безос');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (8, 1, 'Мартин', 1, 'Лютер');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (9, 1, 'Имануил', 1, 'Кант');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (10, 1, 'Луиций', 1, 'Сенека');
+INSERT INTO public.student (id, course, first_name, group_id, last_name) VALUES (11, 1, 'Марк', 1, 'Аврелий');

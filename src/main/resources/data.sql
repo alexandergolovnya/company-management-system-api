@@ -153,11 +153,11 @@ INSERT INTO specialty (id, department_id, name, description) VALUES
    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
 
   (16, 6, 'Специальность №4',
-    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
   (17, 6, 'Специальность №5',
-    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
   (18, 6, 'Специальность №6',
-    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
 
   (19, 7, 'Специальность №7',
    'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus. Nam sed maximus dui. Integer tristique eros ac elementum volutpat.'),
@@ -337,7 +337,7 @@ INSERT INTO students_group (id, specialty_id, group_name) VALUES
 
 INSERT INTO student (first_name, last_name, course, group_id) VALUES
 
-/* Студенты для группы ИВТ/б-11о */
+  /* Студенты для группы ИВТ/б-11о */
 
   ('Иван', 'Иванов', 1, 1),
   ('Петр', 'Петров', 1, 1),
@@ -345,17 +345,66 @@ INSERT INTO student (first_name, last_name, course, group_id) VALUES
   ('Сократ', 'Васильев', 1, 1),
   ('Плутарх', 'Константинов', 1, 1),
   ('Крет', 'Максимов', 1, 1),
-  ('Макс', 'Петрых', 1, 1)
+  ('Вера', 'Кудряшова', 1, 1),
+  ('Кристина', 'Бродская', 1, 1),
+  ('Мария', 'Потанина', 1, 1),
+  ('Юлия', 'Тинькова', 1, 1),
+  ('Вероника', 'Лазарева', 1, 1),
+  ('Денис', 'Лазарев', 1, 1),
+  ('Марина', 'Петрых', 1, 1),
+  ('Александр', 'Бродский', 1, 1),
+  ('Макс', 'Потопов', 1, 1),
+  ('Сергей', 'Михнев', 1, 1),
+  ('Валерий', 'Кипелов', 1, 1)
 ;
 
-INSERT INTO teacher (first_name, last_name, position, department_id) VALUES
+INSERT INTO teacher (id, first_name, last_name, position, department_id) VALUES
 
-/* Студенты для кафедры информационных технологий и компьютерных систем */
+  /* Студенты для кафедры информационных технологий и компьютерных систем */
 
-  ('Алексей', 'Песчанский', 'Кандидат физико-математических наук', 1),
-  ('Сергей', 'Фисун', 'Кандидат технических наук', 1),
-  ('Сергей', 'Чернышенко', 'Кандидат биологических наук', 1),
-  ('Сократ', 'Васильев', 'Кандидат философских наук', 1),
-  ('Плутарх', 'Константинов', 'Кандидат философских наук', 1),
-  ('Крет', 'Максимов', 'Кандидат технических наук', 1),
-  ('Макс', 'Петрых', 'Кандидат технических наук', 1)
+  (1, 'Алексей', 'Песчанский', 'Кандидат физико-математических наук', 1),
+  (2, 'Сергей', 'Фисун', 'Кандидат технических наук', 1),
+  (3, 'Сергей', 'Чернышенко', 'Кандидат биологических наук', 1),
+  (4, 'Сократ', 'Васильев', 'Кандидат философских наук', 1),
+  (5, 'Плутарх', 'Константинов', 'Кандидат философских наук', 1),
+  (6, 'Крет', 'Максимов', 'Кандидат технических наук', 1),
+  (7, 'Макс', 'Петрых', 'Кандидат технических наук', 1)
+;
+
+INSERT INTO subject (id, name, description) VALUES
+
+  (1, 'Высшая математика',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (2, 'Java-программирование',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (3, 'Теории баз данных',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (4, 'Технологии web-приложений',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (5, 'Компьютерная логика',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (6, 'Системное программирование',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (7, 'Философия',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (8, 'Физика',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (9, 'Дискретная математика',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.'),
+  (10, 'Дьяволистика',
+   'Pellentesque efficitur massa justo, quis ullamcorper nisi pellentesque id. Quisque posuere, purus in interdum egestas, ipsum quam consectetur eros, in condimentum velit arcu tincidunt metus.')
+;
+
+INSERT INTO teachers_subjects (teacher_id, subject_id) VALUES
+
+  (1, 1),
+  (1, 10),
+  (2, 2),
+  (2, 5),
+  (2, 6),
+  (2, 9),
+  (3, 4),
+  (3, 7),
+  (3, 8)
+
+INSERT INTO schedule (subject_id, teacher_id, students_group_id, ) VALUES

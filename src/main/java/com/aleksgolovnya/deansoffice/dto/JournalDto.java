@@ -13,19 +13,15 @@ public class JournalDto {
     private Long id;
 
     /**
-     * Subject in the journal
+     * Id af a schedule item for the record of this journal
      */
-    private Long subjectId;
+    private Long scheduleId;
 
     /**
      * Student in the journal
      */
     private Long studentId;
 
-    /**
-     * Date of the record in the journal
-     */
-    private Date date;
 
     /**
      * Mark for the student in the journal

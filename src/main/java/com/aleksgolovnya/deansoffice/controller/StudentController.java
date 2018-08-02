@@ -2,8 +2,11 @@ package com.aleksgolovnya.deansoffice.controller;
 
 import com.aleksgolovnya.deansoffice.dto.StudentDto;
 import com.aleksgolovnya.deansoffice.entity.Student;
+import com.aleksgolovnya.deansoffice.repository.StudentRepository;
 import com.aleksgolovnya.deansoffice.service.people.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,15 +21,21 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private StudentRepository studentRepository;
 
     /**
      * Method returns all students
      *
      * @return [Student]
      */
+    @GetMapping("/pageable")
+    public Page<Student> getAllStudentsPageable(Pageable pageable) {
+        return studentService.getAll(pageable);
+    }
     @GetMapping
     public List<Student> getAllStudents() {
-        return studentService.getAll();
+        return studentRepository.findAll();
     }
 
     /**
