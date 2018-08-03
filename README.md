@@ -33,5 +33,5 @@ mvn spring-boot:run
 Тестовые данные для БД можно загрузить из src/main/resources/damp
 ```
 
-##Heroku
+## Heroku
 Рабочая версия приложения на heroku [university-spa-api](https://university-spa-api.herokuapp.com/)

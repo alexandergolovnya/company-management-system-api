@@ -16,8 +16,8 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Autowired
     private SubjectRepository subjectRepository;
-    @Autowired
-    private TeacherRepository teacherRepository;
+//    @Autowired
+//    private TeacherRepository teacherRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -27,8 +27,8 @@ public class SubjectServiceImpl implements SubjectService {
 
         subjectToCreate.setName(subjectDto.getName());
         subjectToCreate.setDescription(subjectDto.getDescription());
-        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
-        subjectToCreate.setTeachers(teachers);
+//        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
+//        subjectToCreate.setTeachers(teachers);
 
         Subject savedSubject = subjectRepository.saveAndFlush(subjectToCreate);
         return savedSubject;
@@ -63,8 +63,8 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = modelMapper.map(subjectDto, Subject.class);
         subject.setName(subjectDto.getName());
         subject.setDescription(subjectDto.getDescription());
-        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
-        subject.setTeachers(teachers);
+//        List<Teacher> teachers = teacherRepository.findAllById(subjectDto.getTeacherId());
+//        subject.setTeachers(teachers);
         return subject;
     }
 
