@@ -25,5 +25,5 @@ public class SubjectDto {
     /**
      * Teachers of this subject
      */
-    private List<Long> teacherId;
+//    private List<Long> teacherId;
 }

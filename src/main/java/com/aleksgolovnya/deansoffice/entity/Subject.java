@@ -31,12 +31,12 @@ public class Subject {
     /**
      * Teachers of this subject
      */
-    @ManyToMany
-    @JoinTable(
-            name = "teachers_subjects",
-            joinColumns = { @JoinColumn(name = "subjectId", insertable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "teacherId", insertable = false, updatable = false) }
-    )
-    List<Teacher> teachers;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "teachers_subjects",
+//            joinColumns = { @JoinColumn(name = "subjectId", insertable = false, updatable = false) },
+//            inverseJoinColumns = { @JoinColumn(name = "teacherId", insertable = false, updatable = false) }
+//    )
+//    List<Teacher> teachers;
 }
 
