@@ -24,6 +24,14 @@ com.aleksgolovnya.deansoffice.Application
 
 #Run the app
 mvn spring-boot:run
+
+Тестовые пользователи для базы данных:
+1. login: admin, pass: admin
+2. login: student, pass: student
+3. login: teacher, pass: teacher
+
+Тестовые данные для БД можно загрузить из src/main/resources/damp
 ```
 
-Также можно загрузить дамп базы данных из src/main/resources/damp
+##Heroku
+Рабочая версия приложения на heroku [university-spa-api](https://university-spa-api.herokuapp.com/)
