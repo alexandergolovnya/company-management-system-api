@@ -21,7 +21,7 @@ public class AuthenticationConfig extends BasicAuthenticationEntryPoint {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        setRealmName("dev");
+        setRealmName("university-spa");
         super.afterPropertiesSet();
     }
 
