@@ -83,11 +83,11 @@ public class TeacherServiceImpl implements  TeacherService {
      * @param id of the teacher
      * @return [Subject]
      */
-    @Override
-    public List<Subject> getTeacherSubjects(Long id) {
-        List<Subject> subjects = teacherRepository.getTeacherSubjects(id);
-        return subjects;
-    }
+//    @Override
+//    public List<Subject> getTeacherSubjects(Long id) {
+//        List<Subject> subjects = teacherRepository.getTeacherSubjects(id);
+//        return subjects;
+//    }
 
     /**
      * Method receives all records from the schedule for this teacher

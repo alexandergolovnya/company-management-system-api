@@ -14,7 +14,7 @@ public interface TeacherService extends CommonCrudService<Teacher, TeacherDto> {
     Teacher editTeacher(TeacherDto teacher);
     List<Teacher> getAll();
     Teacher getById(Long id);
-    List<Subject> getTeacherSubjects(Long id);
+//    List<Subject> getTeacherSubjects(Long id);
     List<Schedule> getTeachersSchedule(Long id);
 
     @Override
