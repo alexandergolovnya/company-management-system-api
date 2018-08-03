@@ -41,6 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationConfig)
                 .and()
                 .authorizeRequests()
+                .anyRequest().authenticated()
+
+                /**
+                 * Permit all users to access main page
+                 */
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
 
                 /** Студенты */
                 .antMatchers(HttpMethod.GET,"/students/").hasAnyRole(TEACHER, STUDENT)
@@ -95,7 +102,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/schedule/lessons-count/{id}").hasRole(TEACHER)
                 .antMatchers("/schedule/*").hasRole(ADMIN)
 
-//                .anyRequest().authenticated()
                 ;
     }
 
@@ -118,10 +124,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081", "https://university-spa.herokuapp.com/"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Origin", "Access-Control-Request-Method",
+                "Access-Control-Request-Headers", "Access-Control-Allow-Origin"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
