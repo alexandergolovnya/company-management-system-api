@@ -49,11 +49,11 @@ public class TeacherController {
      * @param id of the teacher
      * @return [Subject]
      */
-    @GetMapping("/{id}/subjects")
-    public List<Subject> getTeacherSubjects(@PathVariable Long id) {
-        List<Subject> subjects = teacherService.getTeacherSubjects(id);
-        return subjects;
-    }
+//    @GetMapping("/{id}/subjects")
+//    public List<Subject> getTeacherSubjects(@PathVariable Long id) {
+//        List<Subject> subjects = teacherService.getTeacherSubjects(id);
+//        return subjects;
+//    }
 
     /**
      * Method returns all records from the schedule for this teacher by id

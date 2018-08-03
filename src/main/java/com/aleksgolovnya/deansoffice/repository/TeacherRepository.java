@@ -19,11 +19,11 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 //            "WHERE ts.id=:id ")
 //    List<Subject> getTeacherSubjects(@Param("id") Long id);
 
-    /** Получить все предметы данного преподавателя */
-    @Query("SELECT s FROM Subject s " +
-            "INNER JOIN s.schedule sch ON sch.teacherId =:id " +
-            "WHERE s.id = subjectId")
-    List<Subject> getTeacherSubjects(@Param("id") Long id);
+    /** Получить все предметы данного преподавателя из расписания - not stable */
+//    @Query("SELECT s FROM Subject s " +
+//            "INNER JOIN s.schedule sch ON sch.teacherId =:id " +
+//            "WHERE s.id = subjectId")
+//    List<Subject> getTeacherSubjects(@Param("id") Long id);
 
     /** Получить все записи из расписания для данного преподавателя */
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
