@@ -24,7 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String TEACHER = "TEACHER";
     public static final String STUDENT = "STUDENT";
-    public static final String GUEST = "GUEST";
     public static final String ADMIN = "ADMIN";
 
 
@@ -43,12 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
 
-                /**
-                 * Permit all users to access main page
-                 */
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-
                 /** Студенты */
                 .antMatchers(HttpMethod.GET,"/students/").hasAnyRole(TEACHER, STUDENT)
                 .antMatchers(HttpMethod.GET,"/students/{id}").hasAnyRole(TEACHER,STUDENT)
@@ -62,18 +55,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teachers/*").hasRole(ADMIN)
 
                 /** Факультеты */
-                .antMatchers(HttpMethod.GET,"/faculties/").hasAnyRole(TEACHER,STUDENT,GUEST)
-                .antMatchers(HttpMethod.GET,"/faculties/{id}").hasAnyRole(TEACHER,STUDENT,GUEST)
+                .antMatchers(HttpMethod.GET,"/faculties/").hasAnyRole(TEACHER,STUDENT)
+                .antMatchers(HttpMethod.GET,"/faculties/{id}").hasAnyRole(TEACHER,STUDENT)
                 .antMatchers("/faculties/*").hasRole(ADMIN)
 
                 /** Кафедры */
-                .antMatchers(HttpMethod.GET,"/departments/").hasAnyRole(TEACHER,STUDENT,GUEST)
-                .antMatchers(HttpMethod.GET,"/departments/{id}").hasAnyRole(TEACHER,STUDENT,GUEST)
+                .antMatchers(HttpMethod.GET,"/departments/").hasAnyRole(TEACHER,STUDENT)
+                .antMatchers(HttpMethod.GET,"/departments/{id}").hasAnyRole(TEACHER,STUDENT)
                 .antMatchers("/departments/*").hasRole(ADMIN)
 
                 /** Специальности */
-                .antMatchers(HttpMethod.GET,"/specialties/").hasAnyRole(TEACHER,STUDENT,GUEST)
-                .antMatchers(HttpMethod.GET,"/specialties/{id}").hasAnyRole(TEACHER,STUDENT,GUEST)
+                .antMatchers(HttpMethod.GET,"/specialties/").hasAnyRole(TEACHER,STUDENT)
+                .antMatchers(HttpMethod.GET,"/specialties/{id}").hasAnyRole(TEACHER,STUDENT)
                 .antMatchers("/specialties/*").hasRole(ADMIN)
 
                 /** Предметы */
@@ -87,7 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/groups/*").hasRole(ADMIN)
 
                 /** Журнал посещаемости и успеваемости */
-                .antMatchers(HttpMethod.GET,"/journal**").hasAnyRole(STUDENT)
                 .antMatchers(HttpMethod.GET,"/journal/*").hasAnyRole(STUDENT)
                 .antMatchers(HttpMethod.GET,"/journal/scores/{id}").hasAnyRole(STUDENT)
                 .antMatchers(HttpMethod.GET,"/journal/passes/{id}").hasAnyRole(STUDENT)
@@ -102,6 +94,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/schedule/lessons-count/{id}").hasRole(TEACHER)
                 .antMatchers("/schedule/*").hasRole(ADMIN)
 
+                /**
+                 * Permit all users to access main page
+                 */
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+
                 ;
     }
 
@@ -109,16 +107,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void userDetailsService(AuthenticationManagerBuilder builder) throws Exception {
         builder.inMemoryAuthentication().withUser("admin")
                 .password("{noop}admin")
-                .roles(ADMIN, TEACHER,STUDENT,GUEST);
+                .roles(ADMIN);
         builder.inMemoryAuthentication().withUser("teacher")
                 .password("{noop}teacher")
                 .roles(TEACHER);
         builder.inMemoryAuthentication().withUser("student")
                 .password("{noop}student")
                 .roles(STUDENT);
-        builder.inMemoryAuthentication().withUser("guest")
-                .password("{noop}guest")
-                .roles(GUEST);
     }
 
     @Bean
