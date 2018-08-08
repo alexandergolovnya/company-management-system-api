@@ -49,14 +49,5 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "groupId", insertable = false, updatable = false)
     private StudentsGroup studentsGroup;
-
-//    /** Список предметов, которые изучают студенты */
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "students_subjects",
-//            joinColumns = { @JoinColumn(name = "student_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "subject_id") }
-//    )
-//    List<Subject> students_subjects;
 }
 

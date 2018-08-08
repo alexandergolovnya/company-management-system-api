@@ -3,7 +3,6 @@ package com.aleksgolovnya.deansoffice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Entity class for Teacher
@@ -47,8 +46,4 @@ public class Teacher {
     @ManyToOne
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;
-
-//    /** Список предметов для данного преподавателя */
-//    @ManyToMany(mappedBy = "teachers")
-//    private List<Subject> subjects;
 }
