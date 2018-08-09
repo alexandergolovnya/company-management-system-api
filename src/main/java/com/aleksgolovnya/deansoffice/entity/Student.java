@@ -1,6 +1,9 @@
 package com.aleksgolovnya.deansoffice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +12,9 @@ import javax.persistence.*;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Student {
 
