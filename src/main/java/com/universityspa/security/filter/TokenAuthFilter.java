@@ -17,7 +17,8 @@ public class TokenAuthFilter implements Filter {
     /**
      * Method receives token parametr from the request url,
      * if it is null - set isAuthenticated = false,
-     * if token is not null sends it to token provider
+     * if token is not null sends it creates tokenAuthentication objects
+     * and sends it to security context holder, which delegates it to token authentication provider
      * @param servletRequest
      * @param servletResponse
      * @param filterChain
