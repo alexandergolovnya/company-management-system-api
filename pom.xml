@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.aleksgolovnya</groupId>
-    <artifactId>deansoffice</artifactId>
+    <groupId>com.universityspa</groupId>
+    <artifactId>universityspa</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>deansoffice</name>
-    <description>REST API for the small project for managing university</description>
+    <name>university-spa</name>
+    <description>REST API for single page application for managing university</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

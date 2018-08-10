@@ -1,0 +1,77 @@
+package com.universityspa.service.university;
+
+import com.universityspa.dto.SpecialtyDto;
+import com.universityspa.entity.Specialty;
+import com.universityspa.entity.StudentsGroup;
+import com.universityspa.repository.SpecialtyRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class SpecialtyServiceImpl implements SpecialtyService {
+
+    @Autowired
+    private SpecialtyRepository specialtyRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Override
+    public Specialty addSpecialty(SpecialtyDto specialtyDto) {
+        Specialty specialtyToCreate = new Specialty();
+
+        specialtyToCreate.setName(specialtyDto.getName());
+        specialtyToCreate.setDescription(specialtyDto.getDescription());
+        specialtyToCreate.setDepartmentId(specialtyDto.getDepartmentId());
+
+        Specialty savedSpecialty = specialtyRepository.saveAndFlush(specialtyToCreate);
+        return savedSpecialty;
+    }
+
+    @Override
+    public void deleteSpecialty(Long id) {
+        Specialty deleteSpecialty = specialtyRepository.getOne(id);
+        specialtyRepository.delete(deleteSpecialty);
+    }
+
+    @Override
+    public Specialty editSpecialty(SpecialtyDto specialtyDto) {
+        Specialty specialty = convertToEntity(specialtyDto);
+        Specialty savedSpecialty = specialtyRepository.saveAndFlush(specialty);
+        return savedSpecialty;
+    }
+
+    @Override
+    public List<Specialty> getAll() {
+        return specialtyRepository.findAll();
+    }
+
+    @Override
+    public Specialty getById(Long id) {
+        Specialty specialty = specialtyRepository.getOne(id);
+        return specialty;
+    }
+
+    /**
+     * Method receives all student groups fpr this specialty
+     *
+     * @param id of the Specialty
+     * @return specialtyStudentGroups
+     */
+    @Override
+    public List<StudentsGroup> getSpecialtyStudentGroups(Long id) {
+        List<StudentsGroup> specialtyStudentGroups = specialtyRepository.getSpecialtyStudentGroups(id);
+        return specialtyStudentGroups;
+    }
+
+    @Override
+    public Specialty convertToEntity(SpecialtyDto specialtyDto) {
+        Specialty specialty = modelMapper.map(specialtyDto, Specialty.class);
+        specialty.setName(specialtyDto.getName());
+        specialty.setDescription(specialtyDto.getDescription());
+        specialty.setDepartmentId(specialtyDto.getDepartmentId());
+        return specialty;
+    }
+}
