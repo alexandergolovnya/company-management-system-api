@@ -32,6 +32,6 @@ public class Token {
      * Student to which token belongs
      */
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

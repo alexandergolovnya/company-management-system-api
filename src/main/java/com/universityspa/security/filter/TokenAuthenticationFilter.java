@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
-public class TokenAuthFilter implements Filter {
+public class TokenAuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,6 +21,7 @@ public class TokenAuthFilter implements Filter {
      * if it is null - set isAuthenticated = false,
      * if token is not null sends it creates tokenAuthentication objects
      * and sends it to security context holder, which delegates it to token authentication provider
+     *
      * @param servletRequest
      * @param servletResponse
      * @param filterChain

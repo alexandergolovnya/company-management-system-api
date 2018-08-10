@@ -16,7 +16,7 @@ public class TokenAuthentication implements Authentication {
     /**
      * Parameter for checking if user is authenticated
      */
-    private Boolean isAuthenticated;
+    private boolean isAuthenticated;
 
     /**
      * User details
@@ -24,12 +24,11 @@ public class TokenAuthentication implements Authentication {
     private UserDetails userDetails;
 
     /**
-     * Method returns the authorities granted to the user
-     * @return collection of roles
+     * Constructor
+     * @param token
      */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDetails.getAuthorities();
+    public TokenAuthentication(String token) {
+        this.token = token;
     }
 
     /**
@@ -41,40 +40,12 @@ public class TokenAuthentication implements Authentication {
     }
 
     /**
-     * Setter-method for isAuthenticated parameter
-     * @param b
-     * @throws IllegalArgumentException
+     * Method returns the authorities granted to the user
+     * @return collection of roles
      */
     @Override
-    public void setAuthenticated(boolean b) throws IllegalArgumentException {
-        this.isAuthenticated = isAuthenticated;
-    }
-
-    /**
-     * Getter-method for user details
-     * @return
-     */
-    @Override
-    public Object getDetails() {
-        return userDetails;
-    }
-
-    /**
-     * Getter-method for isAuthenticated parameter
-     * @return isAuthenticated
-     */
-    @Override
-    public boolean isAuthenticated() {
-        return isAuthenticated;
-    }
-
-    /**
-     * Getter-mathod for token
-     * @return token
-     */
-    @Override
-    public String getName() {
-        return token;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return userDetails.getAuthorities();
     }
 
     /**
@@ -87,6 +58,15 @@ public class TokenAuthentication implements Authentication {
     }
 
     /**
+     * Getter-method for user details
+     * @return
+     */
+    @Override
+    public Object getDetails() {
+        return userDetails;
+    }
+
+    /**
      * (!) Method is hard coded, we don't use this feature in current version
      * @return
      */
@@ -96,10 +76,30 @@ public class TokenAuthentication implements Authentication {
     }
 
     /**
-     * Constructor
-     * @param token
+     * Getter-method for isAuthenticated parameter
+     * @return isAuthenticated
      */
-    public TokenAuthentication(String token) {
-        this.token = token;
+    @Override
+    public boolean isAuthenticated() {
+        return isAuthenticated;
+    }
+
+    /**
+     * Setter-method for isAuthenticated parameter
+     * @param isAuthenticated
+     * @throws IllegalArgumentException
+     */
+    @Override
+    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+        this.isAuthenticated  = isAuthenticated;
+    }
+
+    /**
+     * Getter-method for token
+     * @return token
+     */
+    @Override
+    public String getName() {
+        return token;
     }
 }

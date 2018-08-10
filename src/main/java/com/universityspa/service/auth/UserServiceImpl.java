@@ -7,9 +7,11 @@ import com.universityspa.forms.UserForm;
 import com.universityspa.repository.auth.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -22,26 +24,26 @@ public class UserServiceImpl implements UserService {
     public void addUser(UserForm userForm) {
         String hashPassword = passwordEncoder.encode(userForm.getPassword());
 
-        if (userForm.getStudentId() != null) {
-            User studentUser = User.builder()
-                    .email(userForm.getEmail())
-                    .password(userForm.getPassword())
-                    .studentId(userForm.getStudentId())
-                    .role(Role.STUDENT)
-                    .state(State.ACTIVE)
-                    .build();
-
-            userRepository.saveAndFlush(studentUser);
-        } else {
+        if (userForm.getTeacherId() != null) {
             User teacherUser = User.builder()
                     .email(userForm.getEmail())
-                    .password(userForm.getPassword())
+                    .password(hashPassword)
                     .teacherId(userForm.getTeacherId())
                     .role(Role.TEACHER)
                     .state(State.ACTIVE)
                     .build();
 
             userRepository.saveAndFlush(teacherUser);
+        } else {
+            User studentUser = User.builder()
+                    .email(userForm.getEmail())
+                    .password(hashPassword)
+                    .studentId(userForm.getStudentId())
+                    .role(Role.STUDENT)
+                    .state(State.ACTIVE)
+                    .build();
+
+            userRepository.saveAndFlush(studentUser);
         }
     }
 
