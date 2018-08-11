@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
 
                 .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class)
@@ -51,38 +52,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/api/students/**").hasAnyAuthority(TEACHER, STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/students/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.PUT,"/api/students/{id}/**").hasAuthority(STUDENT)
-                .antMatchers("/api/students/*").hasAuthority(ADMIN)
 
                 /** Преподаватели */
                 .antMatchers(HttpMethod.GET,"/api/teachers/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/teachers/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.PUT,"/api/teachers/{id}/**").hasAnyAuthority(TEACHER)
-                .antMatchers("/api/teachers/**").hasAuthority(ADMIN)
 
                 /** Факультеты */
                 .antMatchers(HttpMethod.GET,"/api/faculties/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/faculties/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers("/api/faculties/**").hasAuthority(ADMIN)
 
                 /** Кафедры */
                 .antMatchers(HttpMethod.GET,"/api/departments/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/departments/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers("/api/departments/**").hasAuthority(ADMIN)
 
                 /** Специальности */
                 .antMatchers(HttpMethod.GET,"/api/specialties/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/specialties/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers("/api/specialties/**").hasAuthority(ADMIN)
 
                 /** Предметы */
                 .antMatchers(HttpMethod.GET,"/api/subjects/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/subjects/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers("/api/subjects/**").hasAuthority(ADMIN)
 
                 /** Группы студентов */
                 .antMatchers(HttpMethod.GET,"/api/groups/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/groups/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers("/api/groups/**").hasAuthority(ADMIN)
 
                 /** Журнал посещаемости и успеваемости */
                 .antMatchers(HttpMethod.GET,"/api/journal/**").hasAnyAuthority(STUDENT)
@@ -90,16 +84,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/api/journal/passes/{id}/**").hasAnyAuthority(STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/journal/passes-number/{id}/**").hasAnyAuthority(STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/journal/passes-marks/{id}/**").hasAnyAuthority(STUDENT)
-                .antMatchers("/api/journal/**").hasAnyAuthority(ADMIN,TEACHER)
+                .antMatchers("/api/journal/**").hasAnyAuthority(TEACHER)
 
                 /** Расписание */
                 .antMatchers(HttpMethod.GET,"/api/schedule/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/schedule/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
                 .antMatchers(HttpMethod.GET,"/api/schedule/lessons/{id}/**").hasAuthority(TEACHER)
                 .antMatchers(HttpMethod.GET,"/api/schedule/lessons-count/{id}/**").hasAuthority(TEACHER)
-                .antMatchers("/api/schedule/**").hasAuthority(ADMIN)
 
-                ;
+                .antMatchers("/api/**").hasAuthority(ADMIN)
+
+        ;
     }
 
     @Bean

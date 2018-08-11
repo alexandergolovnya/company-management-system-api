@@ -20,6 +20,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private TokenRepository tokenRepository;
 
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
