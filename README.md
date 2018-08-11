@@ -20,7 +20,7 @@ spring.datasource.password
 
 # Создайте новую конфигурация Spring Boot
 # Укажите main class
-com.aleksgolovnya.deansoffice.Application
+com.universityspa.app.Application
 
 #Run the app
 mvn spring-boot:run
