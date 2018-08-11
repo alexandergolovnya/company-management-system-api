@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.aleksgolovnya</groupId>
-    <artifactId>deansoffice</artifactId>
+    <groupId>com.universityspa</groupId>
+    <artifactId>universityspa</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>deansoffice</name>
-    <description>REST API for the small project for managing university</description>
+    <name>university-spa</name>
+    <description>REST API for single page application for managing university</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -52,23 +52,38 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Data JPA -->
+        <!-- Spring Boot Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- For entity-DTO conversion -->
+        <!-- Model mapper library for entity-DTO conversion -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>0.7.4</version>
         </dependency>
 
-        <!-- Spring Security -->
+        <!-- Spring Boot Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Commons-lang package -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <!-- Javax Servlet Api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -78,6 +93,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
