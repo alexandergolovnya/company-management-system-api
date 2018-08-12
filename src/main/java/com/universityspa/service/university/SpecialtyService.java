@@ -2,16 +2,17 @@ package com.universityspa.service.university;
 
 import com.universityspa.dto.SpecialtyDto;
 import com.universityspa.entity.Specialty;
-import com.universityspa.entity.StudentsGroup;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.abstracts.CommonCrudService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+public interface SpecialtyService extends CommonCrudService<Specialty, SpecialtyDto> {
 
-public interface SpecialtyService {
-    Specialty addSpecialty(SpecialtyDto specialty);
-    void deleteSpecialty(Long id);
-    Specialty editSpecialty(SpecialtyDto specialty);
-    List<Specialty> getAll();
-    Specialty getById(Long id);
-    Specialty convertToEntity(SpecialtyDto specialtyDto);
-    List<StudentsGroup> getSpecialtyStudentGroups(Long id);
+    SpecialtyDto addSpecialty(SpecialtyDto specialty);
+    void deleteSpecialty(Long id) throws NotFoundException;
+    SpecialtyDto editSpecialty(Long id, SpecialtyDto specialty) throws NotFoundException;
+    Page<SpecialtyDto> getAll(Pageable pageable);
+    SpecialtyDto getById(Long id) throws NotFoundException;
+    Page<SpecialtyDto> getDepartmentSpecialties(Long id, Pageable pageable);
 }

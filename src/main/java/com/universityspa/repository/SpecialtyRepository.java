@@ -1,6 +1,8 @@
 package com.universityspa.repository;
 
 import com.universityspa.entity.Specialty;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +22,5 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, Long> {
      * @return List<Specialty>
      */
     @Query("SELECT s FROM Specialty s WHERE s.departmentId=:id")
-    List<Specialty> getDepartmentSpecialties(@Param("id") Long id);
+    Page<Specialty> getDepartmentSpecialties(@Param("id") Long id, Pageable pageable);
 }
