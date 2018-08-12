@@ -61,7 +61,7 @@ public class FacultyServiceImpl implements FacultyService {
         if (deleteFaculty != null) {
             facultyRepository.delete(deleteFaculty);
         } else {
-            throw new NotFoundException("Unable to delete, student with such id doesn't exist");
+            throw new NotFoundException("Unable to delete, faculty with such id doesn't exist");
         }
     }
 
@@ -122,7 +122,7 @@ public class FacultyServiceImpl implements FacultyService {
             FacultyDto facultyDto = convertToDto(faculty);
             return facultyDto;
         } else {
-            throw new NotFoundException("Student not found");
+            throw new NotFoundException("Faculty not found");
         }
     }
 

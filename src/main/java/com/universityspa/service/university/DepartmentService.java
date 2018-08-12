@@ -2,19 +2,17 @@ package com.universityspa.service.university;
 
 import com.universityspa.dto.DepartmentDto;
 import com.universityspa.entity.Department;
-import com.universityspa.entity.Specialty;
-import com.universityspa.entity.Teacher;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.abstracts.CommonCrudService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+public interface DepartmentService extends CommonCrudService<Department, DepartmentDto> {
 
-public interface DepartmentService {
-    Department addDepartment(DepartmentDto department);
-    void deleteDepartment(Long id);
-    Department editDepartment(DepartmentDto department);
-    List<Department> getAll();
-    Department getById(Long id);
-    Department convertToEntity(DepartmentDto departmentDto);
-    List<Specialty> getDepartmentSpecialties(Long id);
-    List<Teacher> getDepartmentTeachers(Long id);
-
+    DepartmentDto addDepartment(DepartmentDto department);
+    void deleteDepartment(Long id) throws NotFoundException;
+    DepartmentDto editDepartment(Long id, DepartmentDto department) throws NotFoundException;
+    Page<DepartmentDto> getAll(Pageable pageable);
+    DepartmentDto getById(Long id) throws NotFoundException;
+    Page<DepartmentDto> getFacultyDepartments(Long id, Pageable pageable);
 }
