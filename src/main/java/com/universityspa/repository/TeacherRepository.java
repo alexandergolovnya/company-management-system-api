@@ -8,11 +8,21 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Implementation of JpaRepository for Teacher entity
+ */
+
+// TODO: 8/12/2018 fix the problem with dublicated method from schedule
+
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    Teacher getById(Long id);
-
-    /** Получить все записи из расписания для данного преподавателя */
+    /**
+     * (!) Duplicate of method from schedule
+     * Select all lessons for teacher from schedule
+     *
+     * @param id of the teacher
+     * @return List<Schedule>
+     */
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
-    List<Schedule> getTeachersSchedule(@Param("id") Long id);
+    List<Schedule> getTeacherLessons(@Param("id") Long id);
 }
