@@ -3,7 +3,7 @@ package com.universityspa.service.people;
 import com.universityspa.dto.TeacherDto;
 import com.universityspa.entity.Schedule;
 import com.universityspa.entity.Teacher;
-import com.universityspa.service.CommonCrudService;
+import com.universityspa.service.abstracts.CommonCrudService;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
