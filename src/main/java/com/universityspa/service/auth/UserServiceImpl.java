@@ -7,7 +7,7 @@ import com.universityspa.entity.auth.User;
 import com.universityspa.exception.EmptyRequestDataException;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.exception.NotUniqueCredentialsException;
-import com.universityspa.forms.UserForm;
+import com.universityspa.dto.forms.UserForm;
 import com.universityspa.repository.auth.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

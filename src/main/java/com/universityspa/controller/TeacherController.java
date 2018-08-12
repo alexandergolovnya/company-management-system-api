@@ -43,6 +43,17 @@ public class TeacherController {
     }
 
     /**
+     * Method returns all teachers for department
+     *
+     * @param id of ht department
+     * @return List<Teacher>
+     */
+    @GetMapping("/department/{id}")
+    public List<Teacher> getDepartmentTeachers(@PathVariable Long id) {
+        return teacherService.getDepartmentTeachers(id);
+    }
+
+    /**
      * Method returns all records convertFromEntityToDTO the schedule for this teacher by id
      *
      * @param id of the teacher

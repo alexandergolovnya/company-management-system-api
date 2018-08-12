@@ -1,7 +1,7 @@
 package com.universityspa.service.auth;
 
 import com.universityspa.dto.auth.TokenDto;
-import com.universityspa.forms.LoginForm;
+import com.universityspa.dto.forms.LoginForm;
 
 /**
  * Service provides sign in operation

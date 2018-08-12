@@ -1,7 +1,6 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.DepartmentDto;
-import com.universityspa.entity.Department;
 import com.universityspa.entity.Specialty;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.university.DepartmentService;

@@ -14,7 +14,8 @@ public interface StudentsGroupService extends CommonCrudService<StudentsGroup, S
     StudentsGroup editStudentsGroup(StudentsGroupDto studentsGroupDto);
     List<StudentsGroup> getAll();
     StudentsGroup getById(Long id);
-    List<Student> getStudentGroupStudents(Long id);
+    List<StudentsGroup> getSpecialtyStudentGroups(Long id);
+
 
     @Override
     default StudentsGroupDto convertToDto(StudentsGroup studentsGroup) {

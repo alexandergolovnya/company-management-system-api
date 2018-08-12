@@ -25,6 +25,9 @@ public interface TeacherService extends CommonCrudService<Teacher, TeacherDto> {
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
     Teacher getById(Long id);
 
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    List<Teacher> getDepartmentTeachers(Long id);
+
     @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
     List<Schedule> getTeachersSchedule(Long id);
 

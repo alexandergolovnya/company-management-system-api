@@ -15,5 +15,4 @@ public interface ScheduleService {
     Schedule convertToEntity(ScheduleDto scheduleDto);
     Long getTeacherWorkLoad(Long id);
     List<Schedule> getTeacherLessons(Long id);
-    List<Journal> getJournalForScheduleRecord(Long id);
 }

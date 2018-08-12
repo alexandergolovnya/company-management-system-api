@@ -3,7 +3,7 @@ package com.universityspa.service.auth;
 import com.universityspa.dto.auth.TokenDto;
 import com.universityspa.entity.auth.Token;
 import com.universityspa.entity.auth.User;
-import com.universityspa.forms.LoginForm;
+import com.universityspa.dto.forms.LoginForm;
 import com.universityspa.repository.auth.TokenRepository;
 import com.universityspa.repository.auth.UserRepository;
 import org.apache.commons.lang.RandomStringUtils;

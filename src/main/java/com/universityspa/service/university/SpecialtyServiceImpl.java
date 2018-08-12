@@ -19,7 +19,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Autowired
     private SpecialtyRepository specialtyRepository;
-    
+
     @Autowired
     private ModelMapper modelMapper;
 

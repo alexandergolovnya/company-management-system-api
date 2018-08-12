@@ -76,16 +76,4 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Schedule> lessons = scheduleRepository.getTeacherLessons(id);
         return lessons;
     }
-
-    /**
-     * Method receives all journal records for the record in the schedule (lesson)
-     *
-     * @param id of the schedule
-     * @return [Journal]
-     */
-    @Override
-    public List<Journal> getJournalForScheduleRecord(Long id) {
-        List<Journal> journalRecords = scheduleRepository.getJournalForScheduleRecord(id);
-        return journalRecords;
-    }
 }
