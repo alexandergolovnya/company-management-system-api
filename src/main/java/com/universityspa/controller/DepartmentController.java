@@ -3,9 +3,12 @@ package com.universityspa.controller;
 import com.universityspa.dto.DepartmentDto;
 import com.universityspa.entity.Department;
 import com.universityspa.entity.Specialty;
-import com.universityspa.entity.Teacher;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.university.DepartmentService;
+import com.universityspa.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,26 +25,29 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    @Autowired
+    private SpecialtyService specialtyService;
+
     /**
-     * Method returns all departments
+     * Method returns all departments with pagination
      *
-     * @return [Department]
+     * @return Page<DepartmentDto>
      */
     @GetMapping
-    public List<Department> getAllDepartments() {
-        return departmentService.getAll();
+    public Page<DepartmentDto> getAllDepartments(Pageable pageable) {
+        return departmentService.getAll(pageable);
     }
 
     /**
      * Method returns department by id
      *
      * @param id of the department
-     * @return department
+     * @return DepartmentDto
+     * @throws NotFoundException if department doesn't exist
      */
     @GetMapping("/{id}")
-    public Department getDepartment(@PathVariable Long id) {
-        Department department = departmentService.getById(id);
-        return department;
+    public DepartmentDto getDepartment(@PathVariable Long id) throws NotFoundException {
+        return departmentService.getById(id);
     }
 
     /**
@@ -49,28 +55,19 @@ public class DepartmentController {
      *
      * @return [Specialty]
      */
-    @GetMapping("/{id}/specialties")
+    @GetMapping("/department/{id}")
     public List<Specialty> getDepartmentSpecialties(@PathVariable Long id) {
-        return departmentService.getDepartmentSpecialties(id);
-    }
-
-    /**
-     * Method returns all teachers of this department
-     *
-     * @return [Teacher]
-     */
-    @GetMapping("/{id}/teachers")
-    public List<Teacher> getDepartmentTeachers(@PathVariable Long id) {
-        return departmentService.getDepartmentTeachers(id);
+        return specialtyService.getDepartmentSpecialties(id);
     }
 
     /**
      * Method deletes department by id
      *
      * @param id of the department
+     * @throws NotFoundException if department doesn't exist
      */
     @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable Long id) {
+    public void deleteDepartment(@PathVariable Long id) throws NotFoundException {
         departmentService.deleteDepartment(id);
     }
 
@@ -78,10 +75,10 @@ public class DepartmentController {
      * Method creates new department
      *
      * @param departmentDto
-     * @return department
+     * @return DepartmentDto
      */
     @PostMapping
-    public Department createDepartment(@RequestBody DepartmentDto departmentDto) {
+    public DepartmentDto createDepartment(@RequestBody DepartmentDto departmentDto) {
         return departmentService.addDepartment(departmentDto);
     }
 
@@ -90,11 +87,11 @@ public class DepartmentController {
      *
      * @param departmentDto
      * @param id of the department
-     * @return department
+     * @return DepartmentDto
+     * @throws NotFoundException if department doesn't exist
      */
     @PutMapping("/{id}")
-    public Department updateDepartment(@RequestBody DepartmentDto departmentDto, @PathVariable Long id) {
-        departmentDto.setId(id);
-        return departmentService.editDepartment(departmentDto);
+    public DepartmentDto updateDepartment(@RequestBody DepartmentDto departmentDto, @PathVariable Long id) throws NotFoundException {
+        return departmentService.editDepartment(id, departmentDto);
     }
 }
