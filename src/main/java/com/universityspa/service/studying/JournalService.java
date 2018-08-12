@@ -12,7 +12,7 @@ public interface JournalService {
     List<Journal> getAll();
     Journal getById(Long id);
     Journal convertToEntity(JournalDto journalDto);
-    List<Journal> getStudentScores(Long id);
+    List<Journal> getJournalRecordsForStudent(Long id);
     List<Journal> getStudentPasses(Long id);
     Long getStudentPassesCount(Long id);
     List<Journal> getStudentMarks(Long id);
