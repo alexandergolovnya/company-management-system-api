@@ -1,22 +1,17 @@
 package com.universityspa.service.university;
 
 import com.universityspa.dto.FacultyDto;
-import com.universityspa.entity.Department;
 import com.universityspa.entity.Faculty;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.abstracts.CommonCrudService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface FacultyService extends CommonCrudService<Faculty, FacultyDto> {
-    Faculty addFaculty(FacultyDto facultyDto);
-    void deleteFaculty(Long id);
-    Faculty editFaculty(FacultyDto facultyDto);
-    List<Faculty> getAll();
-    Faculty getById(Long id);
-    List<Department> getFacultyDepartments(Long id);
 
-    @Override
-    default FacultyDto convertToDto(Faculty faculty) {
-        throw new RuntimeException("Not implemented");
-    }
+    FacultyDto addFaculty(FacultyDto facultyDto);
+    void deleteFaculty(Long id) throws NotFoundException;
+    FacultyDto editFaculty(Long id, FacultyDto facultyDto) throws NotFoundException;
+    Page<FacultyDto> getAll(Pageable pageable);
+    FacultyDto getById(Long id) throws NotFoundException;
 }
