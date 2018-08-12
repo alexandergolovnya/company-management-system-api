@@ -1,15 +1,18 @@
 package com.universityspa.service.university;
 
 import com.universityspa.dto.FacultyDto;
-import com.universityspa.entity.Department;
 import com.universityspa.entity.Faculty;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.repository.FacultyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for Faculty.
@@ -22,7 +25,6 @@ import java.util.List;
  */
 
 @Service
-@CrossOrigin(origins = "http://localhost:8081")
 public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
@@ -34,78 +36,94 @@ public class FacultyServiceImpl implements FacultyService {
     /**
      * Method creates new faculty
      * It takes DTO, converts it to entity
-     * and returns entity
+     * save entity to the database, converts entity to dto
+     * and return dto-object
      *
      * @param facultyDto
-     * @return savedFaculty
+     * @return FacultyDto
      */
     @Override
-    public Faculty addFaculty(FacultyDto facultyDto) {
+    public FacultyDto addFaculty(FacultyDto facultyDto) {
         Faculty facultyToCreate = convertToEntity(facultyDto);
-
         Faculty savedFaculty = facultyRepository.saveAndFlush(facultyToCreate);
-        return savedFaculty;
+        return convertToDto(savedFaculty);
     }
 
     /**
      * Method delete a faculty
      *
      * @param id of the faculty
+     * @throws NotFoundException if faculty doesn't exist
      */
     @Override
-    public void deleteFaculty(Long id) {
+    public void deleteFaculty(Long id) throws NotFoundException {
         Faculty deleteFaculty = facultyRepository.getOne(id);
-        facultyRepository.delete(deleteFaculty);
+        if (deleteFaculty != null) {
+            facultyRepository.delete(deleteFaculty);
+        } else {
+            throw new NotFoundException("Unable to delete, student with such id doesn't exist");
+        }
     }
 
     /**
      * Method edits information of the faculty
      * It takes DTO, converts it to entity
-     * and returns entity
+     * save entity to the database, converts entity to dto
+     * and return dto-object
      *
+     * @param id of the faculty
      * @param facultyDto
-     * @return savedFaculty
+     * @return FacultyDto
+     * @throws NotFoundException if faculty doesn't exist
      */
     @Override
-    public Faculty editFaculty(FacultyDto facultyDto) {
-        Faculty facultyToEdit = convertToEntity(facultyDto);
-
-        Faculty savedFaculty = facultyRepository.saveAndFlush(facultyToEdit);
-        return savedFaculty;
+    public FacultyDto editFaculty(Long id, FacultyDto facultyDto) throws NotFoundException {
+        Faculty facultyToEdit = facultyRepository.getOne(id);
+        if (facultyToEdit != null) {
+            facultyToEdit = convertToEntity(facultyDto);
+            Faculty savedFaculty = facultyRepository.saveAndFlush(facultyToEdit);
+            return convertToDto(savedFaculty);
+        } else {
+            throw new NotFoundException("Unable to edit, faculty with such id doesn't exist");
+        }
     }
 
     /**
-     * Method receives all faculties
+     * Method returns all faculties with pagination
      *
-     * @return [Faculty]
+     * @param pageable
+     * @return Page<FacultyDto>
      */
     @Override
-    public List<Faculty> getAll() {
-        return facultyRepository.findAll();
+    public Page<FacultyDto> getAll(Pageable pageable) {
+        Page<Faculty> facultyPage = facultyRepository.findAll(pageable);
+        int totalElements = (int) facultyPage.getTotalElements();
+        List<FacultyDto> facultyDtoList = facultyPage
+                .getContent()
+                .stream()
+                .map(faculty -> convertToDto(faculty))
+                .collect(Collectors.toList());
+
+        Page<FacultyDto> facultyDtoPage = new PageImpl<>(facultyDtoList, pageable, totalElements);
+        return facultyDtoPage;
     }
 
     /**
-     * Method receives a faculty by id
+     * Method returns faculty by id
      *
      * @param id of the Faculty
-     * @return faculty
+     * @return FacultyDto
+     * @throws NotFoundException if faculty doesn't exist
      */
     @Override
-    public Faculty getById(Long id) {
+    public FacultyDto getById(Long id) throws NotFoundException {
         Faculty faculty = facultyRepository.getOne(id);
-        return faculty;
-    }
-
-    /**
-     * Method receives departments of this faculty
-     *
-     * @param id of the Faculty
-     * @return facultyDepartments
-     */
-    @Override
-    public List<Department> getFacultyDepartments(Long id) {
-        List<Department> facultyDepartments = facultyRepository.getFacultyDepartments(id);
-        return facultyDepartments;
+        if (faculty != null) {
+            FacultyDto facultyDto = convertToDto(faculty);
+            return facultyDto;
+        } else {
+            throw new NotFoundException("Student not found");
+        }
     }
 
     /**
@@ -118,8 +136,25 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty convertToEntity(FacultyDto facultyDto) {
         Faculty faculty = modelMapper.map(facultyDto, Faculty.class);
+        faculty.setId(facultyDto.getId());
         faculty.setName(facultyDto.getName());
         faculty.setDescription(facultyDto.getDescription());
         return faculty;
+    }
+
+    /**
+     * Method of converting entity into the DTO
+     * Uses ModelMapper library
+     *
+     * @param faculty
+     * @return facultyDto
+     */
+    @Override
+    public FacultyDto convertToDto(Faculty faculty) {
+        FacultyDto facultyDto = modelMapper.map(faculty, FacultyDto.class);
+        facultyDto.setId(faculty.getId());
+        facultyDto.setName(faculty.getName());
+        facultyDto.setDescription(faculty.getDescription());
+        return facultyDto;
     }
 }
