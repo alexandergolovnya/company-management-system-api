@@ -16,7 +16,7 @@ public interface FacultyService extends CommonCrudService<Faculty, FacultyDto> {
     List<Department> getFacultyDepartments(Long id);
 
     @Override
-    default FacultyDto covertToDto(Faculty faculty) {
+    default FacultyDto convertToDto(Faculty faculty) {
         throw new RuntimeException("Not implemented");
     }
 }
