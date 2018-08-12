@@ -4,8 +4,9 @@ import com.universityspa.security.filter.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,7 +18,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @ComponentScan("com.universityspa")
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -25,10 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TokenAuthenticationFilter tokenAuthenticationFilter;
-
-    public static final String TEACHER = "TEACHER";
-    public static final String STUDENT = "STUDENT";
-    public static final String ADMIN = "ADMIN";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,61 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatcher("/**")
                 .authenticationProvider(authenticationProvider)
                 .authorizeRequests()
-
-                /**
-                 * Permit all users to access main page
-                 */
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/users").permitAll()
-
-                /** Студенты */
-                .antMatchers(HttpMethod.GET,"/api/students/**").hasAnyAuthority(TEACHER, STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/students/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.PUT,"/api/students/{id}/**").hasAuthority(STUDENT)
-
-                /** Преподаватели */
-                .antMatchers(HttpMethod.GET,"/api/teachers/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/teachers/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.PUT,"/api/teachers/{id}/**").hasAnyAuthority(TEACHER)
-
-                /** Факультеты */
-                .antMatchers(HttpMethod.GET,"/api/faculties/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/faculties/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-
-                /** Кафедры */
-                .antMatchers(HttpMethod.GET,"/api/departments/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/departments/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-
-                /** Специальности */
-                .antMatchers(HttpMethod.GET,"/api/specialties/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/specialties/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-
-                /** Предметы */
-                .antMatchers(HttpMethod.GET,"/api/subjects/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/subjects/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-
-                /** Группы студентов */
-                .antMatchers(HttpMethod.GET,"/api/groups/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/groups/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-
-                /** Журнал посещаемости и успеваемости */
-                .antMatchers(HttpMethod.GET,"/api/journal/**").hasAnyAuthority(STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/journal/scores/{id}/**").hasAnyAuthority(STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/journal/passes/{id}/**").hasAnyAuthority(STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/journal/passes-number/{id}/**").hasAnyAuthority(STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/journal/passes-marks/{id}/**").hasAnyAuthority(STUDENT)
-                .antMatchers("/api/journal/**").hasAnyAuthority(TEACHER)
-
-                /** Расписание */
-                .antMatchers(HttpMethod.GET,"/api/schedule/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/schedule/{id}/**").hasAnyAuthority(TEACHER,STUDENT)
-                .antMatchers(HttpMethod.GET,"/api/schedule/lessons/{id}/**").hasAuthority(TEACHER)
-                .antMatchers(HttpMethod.GET,"/api/schedule/lessons-count/{id}/**").hasAuthority(TEACHER)
-
-                .antMatchers("/api/**").hasAuthority(ADMIN)
-
-        ;
+                .antMatchers("/login").permitAll();
     }
 
     @Bean
@@ -109,7 +55,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
-
 }

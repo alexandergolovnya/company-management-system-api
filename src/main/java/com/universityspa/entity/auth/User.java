@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -25,7 +26,8 @@ public class User {
     /**
      * E-mail of the user
      */
-    @Column
+    @NotNull
+    @Column(unique=true)
     private String email;
 
     /**
