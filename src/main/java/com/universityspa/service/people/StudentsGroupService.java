@@ -17,7 +17,7 @@ public interface StudentsGroupService extends CommonCrudService<StudentsGroup, S
     List<Student> getStudentGroupStudents(Long id);
 
     @Override
-    default StudentsGroupDto covertToDto(StudentsGroup studentsGroup) {
+    default StudentsGroupDto convertToDto(StudentsGroup studentsGroup) {
         throw new RuntimeException("Not implemented");
     }
 }
