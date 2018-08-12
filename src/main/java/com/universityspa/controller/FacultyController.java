@@ -1,7 +1,7 @@
 package com.universityspa.controller;
 
+import com.universityspa.dto.DepartmentDto;
 import com.universityspa.dto.FacultyDto;
-import com.universityspa.entity.Department;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.university.DepartmentService;
 import com.universityspa.service.university.FacultyService;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST controller for a Faculty.
@@ -57,8 +55,8 @@ public class FacultyController {
      * @return List<Department>
      */
     @GetMapping("/{id}/departments")
-    public List<Department> getFacultyDepartments(@PathVariable Long id) {
-        return departmentService.getFacultyDepartments(id);
+    public Page<DepartmentDto> getFacultyDepartments(@PathVariable Long id, Pageable pageable) {
+        return departmentService.getFacultyDepartments(id, pageable);
     }
 
     /**
