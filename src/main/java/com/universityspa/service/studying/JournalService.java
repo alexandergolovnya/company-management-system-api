@@ -16,6 +16,6 @@ public interface JournalService {
     List<Journal> getStudentPasses(Long id);
     Long getStudentPassesCount(Long id);
     List<Journal> getStudentMarks(Long id);
-
+    List<Journal> getJournalForScheduleRecord(Long id);
 
 }

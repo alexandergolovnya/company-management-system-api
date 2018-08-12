@@ -85,4 +85,16 @@ public class JournalServiceImpl implements JournalService {
         List<Journal> marks = journalRepository.getStudentMarks(id);
         return marks;
     }
+
+    /**
+     * Method receives all journal records for the record in the schedule (lesson)
+     *
+     * @param id of the schedule
+     * @return [Journal]
+     */
+    @Override
+    public List<Journal> getJournalForScheduleRecord(Long id) {
+        List<Journal> journalRecords = journalRepository.getJournalForScheduleRecord(id);
+        return journalRecords;
+    }
 }

@@ -4,7 +4,7 @@ import com.universityspa.dto.auth.UserDto;
 import com.universityspa.exception.EmptyRequestDataException;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.exception.NotUniqueCredentialsException;
-import com.universityspa.forms.UserForm;
+import com.universityspa.dto.forms.UserForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;

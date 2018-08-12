@@ -1,4 +1,4 @@
-package com.universityspa.forms;
+package com.universityspa.dto.forms;
 
 import lombok.Data;
 

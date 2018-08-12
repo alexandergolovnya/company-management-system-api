@@ -94,15 +94,15 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
     }
 
     /**
-     * Method receives all students for this student group
+     * Method receives all student groups for specialty
      *
-     * @param id of the student group
-     * @return students
+     * @param id of the Specialty
+     * @return specialtyStudentGroups
      */
     @Override
-    public List<Student> getStudentGroupStudents(Long id) {
-        List<Student> students = studentsGroupRepository.getStudentGroupStudents(id);
-        return students;
+    public List<StudentsGroup> getSpecialtyStudentGroups(Long id) {
+        List<StudentsGroup> specialtyStudentGroups = studentsGroupRepository.getSpecialtyStudentGroups(id);
+        return specialtyStudentGroups;
     }
 
     /**

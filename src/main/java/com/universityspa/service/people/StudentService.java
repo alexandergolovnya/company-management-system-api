@@ -24,4 +24,8 @@ public interface StudentService extends CommonCrudService<Student, StudentDto> {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
     StudentDto getById(Long id) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    Page<StudentDto> getStudentGroupStudents(Long id, Pageable pageable);
+
 }

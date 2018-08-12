@@ -87,11 +87,10 @@ public class StudentServiceImpl implements StudentService {
         } else {
             throw new NotFoundException("Unable to edit, student with such id doesn't exist");
         }
-
     }
 
     /**
-     * Method receives all students with pagination
+     * Method returns all students with pagination
      *
      * @param pageable
      * @return studentDtoPage
@@ -111,7 +110,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * Method receives a student by id
+     * Method returns a student by id
      *
      * @param id of the student
      * @return studentDto
@@ -126,6 +125,27 @@ public class StudentServiceImpl implements StudentService {
         } else {
             throw new NotFoundException("Student not found");
         }
+    }
+
+    /**
+     * Method returns all students for student group with pagination
+     *
+     * @param id of the student group
+     * @param pageable
+     * @return Page<StudentDto>
+     */
+    @Override
+    public Page<StudentDto> getStudentGroupStudents(Long id, Pageable pageable) {
+        Page<Student> studentPage = studentRepository.getStudentGroupStudents(id, pageable);
+        int totalElements = (int) studentPage.getTotalElements();
+        List<StudentDto> studentDtoList = studentPage
+                .getContent()
+                .stream()
+                .map(student -> convertToDto(student))
+                .collect(Collectors.toList());
+
+        Page<StudentDto> studentDtoPage = new PageImpl<>(studentDtoList, pageable, totalElements);
+        return studentDtoPage;
     }
 
     /**
