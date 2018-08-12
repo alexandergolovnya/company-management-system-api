@@ -17,5 +17,5 @@ public interface CommonCrudService<E, T> {
      * @param entity
      * @return
      */
-    T covertToDto(E entity);
+    T convertToDto(E entity);
 }

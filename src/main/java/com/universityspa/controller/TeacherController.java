@@ -43,19 +43,7 @@ public class TeacherController {
     }
 
     /**
-     * Method returns all subjects of a teacher by id
-     *
-     * @param id of the teacher
-     * @return [Subject]
-     */
-//    @GetMapping("/{id}/subjects")
-//    public List<Subject> getTeacherSubjects(@PathVariable Long id) {
-//        List<Subject> subjects = teacherService.getTeacherSubjects(id);
-//        return subjects;
-//    }
-
-    /**
-     * Method returns all records from the schedule for this teacher by id
+     * Method returns all records convertFromEntityToDTO the schedule for this teacher by id
      *
      * @param id of the teacher
      * @return [Schedule]
@@ -73,7 +61,7 @@ public class TeacherController {
      */
     @DeleteMapping("/{id}")
     public void deleteTeacher(@PathVariable Long id) {
-        teacherService.getById(id);
+        teacherService.deleteTeacher(id);
     }
 
     /**
