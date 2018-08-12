@@ -21,9 +21,4 @@ public class SubjectDto {
      * Description of the subject
      */
     private String description;
-
-    /**
-     * Teachers of this subject
-     */
-//    private List<Long> teacherId;
 }

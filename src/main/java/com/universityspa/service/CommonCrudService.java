@@ -14,6 +14,7 @@ public interface CommonCrudService<E, T> {
     E convertToEntity(T dto);
 
     /**
+     * Converts entity to dto
      * @param entity
      * @return
      */

@@ -2,15 +2,16 @@ package com.universityspa.service.studying;
 
 import com.universityspa.dto.SubjectDto;
 import com.universityspa.entity.Subject;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.CommonCrudService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+public interface SubjectService extends CommonCrudService<Subject, SubjectDto> {
 
-public interface SubjectService {
-    Subject addSubject(SubjectDto subject);
-    void deleteSubject(Long id);
-    Subject editSubject(SubjectDto subject);
-    List<Subject> getAll();
-    Subject getById(Long id);
-    Subject convertToEntity(SubjectDto subjectDto);
-//    List<Teacher> getSubjectTeachers(Long id);
+    SubjectDto addSubject(SubjectDto subjectDto);
+    void deleteSubject(Long id) throws NotFoundException;
+    SubjectDto editSubject(Long id, SubjectDto subjectDto) throws NotFoundException;
+    Page<SubjectDto> getAll(Pageable pageable);
+    SubjectDto getById(Long id) throws NotFoundException;
 }
