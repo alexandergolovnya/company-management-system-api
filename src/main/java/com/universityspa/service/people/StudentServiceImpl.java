@@ -46,8 +46,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto addStudent(StudentDto studentDto) {
         Student studentToCreate = convertToEntity(studentDto);
         Student savedStudent = studentRepository.saveAndFlush(studentToCreate);
-        StudentDto createdStudent = convertToDto(savedStudent);
-        return createdStudent;
+        return convertToDto(savedStudent);
     }
 
     /**
