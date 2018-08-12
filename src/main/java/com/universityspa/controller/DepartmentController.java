@@ -1,6 +1,7 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.DepartmentDto;
+import com.universityspa.dto.SpecialtyDto;
 import com.universityspa.entity.Specialty;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.university.DepartmentService;
@@ -50,13 +51,13 @@ public class DepartmentController {
     }
 
     /**
-     * Method returns all specialties of this department
+     * Method returns all specialties of this department with pagination
      *
-     * @return [Specialty]
+     * @return Page<SpecialtyDto>
      */
-    @GetMapping("/department/{id}")
-    public List<Specialty> getDepartmentSpecialties(@PathVariable Long id) {
-        return specialtyService.getDepartmentSpecialties(id);
+    @GetMapping("/{id}/specialties")
+    public Page<SpecialtyDto> getDepartmentSpecialties(@PathVariable Long id, Pageable pageable) {
+        return specialtyService.getDepartmentSpecialties(id, pageable);
     }
 
     /**
