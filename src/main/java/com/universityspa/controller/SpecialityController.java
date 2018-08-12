@@ -1,11 +1,15 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.SpecialtyDto;
-import com.universityspa.entity.Specialty;
 import com.universityspa.entity.StudentsGroup;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.people.StudentsGroupService;
 import com.universityspa.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -20,26 +24,29 @@ public class SpecialityController {
     @Autowired
     private SpecialtyService specialtyService;
 
+    @Autowired
+    private StudentsGroupService studentsGroupService;
+
     /**
-     * Method returns all specialties
+     * Method returns all specialties with pagination
      *
-     * @return [Specialty]
+     * @return Page<SpecialtyDto>
      */
     @GetMapping
-    public List<Specialty> getAllSpecialties() {
-        return specialtyService.getAll();
+    public Page<SpecialtyDto> getAllSpecialties(Pageable pageable) {
+        return specialtyService.getAll(pageable);
     }
 
     /**
      * Method returns specialty by id
      *
      * @param id of the specialty
-     * @return specialty
+     * @return SpecialtyDto
+     * @throws NotFoundException if specialty doesn't exist
      */
     @GetMapping("/{id}")
-    public Specialty getSpecialty(@PathVariable Long id) {
-        Specialty specialty = specialtyService.getById(id);
-        return specialty;
+    public SpecialtyDto getSpecialty(@PathVariable Long id) throws NotFoundException {
+        return specialtyService.getById(id);
     }
 
     /**
@@ -49,16 +56,17 @@ public class SpecialityController {
      */
     @GetMapping("/{id}/student-groups")
     public List<StudentsGroup> getSpecialtyStudentGroups(@PathVariable Long id) {
-        return specialtyService.getSpecialtyStudentGroups(id);
+        return studentsGroupService.getSpecialtyStudentGroups(id);
     }
 
     /**
      * Method deletes specialty by id
      *
      * @param id of the specialty
+     * @throws NotFoundException if specialty doesn't exist
      */
     @DeleteMapping("/{id}")
-    public void deleteSpecialty(@PathVariable Long id) {
+    public void deleteSpecialty(@PathVariable Long id) throws NotFoundException {
         specialtyService.deleteSpecialty(id);
     }
 
@@ -66,10 +74,10 @@ public class SpecialityController {
      * Method creates new specialty
      *
      * @param specialtyDto
-     * @return specialty
+     * @return SpecialtyDto
      */
     @PostMapping
-    public Specialty createSpecialty(@RequestBody SpecialtyDto specialtyDto) {
+    public SpecialtyDto createSpecialty(@RequestBody SpecialtyDto specialtyDto) {
         return specialtyService.addSpecialty(specialtyDto);
     }
 
@@ -78,11 +86,11 @@ public class SpecialityController {
      *
      * @param specialtyDto
      * @param id of the specialty
-     * @return specialty
+     * @return SpecialtyDto
+     * @throws NotFoundException if specialty doesn't exist
      */
     @PutMapping("/{id}")
-    public Specialty updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long id) {
-        specialtyDto.setId(id);
-        return specialtyService.editSpecialty(specialtyDto);
+    public SpecialtyDto updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long id) throws NotFoundException {
+        return specialtyService.editSpecialty(id, specialtyDto);
     }
 }
