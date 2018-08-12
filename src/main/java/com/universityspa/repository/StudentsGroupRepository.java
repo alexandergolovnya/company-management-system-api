@@ -1,6 +1,5 @@
 package com.universityspa.repository;
 
-import com.universityspa.entity.Student;
 import com.universityspa.entity.StudentsGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,11 +15,11 @@ import java.util.List;
 public interface StudentsGroupRepository extends JpaRepository<StudentsGroup, Long> {
 
     /**
-     * Select all students of this student group
+     * Select all student groups for this specialty
      *
-     * @param id of the student group
-     * @return List<Student>
+     * @param id of the specialty
+     * @return List<StudentsGroup>
      */
-    @Query("SELECT s FROM Student s WHERE s.groupId=:id")
-    List<Student> getStudentGroupStudents(@Param("id") Long id);
+    @Query("SELECT g FROM StudentsGroup g WHERE g.specialtyId=:id")
+    List<StudentsGroup> getSpecialtyStudentGroups(@Param("id") Long id);
 }

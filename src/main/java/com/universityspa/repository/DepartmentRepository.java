@@ -16,20 +16,11 @@ import java.util.List;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     /**
-     * Select all specialties for this department
+     * Select all departments for faculty
      *
-     * @param id of ht department
-     * @return List<Specialty>
+     * @param id of the faculty
+     * @return List<Department>
      */
-    @Query("SELECT s FROM Specialty s WHERE s.departmentId=:id")
-    List<Specialty> getDepartmentSpecialties(@Param("id") Long id);
-
-    /**
-     * Select all teeachers for this department
-     *
-     * @param id of ht department
-     * @return List<Teacher>
-     */
-    @Query("SELECT t FROM Teacher t WHERE t.departmentId=:id")
-    List<Teacher> getDepartmentTeachers(@Param("id") Long id);
+    @Query("SELECT d FROM Department d WHERE d.facultyId=:id")
+    List<Department> getFacultyDepartments(@Param("id") Long id);
 }
