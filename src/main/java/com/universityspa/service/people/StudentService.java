@@ -3,7 +3,7 @@ package com.universityspa.service.people;
 import com.universityspa.dto.StudentDto;
 import com.universityspa.entity.Student;
 import com.universityspa.exception.NotFoundException;
-import com.universityspa.service.CommonCrudService;
+import com.universityspa.service.abstracts.CommonCrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;

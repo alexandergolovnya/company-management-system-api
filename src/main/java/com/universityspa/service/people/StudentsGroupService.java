@@ -3,7 +3,7 @@ package com.universityspa.service.people;
 import com.universityspa.dto.StudentsGroupDto;
 import com.universityspa.entity.Student;
 import com.universityspa.entity.StudentsGroup;
-import com.universityspa.service.CommonCrudService;
+import com.universityspa.service.abstracts.CommonCrudService;
 
 import java.util.List;
 

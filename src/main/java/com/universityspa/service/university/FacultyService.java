@@ -3,7 +3,7 @@ package com.universityspa.service.university;
 import com.universityspa.dto.FacultyDto;
 import com.universityspa.entity.Department;
 import com.universityspa.entity.Faculty;
-import com.universityspa.service.CommonCrudService;
+import com.universityspa.service.abstracts.CommonCrudService;
 
 import java.util.List;
 

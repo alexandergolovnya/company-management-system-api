@@ -1,4 +1,4 @@
-package com.universityspa.service;
+package com.universityspa.service.abstracts;
 
 /**
  * @param <E> entity class
