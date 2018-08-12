@@ -1,6 +1,5 @@
 package com.universityspa.repository;
 
-import com.universityspa.entity.Journal;
 import com.universityspa.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,13 +30,4 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
      */
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
     List<Schedule> getTeacherLessons(@Param("id") Long id);
-
-    /**
-     * Get journal for the lesson in the schedule
-     *
-     * @param id of the journal
-     * @return List<Journal>
-     */
-    @Query("SELECT j FROM Journal j WHERE j.scheduleId=:id")
-    List<Journal> getJournalForScheduleRecord(@Param("id") Long id);
 }

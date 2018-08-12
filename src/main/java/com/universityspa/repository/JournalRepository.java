@@ -48,4 +48,13 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      */
     @Query("SELECT j FROM Journal j WHERE (j.studentId=:id) AND (j.mark IN('1', '2', '3', '4', '5'))")
     List<Journal> getStudentMarks(@Param("id") Long id);
+
+    /**
+     * Get journal for the lesson in the schedule
+     *
+     * @param id of the journal
+     * @return List<Journal>
+     */
+    @Query("SELECT j FROM Journal j WHERE j.scheduleId=:id")
+    List<Journal> getJournalForScheduleRecord(@Param("id") Long id);
 }
