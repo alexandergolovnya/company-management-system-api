@@ -83,7 +83,7 @@ public class TeacherServiceImpl implements  TeacherService {
      */
     @Override
     public List<Schedule> getTeachersSchedule(Long id) {
-        List<Schedule> scheduleList = teacherRepository.getTeachersSchedule(id);
+        List<Schedule> scheduleList = teacherRepository.getTeacherLessons(id);
         return scheduleList;
     }
 
