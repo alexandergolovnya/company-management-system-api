@@ -8,11 +8,18 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Implementation of JpaRepository for Specialty entity
+ */
+
 public interface SpecialtyRepository extends JpaRepository<Specialty, Long> {
 
-    Specialty getById(Long id);
-
-    /** Получить все группы студентов для данной специальности */
+    /**
+     * Select all student groups for this specialty
+     *
+     * @param id of the specialty
+     * @return List<StudentsGroup>
+     */
     @Query("SELECT g FROM StudentsGroup g WHERE g.specialtyId=:id")
     List<StudentsGroup> getSpecialtyStudentGroups(@Param("id") Long id);
 }

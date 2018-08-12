@@ -8,11 +8,20 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Implementation of JpaRepository for Faculty entity
+ */
+
 public interface FacultyRepository extends JpaRepository<Faculty, Long> {
 
     Faculty getById(Long id);
 
-    /** Получить все кафедры данного факультета */
+    /**
+     * Select all departments for this faculty
+     *
+     * @param id of the faculty
+     * @return List<Department>
+     */
     @Query("SELECT d FROM Department d WHERE d.facultyId=:id")
     List<Department> getFacultyDepartments(@Param("id") Long id);
 }
