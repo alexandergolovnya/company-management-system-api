@@ -7,29 +7,45 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Implementation of JpaRepository for Journal entity
+ */
+
 public interface JournalRepository extends JpaRepository<Journal, Long> {
 
-    Journal getById(Long id);
-
-    /** Получить все записи журнала по студенту */
+    /**
+     * Select all journal records for student
+     *
+     * @param id of the student
+     * @return List<Journal>
+     */
     @Query("SELECT j FROM Journal j WHERE j.studentId=:id")
-    List<Journal> getStudentScores(@Param("id") Long id);
+    List<Journal> getJournalRecordsForStudent(@Param("id") Long id);
 
-    /** Получить все пропущенные занятия студента */
+    /**
+     * Select all lessons from journal which student have passed
+     *
+     * @param id of the student
+     * @return List<Journal>
+     */
     @Query("SELECT j FROM Journal j WHERE (j.studentId=:id) AND (j.mark = 'н')")
     List<Journal> getStudentPasses(@Param("id") Long id);
 
-    /** Получить количество пропущенных занятий студента */
+    /**
+     * Select all the number lessons from journal which student have passed
+     *
+     * @param id of the student
+     * @return number of passed lessons
+     */
     @Query("SELECT COUNT(j) FROM Journal j WHERE (j.studentId=:id) AND (j.mark = 'н')")
     Long getStudentPassesCount(@Param("id") Long id);
 
-    /** Получить все оценки студента */
+    /**
+     * Select all marks of student from journal
+     *
+     * @param id of the student
+     * @return List<Journal>
+     */
     @Query("SELECT j FROM Journal j WHERE (j.studentId=:id) AND (j.mark IN('1', '2', '3', '4', '5'))")
     List<Journal> getStudentMarks(@Param("id") Long id);
-
-//    /** Получить количество оценок студента */
-//    @Query("SELECT COUNT(j) FROM Journal j WHERE (j.studentId=:id) AND (j.mark IN('1', '2', '3', '4', '5'))")
-//    List<Journal> getStudentMarksCount(@Param("id") Long id);
-
-
 }

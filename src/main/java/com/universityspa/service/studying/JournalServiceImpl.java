@@ -63,8 +63,8 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public List<Journal> getStudentScores(Long id) {
-        List<Journal> marks = journalRepository.getStudentScores(id);
+    public List<Journal> getJournalRecordsForStudent(Long id) {
+        List<Journal> marks = journalRepository.getJournalRecordsForStudent(id);
         return marks;
     }
 

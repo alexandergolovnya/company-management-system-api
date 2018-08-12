@@ -50,7 +50,7 @@ public class JournalController {
      */
     @GetMapping("/scores/{id}")
     public List<Journal> getAllJournalRecordsByStudent(@PathVariable Long id) {
-        List<Journal> studentRecords = journalService.getStudentScores(id);
+        List<Journal> studentRecords = journalService.getJournalRecordsForStudent(id);
         return studentRecords;
     }
 
