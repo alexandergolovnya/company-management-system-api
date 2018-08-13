@@ -1,19 +1,33 @@
 package com.universityspa.service.studying;
 
 import com.universityspa.dto.ScheduleDto;
-import com.universityspa.entity.Journal;
 import com.universityspa.entity.Schedule;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.abstracts.CommonCrudService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.util.List;
+public interface ScheduleService extends CommonCrudService<Schedule, ScheduleDto> {
 
-public interface ScheduleService {
-    Schedule addSchedule(ScheduleDto schedule);
-    void deleteSchedule(Long id);
-    Schedule editSchedule(ScheduleDto schedule);
-    List<Schedule> getAll();
-    Schedule getById(Long id);
-    Schedule convertToEntity(ScheduleDto scheduleDto);
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    ScheduleDto addSchedule(ScheduleDto scheduleDto);
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    void deleteSchedule(Long id) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    ScheduleDto editSchedule(Long id, ScheduleDto scheduleDto) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    Page<ScheduleDto> getAll(Pageable pageable);
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    ScheduleDto getById(Long id) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
     Long getTeacherWorkLoad(Long id);
-    List<Schedule> getTeacherLessons(Long id);
-    List<Journal> getJournalForScheduleRecord(Long id);
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
+    Page<ScheduleDto> getTeacherLessons(Long id, Pageable pageable);
 }

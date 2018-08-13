@@ -1,9 +1,26 @@
 package com.universityspa.repository;
 
 import com.universityspa.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+/**
+ * Implementation of JpaRepository for Student entity
+ */
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Student getById(Long id);
+    /**
+     * Select all students of student group
+     *
+     * @param id of the student group
+     * @return List<Student>
+     */
+    @Query("SELECT s FROM Student s WHERE s.groupId=:id")
+    Page<Student> getStudentGroupStudents(@Param("id") Long id, Pageable pageable);
 }

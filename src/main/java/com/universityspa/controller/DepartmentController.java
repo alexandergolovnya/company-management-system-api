@@ -1,14 +1,16 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.DepartmentDto;
-import com.universityspa.entity.Department;
-import com.universityspa.entity.Specialty;
-import com.universityspa.entity.Teacher;
+import com.universityspa.dto.SpecialtyDto;
+import com.universityspa.dto.TeacherDto;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.people.TeacherService;
 import com.universityspa.service.university.DepartmentService;
+import com.universityspa.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST controller for a Department.
@@ -22,55 +24,63 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    @Autowired
+    private SpecialtyService specialtyService;
+
+    @Autowired
+    private TeacherService teacherService;
+
     /**
-     * Method returns all departments
+     * Method returns all departments with pagination
      *
-     * @return [Department]
+     * @return Page<DepartmentDto>
      */
     @GetMapping
-    public List<Department> getAllDepartments() {
-        return departmentService.getAll();
+    public Page<DepartmentDto> getAllDepartments(Pageable pageable) {
+        return departmentService.getAll(pageable);
     }
 
     /**
      * Method returns department by id
      *
      * @param id of the department
-     * @return department
+     * @return DepartmentDto
+     * @throws NotFoundException if department doesn't exist
      */
     @GetMapping("/{id}")
-    public Department getDepartment(@PathVariable Long id) {
-        Department department = departmentService.getById(id);
-        return department;
+    public DepartmentDto getDepartment(@PathVariable Long id) throws NotFoundException {
+        return departmentService.getById(id);
     }
 
     /**
-     * Method returns all specialties of this department
+     * Method returns all specialties of this department with pagination
      *
-     * @return [Specialty]
+     * @return Page<SpecialtyDto>
      */
     @GetMapping("/{id}/specialties")
-    public List<Specialty> getDepartmentSpecialties(@PathVariable Long id) {
-        return departmentService.getDepartmentSpecialties(id);
+    public Page<SpecialtyDto> getDepartmentSpecialties(@PathVariable Long id, Pageable pageable) {
+        return specialtyService.getDepartmentSpecialties(id, pageable);
     }
 
     /**
-     * Method returns all teachers of this department
+     * Method returns all teachers for department with pagination
      *
-     * @return [Teacher]
+     * @param id of ht department
+     * @return Page<TeacherDto>
      */
     @GetMapping("/{id}/teachers")
-    public List<Teacher> getDepartmentTeachers(@PathVariable Long id) {
-        return departmentService.getDepartmentTeachers(id);
+    public Page<TeacherDto> getDepartmentTeachers(@PathVariable Long id, Pageable pageable) {
+        return teacherService.getDepartmentTeachers(id, pageable);
     }
 
     /**
      * Method deletes department by id
      *
      * @param id of the department
+     * @throws NotFoundException if department doesn't exist
      */
     @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable Long id) {
+    public void deleteDepartment(@PathVariable Long id) throws NotFoundException {
         departmentService.deleteDepartment(id);
     }
 
@@ -78,10 +88,10 @@ public class DepartmentController {
      * Method creates new department
      *
      * @param departmentDto
-     * @return department
+     * @return DepartmentDto
      */
     @PostMapping
-    public Department createDepartment(@RequestBody DepartmentDto departmentDto) {
+    public DepartmentDto createDepartment(@RequestBody DepartmentDto departmentDto) {
         return departmentService.addDepartment(departmentDto);
     }
 
@@ -90,11 +100,12 @@ public class DepartmentController {
      *
      * @param departmentDto
      * @param id of the department
-     * @return department
+     * @return DepartmentDto
+     * @throws NotFoundException if department doesn't exist
      */
     @PutMapping("/{id}")
-    public Department updateDepartment(@RequestBody DepartmentDto departmentDto, @PathVariable Long id) {
+    public DepartmentDto updateDepartment(@RequestBody DepartmentDto departmentDto, @PathVariable Long id) throws NotFoundException {
         departmentDto.setId(id);
-        return departmentService.editDepartment(departmentDto);
+        return departmentService.editDepartment(id, departmentDto);
     }
 }

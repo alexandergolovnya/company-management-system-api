@@ -1,4 +1,4 @@
-package com.universityspa.service;
+package com.universityspa.service.abstracts;
 
 /**
  * @param <E> entity class
@@ -14,8 +14,9 @@ public interface CommonCrudService<E, T> {
     E convertToEntity(T dto);
 
     /**
+     * Converts entity to dto
      * @param entity
      * @return
      */
-    T covertToDto(E entity);
+    T convertToDto(E entity);
 }

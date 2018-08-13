@@ -1,6 +1,11 @@
 package com.universityspa.dto;
 
+import com.universityspa.entity.Subject;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -8,6 +13,9 @@ import java.util.List;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SubjectDto {
 
     private Long id;
@@ -23,7 +31,15 @@ public class SubjectDto {
     private String description;
 
     /**
-     * Teachers of this subject
+     * Method converts entity to dto
+     * @param entity
+     * @return dto
      */
-//    private List<Long> teacherId;
+    public static SubjectDto convertFromEntityToDTO(Subject entity) {
+        return SubjectDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .build();
+    }
 }

@@ -1,23 +1,30 @@
 package com.universityspa.service.people;
 
 import com.universityspa.dto.TeacherDto;
-import com.universityspa.entity.Schedule;
 import com.universityspa.entity.Teacher;
-import com.universityspa.service.CommonCrudService;
-
-import java.util.List;
+import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.abstracts.CommonCrudService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface TeacherService extends CommonCrudService<Teacher, TeacherDto> {
-    Teacher addTeacher(TeacherDto teacher);
-    void deleteTeacher(Long id);
-    Teacher editTeacher(TeacherDto teacher);
-    List<Teacher> getAll();
-    Teacher getById(Long id);
-//    List<Subject> getTeacherSubjects(Long id);
-    List<Schedule> getTeachersSchedule(Long id);
 
-    @Override
-    default TeacherDto covertToDto(Teacher entity) {
-        throw new RuntimeException("Not implemented");
-    }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    TeacherDto addTeacher(TeacherDto teacherDto);
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    void deleteTeacher(Long id) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
+    TeacherDto editTeacher(Long id, TeacherDto teacherDto) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    Page<TeacherDto> getAll(Pageable pageable);
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    TeacherDto getById(Long id) throws NotFoundException;
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    Page<TeacherDto> getDepartmentTeachers(Long id, Pageable pageable);
 }
