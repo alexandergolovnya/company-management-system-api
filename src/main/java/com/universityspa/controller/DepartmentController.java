@@ -2,16 +2,15 @@ package com.universityspa.controller;
 
 import com.universityspa.dto.DepartmentDto;
 import com.universityspa.dto.SpecialtyDto;
-import com.universityspa.entity.Specialty;
+import com.universityspa.dto.TeacherDto;
 import com.universityspa.exception.NotFoundException;
+import com.universityspa.service.people.TeacherService;
 import com.universityspa.service.university.DepartmentService;
 import com.universityspa.service.university.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST controller for a Department.
@@ -27,6 +26,9 @@ public class DepartmentController {
 
     @Autowired
     private SpecialtyService specialtyService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     /**
      * Method returns all departments with pagination
@@ -58,6 +60,17 @@ public class DepartmentController {
     @GetMapping("/{id}/specialties")
     public Page<SpecialtyDto> getDepartmentSpecialties(@PathVariable Long id, Pageable pageable) {
         return specialtyService.getDepartmentSpecialties(id, pageable);
+    }
+
+    /**
+     * Method returns all teachers for department with pagination
+     *
+     * @param id of ht department
+     * @return Page<TeacherDto>
+     */
+    @GetMapping("/{id}/teachers")
+    public Page<TeacherDto> getDepartmentTeachers(@PathVariable Long id, Pageable pageable) {
+        return teacherService.getDepartmentTeachers(id, pageable);
     }
 
     /**
