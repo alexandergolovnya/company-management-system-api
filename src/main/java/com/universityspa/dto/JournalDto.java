@@ -1,6 +1,12 @@
 package com.universityspa.dto;
 
+import com.universityspa.entity.Department;
+import com.universityspa.entity.Journal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
@@ -8,6 +14,9 @@ import java.util.Date;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class JournalDto {
 
     private Long id;
@@ -31,4 +40,18 @@ public class JournalDto {
      * numbers from 1 to 5
      */
     private String mark;
+
+    /**
+     * Method converts entity to dto
+     * @param entity
+     * @return dto
+     */
+    public static JournalDto convertFromEntityToDTO(Journal entity) {
+        return JournalDto.builder()
+                .id(entity.getId())
+                .scheduleId(entity.getScheduleId())
+                .studentId(entity.getStudentId())
+                .mark(entity.getMark())
+                .build();
+    }
 }

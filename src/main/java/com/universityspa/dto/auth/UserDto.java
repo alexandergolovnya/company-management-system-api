@@ -39,7 +39,7 @@ public class UserDto {
      */
     private Long teacherId;
 
-    public static UserDto from(User user) {
+    public static UserDto convertFromEntityToDTO(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
@@ -48,7 +48,7 @@ public class UserDto {
                 .build();
     }
 
-    public static List<UserDto> from(List<User> users) {
-        return users.stream().map(UserDto::from).collect(Collectors.toList());
+    public static List<UserDto> convertFromEntityToDTO(List<User> users) {
+        return users.stream().map(UserDto::convertFromEntityToDTO).collect(Collectors.toList());
     }
 }

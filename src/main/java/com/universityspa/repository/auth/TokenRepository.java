@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 /**
- * Repository for Token entity
+ * Implementation of JpaRepository for Token entity
  */
+
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     /**

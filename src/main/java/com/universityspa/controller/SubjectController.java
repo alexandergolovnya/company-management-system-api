@@ -1,11 +1,12 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.SubjectDto;
-import com.universityspa.entity.Subject;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.studying.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 /**
  * REST controller for a Subject.
@@ -20,38 +21,26 @@ public class SubjectController {
     private SubjectService subjectService;
 
     /**
-     * Method returns all subjects
+     * Method returns all subjects with pagination
      *
-     * @return [Subject]
+     * @return Page<SubjectDto>
      */
     @GetMapping
-    public List<Subject> getAllSubjects() {
-        return subjectService.getAll();
+    private Page<SubjectDto> getAllSubjects(Pageable pageable) {
+        return subjectService.getAll(pageable);
     }
 
     /**
      * Method returns subject by id
      *
      * @param id of the subject
-     * @return subject
+     * @return subjectDto
+     * @throws NotFoundException if subject doesn't exist
      */
     @GetMapping("/{id}")
-    public Subject getSubject(@PathVariable Long id) {
-        Subject subject = subjectService.getById(id);
-        return subject;
+    public SubjectDto getSubject(@PathVariable Long id) throws NotFoundException {
+        return subjectService.getById(id);
     }
-
-    /**
-     * Method returns all teachers of this subject by id
-     *
-     * @param id of the subject
-     * @return [Teacher]
-     */
-//    @GetMapping("/{id}/teachers")
-//    public List<Teacher> getSubjectTeachers(@PathVariable Long id) {
-//        List<Teacher> teachers = subjectService.getSubjectTeachers(id);
-//        return teachers;
-//    }
 
     /**
      * Method deletes subject by id
@@ -59,7 +48,7 @@ public class SubjectController {
      * @param id of the subject
      */
     @DeleteMapping("/{id}")
-    public void deleteSubject(@PathVariable Long id) {
+    public void deleteSubject(@PathVariable Long id) throws NotFoundException {
         subjectService.deleteSubject(id);
     }
 
@@ -67,10 +56,10 @@ public class SubjectController {
      * Method creates new subject
      *
      * @param subjectDto
-     * @return subject
+     * @return subjectDto
      */
     @PostMapping
-    public Subject createSubject(@RequestBody SubjectDto subjectDto) {
+    public SubjectDto createSubject(@RequestBody SubjectDto subjectDto) {
         return subjectService.addSubject(subjectDto);
 
     }
@@ -80,11 +69,11 @@ public class SubjectController {
      *
      * @param subjectDto
      * @param id of the subject
-     * @return subject
+     * @return subjectDto
      */
     @PutMapping("{id}")
-    public Subject updateSubject(@RequestBody SubjectDto subjectDto, @PathVariable Long id) {
+    public SubjectDto updateSubject(@RequestBody SubjectDto subjectDto, @PathVariable Long id) throws NotFoundException {
         subjectDto.setId(id);
-        return subjectService.editSubject(subjectDto);
+        return subjectService.editSubject(id, subjectDto);
     }
 }

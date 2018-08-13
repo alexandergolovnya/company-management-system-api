@@ -1,7 +1,7 @@
 package com.universityspa.controller.auth;
 
 import com.universityspa.dto.auth.TokenDto;
-import com.universityspa.forms.LoginForm;
+import com.universityspa.dto.forms.LoginForm;
 import com.universityspa.service.auth.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

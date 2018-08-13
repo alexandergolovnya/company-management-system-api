@@ -1,14 +1,18 @@
 package com.universityspa.service.people;
 
 import com.universityspa.dto.TeacherDto;
-import com.universityspa.entity.Schedule;
 import com.universityspa.entity.Teacher;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.repository.TeacherRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for Teacher.
@@ -32,81 +36,151 @@ public class TeacherServiceImpl implements  TeacherService {
     /**
      * Method creates new teacher
      * It takes DTO, converts it to entity
-     * and returns entity
+     * save entity to the database, converts entity to dto
+     * and return dto-object
      *
      * @param teacherDto
-     * @return savedTeacher
+     * @return TeacherDto
      */
     @Override
-    public Teacher addTeacher(TeacherDto teacherDto) {
-        Teacher teacherToCreate = new Teacher();
-
-        teacherToCreate.setFirstName(teacherDto.getFirstName());
-        teacherToCreate.setLastName(teacherDto.getLastName());
-        teacherToCreate.setPosition(teacherDto.getPosition());
-        teacherToCreate.setDepartmentId(teacherDto.getDepartmentId());
-
+    public TeacherDto addTeacher(TeacherDto teacherDto) {
+        Teacher teacherToCreate = convertToEntity(teacherDto);
         Teacher savedTeacher = teacherRepository.saveAndFlush(teacherToCreate);
-        return savedTeacher;
+        return convertToDto(savedTeacher);
     }
 
+    /**
+     * Method deletes teacher
+     *
+     * @param id of the eacher
+     * @throws NotFoundException if teacher doesn't exist
+     */
     @Override
-    public void deleteTeacher(Long id) {
+    public void deleteTeacher(Long id) throws NotFoundException {
         Teacher deleteTeacher = teacherRepository.getOne(id);
-        teacherRepository.delete(deleteTeacher);
+        if (deleteTeacher != null) {
+            teacherRepository.delete(deleteTeacher);
+        } else {
+            throw new NotFoundException("Unable to delete, teacher with such id doesn't exist");
+        }
     }
 
+    /**
+     * Method edits information of the teacher
+     * It takes DTO, converts it to entity
+     * save entity to the database, converts entity to dto
+     * and return dto-object
+     *
+     * @param id of the teacher
+     * @param teacherDto
+     * @return TeacherDto
+     * @throws NotFoundException if teacher doesn't exist
+     */
     @Override
-    public Teacher editTeacher(TeacherDto teacherDto) {
-        Teacher teacher = convertToEntity(teacherDto);
+    public TeacherDto editTeacher(Long id, TeacherDto teacherDto) throws NotFoundException {
+        Teacher teacherToEdit = teacherRepository.getOne(id);
 
-        Teacher savedTeacher = teacherRepository.saveAndFlush(teacher);
-        return savedTeacher;
+        if (teacherToEdit != null) {
+            teacherToEdit = convertToEntity(teacherDto);
+            Teacher savedTeacher = teacherRepository.saveAndFlush(teacherToEdit);
+            return convertToDto(savedTeacher);
+        } else {
+            throw new NotFoundException("Unable to edit, teacher with such id doesn't exist");
+        }
     }
 
+    /**
+     * Method returns all teachers with pagination
+     *
+     * @param pageable
+     * @return Page<TeacherDto>
+     */
     @Override
-    public List<Teacher> getAll() {
-        return teacherRepository.findAll();
+    public Page<TeacherDto> getAll(Pageable pageable) {
+        Page<Teacher> teacherPage = teacherRepository.findAll(pageable);
+        int totalElements = (int) teacherPage.getTotalElements();
+        List<TeacherDto> teacherDtoList = teacherPage
+                .getContent()
+                .stream()
+                .map(teacher -> convertToDto(teacher))
+                .collect(Collectors.toList());
+
+        Page<TeacherDto> teacherDtoPage = new PageImpl<>(teacherDtoList, pageable, totalElements);
+        return teacherDtoPage;
     }
 
+    /**
+     * Method returns teacher by id
+     *
+     * @param id of the teacher
+     * @return TeacherDto
+     * @throws NotFoundException if teacher doesn't exist
+     */
     @Override
-    public Teacher getById(Long id) {
+    public TeacherDto getById(Long id) throws NotFoundException {
         Teacher teacher = teacherRepository.getOne(id);
-        return teacher;
+        if (teacher != null) {
+            TeacherDto teacherDto = convertToDto(teacher);
+            return teacherDto;
+        } else {
+            throw new NotFoundException("Student not found");
+        }
     }
 
     /**
-     * Method receives all subjects for this teacher
+     * Method receives all teachers for department with pagination
      *
-     * @param id of the teacher
-     * @return [Subject]
-     */
-//    @Override
-//    public List<Subject> getTeacherSubjects(Long id) {
-//        List<Subject> subjects = teacherRepository.getTeacherSubjects(id);
-//        return subjects;
-//    }
-
-    /**
-     * Method receives all records from the schedule for this teacher
-     *
-     * @param id of the teacher
-     * @return [Schedule]
+     * @param id of the department
+     * @return Page<TeacherDto>
      */
     @Override
-    public List<Schedule> getTeachersSchedule(Long id) {
-        List<Schedule> scheduleList = teacherRepository.getTeachersSchedule(id);
-        return scheduleList;
+    public Page<TeacherDto> getDepartmentTeachers(Long id, Pageable pageable) {
+        Page<Teacher> teacherPage = teacherRepository.getDepartmentTeachers(id, pageable);
+        int totalElements = (int) teacherPage.getTotalElements();
+        List<TeacherDto> teacherDtoList = teacherPage
+                .getContent()
+                .stream()
+                .map(teacher -> convertToDto(teacher))
+                .collect(Collectors.toList());
+
+        Page<TeacherDto> teacherDtoPage = new PageImpl<>(teacherDtoList, pageable, totalElements);
+        return teacherDtoPage;
     }
 
+    /**
+     * Method of converting DTO into the entity
+     * Uses ModelMapper library
+     *
+     * @param teacherDto
+     * @return teacher
+     */
     @Override
     public Teacher convertToEntity(TeacherDto teacherDto) {
         Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        teacher.setId(teacher.getId());
         teacher.setFirstName(teacherDto.getFirstName());
         teacher.setLastName(teacherDto.getLastName());
         teacher.setPosition(teacherDto.getPosition());
         teacher.setDepartmentId(teacherDto.getDepartmentId());
         return teacher;
+    }
+
+    /**
+     * Method of converting entity into the DTO
+     * Uses ModelMapper library
+     *
+     * @param teacher
+     * @return teacherDto
+     */
+    @Override
+    public TeacherDto convertToDto(Teacher teacher) {
+        TeacherDto teacherDto = modelMapper.map(teacher, TeacherDto.class);
+        teacherDto.setId(teacher.getId());
+        teacherDto.setFirstName(teacher.getFirstName());
+        teacherDto.setLastName(teacher.getLastName());
+        teacherDto.setPosition(teacher.getPosition());
+        teacherDto.setDepartmentId(teacher.getDepartmentId());
+        return teacherDto;
     }
 
 

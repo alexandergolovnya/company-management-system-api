@@ -1,12 +1,14 @@
 package com.universityspa.controller;
 
+import com.universityspa.dto.ScheduleDto;
 import com.universityspa.dto.TeacherDto;
-import com.universityspa.entity.Schedule;
-import com.universityspa.entity.Teacher;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.people.TeacherService;
+import com.universityspa.service.studying.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 /**
  * REST controller for a Teacher.
@@ -20,70 +22,61 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private ScheduleService scheduleService;
+
     /**
-     * Method returns all teachers
+     * Method returns all teachers with pagination
      *
-     * @return [Teacher]
+     * @return Page<TeacherDto>
      */
     @GetMapping
-    public List<Teacher> getAllTeachers() {
-        return teacherService.getAll();
+    public Page<TeacherDto> getAllTeachers(Pageable pageable) {
+        return teacherService.getAll(pageable);
     }
 
     /**
      * Method returns teacher by id
      *
      * @param id of the teacher
-     * @return teacher
+     * @return TeacherDto
+     * @throws NotFoundException if teacher doesn't exist
      */
     @GetMapping("/{id}")
-    public Teacher getTeacher(@PathVariable Long id) {
-        Teacher teacher = teacherService.getById(id);
-        return teacher;
+    public TeacherDto getTeacher(@PathVariable Long id) throws NotFoundException {
+        return teacherService.getById(id);
     }
 
     /**
-     * Method returns all subjects of a teacher by id
+     * Method returns all records from the schedule for this teacher by id with pagination
      *
      * @param id of the teacher
-     * @return [Subject]
-     */
-//    @GetMapping("/{id}/subjects")
-//    public List<Subject> getTeacherSubjects(@PathVariable Long id) {
-//        List<Subject> subjects = teacherService.getTeacherSubjects(id);
-//        return subjects;
-//    }
-
-    /**
-     * Method returns all records from the schedule for this teacher by id
-     *
-     * @param id of the teacher
-     * @return [Schedule]
+     * @return Page<ScheduleDto>
      */
     @GetMapping("/{id}/schedule")
-    public List<Schedule> getTeachersSchedule(@PathVariable Long id) {
-        List<Schedule> scheduleList = teacherService.getTeachersSchedule(id);
-        return scheduleList;
+    public Page<ScheduleDto> getTeachersSchedule(@PathVariable Long id, Pageable pageable) {
+        return scheduleService.getTeacherLessons(id, pageable);
     }
 
     /**
      * Method deletes teacher by id
      *
      * @param id of the teacher
+     * @throws NotFoundException if teacher doesn't exist
      */
     @DeleteMapping("/{id}")
-    public void deleteTeacher(@PathVariable Long id) {
-        teacherService.getById(id);
+    public void deleteTeacher(@PathVariable Long id) throws NotFoundException {
+        teacherService.deleteTeacher(id);
     }
 
     /**
      * Method creates new teacher
      *
      * @param teacherDto
-     * @return teacher
+     * @return TeacherDto
      */
     @PostMapping
-    public Teacher createTeacher(@RequestBody TeacherDto teacherDto) {
+    public TeacherDto createTeacher(@RequestBody TeacherDto teacherDto) {
         return teacherService.addTeacher(teacherDto);
     }
 
@@ -92,11 +85,12 @@ public class TeacherController {
      *
      * @param teacherDto
      * @param id of the teacher
-     * @return teacher
+     * @return TeacherDto
+     * @throws NotFoundException if teacher doesn't exist
      */
     @PutMapping("/{id}")
-    public Teacher updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id) {
+    public TeacherDto updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id) throws NotFoundException {
         teacherDto.setId(id);
-        return teacherService.editTeacher(teacherDto);
+        return teacherService.editTeacher(id, teacherDto);
     }
 }
