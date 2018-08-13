@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.FacultyDto.convertFromEntityToDTO;
+
 /**
  * Service class for Faculty.
  * It contains implementation of CRUD operations
@@ -46,7 +48,7 @@ public class FacultyServiceImpl implements FacultyService {
     public FacultyDto addFaculty(FacultyDto facultyDto) {
         Faculty facultyToCreate = convertToEntity(facultyDto);
         Faculty savedFaculty = facultyRepository.saveAndFlush(facultyToCreate);
-        return convertToDto(savedFaculty);
+        return convertFromEntityToDTO(savedFaculty);
     }
 
     /**
@@ -82,7 +84,7 @@ public class FacultyServiceImpl implements FacultyService {
         if (facultyToEdit != null) {
             facultyToEdit = convertToEntity(facultyDto);
             Faculty savedFaculty = facultyRepository.saveAndFlush(facultyToEdit);
-            return convertToDto(savedFaculty);
+            return convertFromEntityToDTO(savedFaculty);
         } else {
             throw new NotFoundException("Unable to edit, faculty with such id doesn't exist");
         }
@@ -101,7 +103,7 @@ public class FacultyServiceImpl implements FacultyService {
         List<FacultyDto> facultyDtoList = facultyPage
                 .getContent()
                 .stream()
-                .map(faculty -> convertToDto(faculty))
+                .map(faculty -> convertFromEntityToDTO(faculty))
                 .collect(Collectors.toList());
 
         Page<FacultyDto> facultyDtoPage = new PageImpl<>(facultyDtoList, pageable, totalElements);
@@ -119,7 +121,7 @@ public class FacultyServiceImpl implements FacultyService {
     public FacultyDto getById(Long id) throws NotFoundException {
         Faculty faculty = facultyRepository.getOne(id);
         if (faculty != null) {
-            FacultyDto facultyDto = convertToDto(faculty);
+            FacultyDto facultyDto = convertFromEntityToDTO(faculty);
             return facultyDto;
         } else {
             throw new NotFoundException("Faculty not found");

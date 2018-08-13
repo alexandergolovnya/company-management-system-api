@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.SpecialtyDto.convertFromEntityToDTO;
+
 @Service
 public class SpecialtyServiceImpl implements SpecialtyService {
 
@@ -36,7 +38,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public SpecialtyDto addSpecialty(SpecialtyDto specialtyDto) {
         Specialty specialtyToCreate = convertToEntity(specialtyDto);
         Specialty savedSpecialty = specialtyRepository.saveAndFlush(specialtyToCreate);
-        return convertToDto(savedSpecialty);
+        return convertFromEntityToDTO(savedSpecialty);
     }
 
     /**
@@ -72,7 +74,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         if (specialtyToEdit != null) {
             specialtyToEdit = convertToEntity(specialtyDto);
             Specialty savedSpecialty = specialtyRepository.saveAndFlush(specialtyToEdit);
-            return convertToDto(savedSpecialty);
+            return convertFromEntityToDTO(savedSpecialty);
         } else {
             throw new NotFoundException("Unable to edit, faculty with such id doesn't exist");
         }
@@ -91,7 +93,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         List<SpecialtyDto> specialtyDtoList = specialtyPage
                 .getContent()
                 .stream()
-                .map(specialty -> convertToDto(specialty))
+                .map(specialty -> convertFromEntityToDTO(specialty))
                 .collect(Collectors.toList());
 
         Page<SpecialtyDto> specialtyDtoPage = new PageImpl<>(specialtyDtoList, pageable, totalElements);
@@ -108,7 +110,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public SpecialtyDto getById(Long id) throws NotFoundException {
         Specialty specialty = specialtyRepository.getOne(id);
         if (specialty != null) {
-            SpecialtyDto specialtyDto = convertToDto(specialty);
+            SpecialtyDto specialtyDto = convertFromEntityToDTO(specialty);
             return specialtyDto;
         } else {
             throw new NotFoundException("Faculty not found");
@@ -128,7 +130,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         List<SpecialtyDto> specialtyDtoList = specialtyPage
                 .getContent()
                 .stream()
-                .map(specialty -> convertToDto(specialty))
+                .map(specialty -> convertFromEntityToDTO(specialty))
                 .collect(Collectors.toList());
 
         Page<SpecialtyDto> specialtyDtoPage = new PageImpl<>(specialtyDtoList, pageable, totalElements);
