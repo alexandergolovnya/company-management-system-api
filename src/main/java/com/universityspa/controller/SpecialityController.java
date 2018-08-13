@@ -1,7 +1,7 @@
 package com.universityspa.controller;
 
 import com.universityspa.dto.SpecialtyDto;
-import com.universityspa.entity.StudentsGroup;
+import com.universityspa.dto.StudentsGroupDto;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.people.StudentsGroupService;
 import com.universityspa.service.university.SpecialtyService;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST controller for a Specialty.
@@ -50,13 +48,13 @@ public class SpecialityController {
     }
 
     /**
-     * Method returns all student groups of this specialty
+     * Method returns all student groups of this specialty with pagination
      *
-     * @return [StudentsGroup]
+     * @return Page<StudentsGroupDto>
      */
     @GetMapping("/{id}/student-groups")
-    public List<StudentsGroup> getSpecialtyStudentGroups(@PathVariable Long id) {
-        return studentsGroupService.getSpecialtyStudentGroups(id);
+    public Page<StudentsGroupDto> getSpecialtyStudentGroups(@PathVariable Long id, Pageable pageable) {
+        return studentsGroupService.getSpecialtyStudentGroups(id, pageable);
     }
 
     /**
