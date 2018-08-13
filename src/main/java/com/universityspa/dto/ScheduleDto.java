@@ -1,6 +1,10 @@
 package com.universityspa.dto;
 
+import com.universityspa.entity.Schedule;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,6 +13,9 @@ import java.util.Date;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ScheduleDto {
 
     private Long id;
@@ -37,4 +44,20 @@ public class ScheduleDto {
      * Student group that studies subject
      */
     private Long studentsGroupId;
+
+    /**
+     * Method converts entity to dto
+     * @param entity
+     * @return dto
+     */
+    public static ScheduleDto convertFromEntityToDTO(Schedule entity) {
+        return ScheduleDto.builder()
+                .id(entity.getId())
+                .date(entity.getDate())
+                .classNumber(entity.getClassNumber())
+                .subjectId(entity.getSubjectId())
+                .teacherId(entity.getTeacherId())
+                .studentsGroupId(entity.getStudentsGroupId())
+                .build();
+    }
 }
