@@ -1,24 +1,18 @@
 package com.universityspa.service.people;
 
 import com.universityspa.dto.StudentsGroupDto;
-import com.universityspa.entity.Student;
 import com.universityspa.entity.StudentsGroup;
+import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.abstracts.CommonCrudService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface StudentsGroupService extends CommonCrudService<StudentsGroup, StudentsGroupDto> {
 
-    StudentsGroup addStudentsGroup(StudentsGroupDto studentsGroupDto);
-    void deleteStudentsGroup(Long id);
-    StudentsGroup editStudentsGroup(StudentsGroupDto studentsGroupDto);
-    List<StudentsGroup> getAll();
-    StudentsGroup getById(Long id);
-    List<StudentsGroup> getSpecialtyStudentGroups(Long id);
-
-
-    @Override
-    default StudentsGroupDto convertToDto(StudentsGroup studentsGroup) {
-        throw new RuntimeException("Not implemented");
-    }
+    StudentsGroupDto addStudentsGroup(StudentsGroupDto studentsGroupDto);
+    void deleteStudentsGroup(Long id) throws NotFoundException;
+    StudentsGroupDto editStudentsGroup(Long id, StudentsGroupDto studentsGroupDto) throws NotFoundException;
+    Page<StudentsGroupDto> getAll(Pageable pageable);
+    StudentsGroupDto getById(Long id) throws NotFoundException;
+    Page<StudentsGroupDto> getSpecialtyStudentGroups(Long id, Pageable pageable);
 }
