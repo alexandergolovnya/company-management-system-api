@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.DepartmentDto.convertFromEntityToDTO;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -35,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto addDepartment(DepartmentDto departmentDto) {
         Department departmentToCreate = convertToEntity(departmentDto);
         Department savedDepartment = departmentRepository.saveAndFlush(departmentToCreate);
-        return convertToDto(savedDepartment);
+        return convertFromEntityToDTO(savedDepartment);
     }
 
     /**
@@ -55,7 +57,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     /**
-     * Method edits infromation of the department
+     * Method edits information of the department
      * It takes DTO, converts it to entity
      * save entity to the database, converts entity to dto
      * and return dto-object
@@ -69,7 +71,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (departmentToEdit != null) {
             departmentToEdit = convertToEntity(departmentDto);
             Department savedDepartment = departmentRepository.saveAndFlush(departmentToEdit);
-            return convertToDto(savedDepartment);
+            return convertFromEntityToDTO(savedDepartment);
         } else {
             throw new NotFoundException("Unable to edit, department with such id doesn't exist");
         }
@@ -88,7 +90,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<DepartmentDto> departmentDtoList = departmentPage
                 .getContent()
                 .stream()
-                .map(department -> convertToDto(department))
+                .map(department -> convertFromEntityToDTO(department))
                 .collect(Collectors.toList());
 
         Page<DepartmentDto> departmentDtoPage = new PageImpl<>(departmentDtoList, pageable, totalElements);
@@ -106,7 +108,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto getById(Long id) throws NotFoundException {
         Department department = departmentRepository.getOne(id);
         if (department != null) {
-            DepartmentDto departmentDto = convertToDto(department);
+            DepartmentDto departmentDto = convertFromEntityToDTO(department);
             return departmentDto;
         } else {
             throw new NotFoundException("Department not found");
@@ -126,7 +128,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<DepartmentDto> departmentDtoList = departmentPage
                 .getContent()
                 .stream()
-                .map(department -> convertToDto(department))
+                .map(department -> convertFromEntityToDTO(department))
                 .collect(Collectors.toList());
 
         Page<DepartmentDto> departmentDtoPage = new PageImpl<>(departmentDtoList, pageable, totalElements);
@@ -143,6 +145,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department convertToEntity(DepartmentDto departmentDto) {
         Department department = modelMapper.map(departmentDto, Department.class);
+        department.setId(departmentDto.getId());
         department.setName(departmentDto.getName());
         department.setDescription(departmentDto.getDescription());
         department.setFacultyId(departmentDto.getFacultyId());
@@ -162,6 +165,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentDto.setId(department.getId());
         departmentDto.setName(department.getName());
         departmentDto.setDescription(department.getDescription());
+        departmentDto.setFacultyId(department.getFacultyId());
         return departmentDto;
     }
 }

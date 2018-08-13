@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.JournalDto.convertFromEntityToDTO;
+
 @Service
 public class JournalServiceImpl implements JournalService {
 
@@ -35,7 +37,7 @@ public class JournalServiceImpl implements JournalService {
     public JournalDto addJournal(JournalDto journalDto) {
         Journal journalToCreate = convertToEntity(journalDto);
         Journal savedJournal = journalRepository.saveAndFlush(journalToCreate);
-        return convertToDto(savedJournal);
+        return convertFromEntityToDTO(savedJournal);
     }
 
     /**
@@ -72,7 +74,7 @@ public class JournalServiceImpl implements JournalService {
         if (journalToEdit != null) {
             journalToEdit = convertToEntity(journalDto);
             Journal savedJournal = journalRepository.saveAndFlush(journalToEdit);
-            return convertToDto(savedJournal);
+            return convertFromEntityToDTO(savedJournal);
         } else {
             throw new NotFoundException("Unable to edit, journal with such id doesn't exist");
         }
@@ -91,7 +93,7 @@ public class JournalServiceImpl implements JournalService {
         List<JournalDto> journalDtoList = journalPage
                 .getContent()
                 .stream()
-                .map(journal -> convertToDto(journal))
+                .map(journal -> convertFromEntityToDTO(journal))
                 .collect(Collectors.toList());
 
         Page<JournalDto> journalDtoPage = new PageImpl<>(journalDtoList, pageable, totalElements);
@@ -109,7 +111,7 @@ public class JournalServiceImpl implements JournalService {
     public JournalDto getById(Long id) throws NotFoundException {
         Journal journal = journalRepository.getOne(id);
         if (journal != null) {
-            return convertToDto(journal);
+            return convertFromEntityToDTO(journal);
         } else {
             throw new NotFoundException("Subject not found");
         }
@@ -129,7 +131,7 @@ public class JournalServiceImpl implements JournalService {
         List<JournalDto> journalDtoList = journalPage
                 .getContent()
                 .stream()
-                .map(journal -> convertToDto(journal))
+                .map(journal -> convertFromEntityToDTO(journal))
                 .collect(Collectors.toList());
 
         Page<JournalDto> journalDtoPage = new PageImpl<>(journalDtoList, pageable, totalElements);
@@ -150,7 +152,7 @@ public class JournalServiceImpl implements JournalService {
         List<JournalDto> journalDtoList = journalPage
                 .getContent()
                 .stream()
-                .map(journal -> convertToDto(journal))
+                .map(journal -> convertFromEntityToDTO(journal))
                 .collect(Collectors.toList());
 
         Page<JournalDto> journalDtoPage = new PageImpl<>(journalDtoList, pageable, totalElements);
@@ -181,7 +183,7 @@ public class JournalServiceImpl implements JournalService {
         List<JournalDto> journalDtoList = journalPage
                 .getContent()
                 .stream()
-                .map(journal -> convertToDto(journal))
+                .map(journal -> convertFromEntityToDTO(journal))
                 .collect(Collectors.toList());
 
         Page<JournalDto> journalDtoPage = new PageImpl<>(journalDtoList, pageable, totalElements);
@@ -201,7 +203,7 @@ public class JournalServiceImpl implements JournalService {
         List<JournalDto> journalDtoList = journalPage
                 .getContent()
                 .stream()
-                .map(journal -> convertToDto(journal))
+                .map(journal -> convertFromEntityToDTO(journal))
                 .collect(Collectors.toList());
 
         Page<JournalDto> journalDtoPage = new PageImpl<>(journalDtoList, pageable, totalElements);

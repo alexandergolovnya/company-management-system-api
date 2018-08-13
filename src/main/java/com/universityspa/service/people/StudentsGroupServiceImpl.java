@@ -1,7 +1,6 @@
 package com.universityspa.service.people;
 
 import com.universityspa.dto.StudentsGroupDto;
-import com.universityspa.entity.Student;
 import com.universityspa.entity.StudentsGroup;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.repository.StudentsGroupRepository;
@@ -11,8 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.universityspa.dto.StudentsGroupDto.convertFromEntityToDTO;
 
 /**
  * Service class for StudentsGroup.
@@ -46,7 +48,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
     public StudentsGroupDto addStudentsGroup(StudentsGroupDto studentsGroupDto) {
         StudentsGroup studentsGroupToCreate = convertToEntity(studentsGroupDto);
         StudentsGroup savedStudentsGroup = studentsGroupRepository.saveAndFlush(studentsGroupToCreate);
-        return convertToDto(savedStudentsGroup);
+        return convertFromEntityToDTO(savedStudentsGroup);
     }
 
     /**
@@ -82,7 +84,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
         if (studentsGroupToEdit != null) {
             studentsGroupToEdit = convertToEntity(studentsGroupDto);
             StudentsGroup savedStudentsGroup = studentsGroupRepository.saveAndFlush(studentsGroupToEdit);
-            StudentsGroupDto editedStudentsGroup = convertToDto(savedStudentsGroup);
+            StudentsGroupDto editedStudentsGroup = convertFromEntityToDTO(savedStudentsGroup);
             return editedStudentsGroup;
         } else {
             throw new NotFoundException("Unable to edit, student group with such id doesn't exist");
@@ -102,7 +104,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
         List<StudentsGroupDto> studentsGroupDtoList = studentsGroupPage
                 .getContent()
                 .stream()
-                .map(studentsGroup -> convertToDto(studentsGroup))
+                .map(studentsGroup -> convertFromEntityToDTO(studentsGroup))
                 .collect(Collectors.toList());
 
         Page<StudentsGroupDto> studentsGroupDtoPage = new PageImpl<>(studentsGroupDtoList, pageable, totalElements);
@@ -119,7 +121,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
     public StudentsGroupDto getById(Long id) throws NotFoundException {
         StudentsGroup studentsGroup = studentsGroupRepository.getOne(id);
         if (studentsGroup != null) {
-            StudentsGroupDto studentsGroupDto = convertToDto(studentsGroup);
+            StudentsGroupDto studentsGroupDto = convertFromEntityToDTO(studentsGroup);
             return studentsGroupDto;
         } else {
             throw new NotFoundException("Student Group not found");
@@ -139,7 +141,7 @@ public class StudentsGroupServiceImpl implements StudentsGroupService {
         List<StudentsGroupDto> studentsGroupDtoList = studentsGroupPage
                 .getContent()
                 .stream()
-                .map(studentsGroup -> convertToDto(studentsGroup))
+                .map(studentsGroup -> convertFromEntityToDTO(studentsGroup))
                 .collect(Collectors.toList());
 
         Page<StudentsGroupDto> studentsGroupDtoPage = new PageImpl<>(studentsGroupDtoList, pageable, totalElements);

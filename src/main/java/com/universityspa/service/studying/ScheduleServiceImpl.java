@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.ScheduleDto.convertFromEntityToDTO;
+
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
@@ -35,7 +37,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleDto addSchedule(ScheduleDto scheduleDto) {
         Schedule scheduleToCreate = convertToEntity(scheduleDto);
         Schedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToCreate);
-        return convertToDto(savedSchedule);
+        return convertFromEntityToDTO(savedSchedule);
     }
 
     /**
@@ -72,7 +74,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (scheduleToEdit != null) {
             scheduleToEdit = convertToEntity(scheduleDto);
             Schedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToEdit);
-            return convertToDto(savedSchedule);
+            return convertFromEntityToDTO(savedSchedule);
         } else {
             throw new NotFoundException("Unable to edit, subject with such id doesn't exist");
         }
@@ -91,7 +93,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<ScheduleDto> scheduleDtoList = schedulePage
                 .getContent()
                 .stream()
-                .map(schedule -> convertToDto(schedule))
+                .map(schedule -> convertFromEntityToDTO(schedule))
                 .collect(Collectors.toList());
 
         Page<ScheduleDto> scheduleDtoPage = new PageImpl<>(scheduleDtoList, pageable, totalElements);
@@ -109,7 +111,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleDto getById(Long id) throws NotFoundException {
         Schedule schedule = scheduleRepository.getOne(id);
         if (schedule != null) {
-            return convertToDto(schedule);
+            return convertFromEntityToDTO(schedule);
         } else {
             throw new NotFoundException("Subject not found");
         }
@@ -139,7 +141,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<ScheduleDto> scheduleDtoList = schedulePage
                 .getContent()
                 .stream()
-                .map(schedule -> convertToDto(schedule))
+                .map(schedule -> convertFromEntityToDTO(schedule))
                 .collect(Collectors.toList());
 
         Page<ScheduleDto> scheduleDtoPage = new PageImpl<>(scheduleDtoList, pageable, totalElements);

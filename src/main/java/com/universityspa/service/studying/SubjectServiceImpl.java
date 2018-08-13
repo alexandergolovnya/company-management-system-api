@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.SubjectDto.convertFromEntityToDTO;
+
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
@@ -36,7 +38,7 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto addSubject(SubjectDto subjectDto) {
         Subject subjectToCreate = convertToEntity(subjectDto);
         Subject savedSubject = subjectRepository.saveAndFlush(subjectToCreate);
-        return convertToDto(savedSubject);
+        return convertFromEntityToDTO(savedSubject);
     }
 
     /**
@@ -73,7 +75,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (subjectToEdit != null) {
             subjectToEdit = convertToEntity(subjectDto);
             Subject savedSubject = subjectRepository.saveAndFlush(subjectToEdit);
-            return convertToDto(savedSubject);
+            return convertFromEntityToDTO(savedSubject);
         } else {
             throw new NotFoundException("Unable to edit, subject with such id doesn't exist");
         }
@@ -92,7 +94,7 @@ public class SubjectServiceImpl implements SubjectService {
         List<SubjectDto> subjectDtoList = subjectPage
                 .getContent()
                 .stream()
-                .map(subject -> convertToDto(subject))
+                .map(subject -> convertFromEntityToDTO(subject))
                 .collect(Collectors.toList());
 
         Page<SubjectDto> subjectDtoPage = new PageImpl<>(subjectDtoList, pageable, totalElements);
@@ -110,7 +112,7 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto getById(Long id) throws NotFoundException {
         Subject subject = subjectRepository.getOne(id);
         if (subject != null) {
-            return convertToDto(subject);
+            return convertFromEntityToDTO(subject);
         } else {
             throw new NotFoundException("Subject not found");
         }

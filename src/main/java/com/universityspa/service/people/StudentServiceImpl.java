@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.universityspa.dto.StudentDto.convertFromEntityToDTO;
+
 /**
  * Service class for Student.
  * It contains implementation of CRUD operations
@@ -46,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto addStudent(StudentDto studentDto) {
         Student studentToCreate = convertToEntity(studentDto);
         Student savedStudent = studentRepository.saveAndFlush(studentToCreate);
-        return convertToDto(savedStudent);
+        return convertFromEntityToDTO(savedStudent);
     }
 
     /**
@@ -82,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
         if (studentToEdit != null) {
             studentToEdit = convertToEntity(studentDto);
             Student savedStudent = studentRepository.saveAndFlush(studentToEdit);
-            StudentDto editedStudent = convertToDto(savedStudent);
+            StudentDto editedStudent = convertFromEntityToDTO(savedStudent);
             return editedStudent;
         } else {
             throw new NotFoundException("Unable to edit, student with such id doesn't exist");
@@ -102,7 +104,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDto> studentDtoList = studentPage
                 .getContent()
                 .stream()
-                .map(student -> convertToDto(student))
+                .map(student -> convertFromEntityToDTO(student))
                 .collect(Collectors.toList());
 
         Page<StudentDto> studentDtoPage = new PageImpl<>(studentDtoList, pageable, totalElements);
@@ -120,7 +122,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getById(Long id) throws NotFoundException {
         Student student = studentRepository.getOne(id);
         if (student != null) {
-            StudentDto studentDto = convertToDto(student);
+            StudentDto studentDto = convertFromEntityToDTO(student);
             return studentDto;
         } else {
             throw new NotFoundException("Student not found");
@@ -141,7 +143,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDto> studentDtoList = studentPage
                 .getContent()
                 .stream()
-                .map(student -> convertToDto(student))
+                .map(student -> convertFromEntityToDTO(student))
                 .collect(Collectors.toList());
 
         Page<StudentDto> studentDtoPage = new PageImpl<>(studentDtoList, pageable, totalElements);
