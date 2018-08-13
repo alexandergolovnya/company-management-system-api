@@ -50,7 +50,7 @@ public class JournalServiceImpl implements JournalService {
         if (deleteJournal != null) {
             journalRepository.delete(deleteJournal);
         } else {
-            throw new NotFoundException("Unable to delete, subject with such id doesn't exist");
+            throw new NotFoundException("Unable to delete, journal with such id doesn't exist");
         }
     }
 
@@ -74,7 +74,7 @@ public class JournalServiceImpl implements JournalService {
             Journal savedJournal = journalRepository.saveAndFlush(journalToEdit);
             return convertToDto(savedJournal);
         } else {
-            throw new NotFoundException("Unable to edit, subject with such id doesn't exist");
+            throw new NotFoundException("Unable to edit, journal with such id doesn't exist");
         }
     }
 
