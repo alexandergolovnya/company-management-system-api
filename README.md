@@ -27,8 +27,8 @@ mvn spring-boot:run
 
 Тестовые пользователи для базы данных:
 1. login: admin, pass: admin
-2. login: student, pass: student
-3. login: teacher, pass: teacher
+
+Для добавления тестового пользователя необходимо запустить скрпит users.sql из src/main/recources/sql-data-scripts
 
 Тестовые данные для БД можно загрузить из src/main/resources/damp
 ```
