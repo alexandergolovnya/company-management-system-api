@@ -120,6 +120,7 @@ public class JournalController {
      */
     @PutMapping("/{id}")
     public JournalDto updateJournalRecord(@RequestBody JournalDto journalDto, @PathVariable Long id) throws NotFoundException {
+        journalDto.setId(id);
         return journalService.editJournal(id, journalDto);
     }
 }

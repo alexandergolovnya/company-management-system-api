@@ -75,6 +75,7 @@ public class StudentController {
      */
     @PutMapping("/{id}")
     public StudentDto updateStudent(@RequestBody StudentDto studentDto, @PathVariable Long id) throws NotFoundException {
+        studentDto.setId(id);
         return studentService.editStudent(id, studentDto);
     }
 }

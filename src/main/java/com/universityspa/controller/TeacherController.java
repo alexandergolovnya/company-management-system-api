@@ -2,8 +2,6 @@ package com.universityspa.controller;
 
 import com.universityspa.dto.ScheduleDto;
 import com.universityspa.dto.TeacherDto;
-import com.universityspa.entity.Schedule;
-import com.universityspa.entity.Teacher;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.service.people.TeacherService;
 import com.universityspa.service.studying.ScheduleService;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 /**
  * REST controller for a Teacher.
@@ -93,6 +90,7 @@ public class TeacherController {
      */
     @PutMapping("/{id}")
     public TeacherDto updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id) throws NotFoundException {
+        teacherDto.setId(id);
         return teacherService.editTeacher(id, teacherDto);
     }
 }

@@ -89,6 +89,7 @@ public class SpecialityController {
      */
     @PutMapping("/{id}")
     public SpecialtyDto updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long id) throws NotFoundException {
+        specialtyDto.setId(id);
         return specialtyService.editSpecialty(id, specialtyDto);
     }
 }

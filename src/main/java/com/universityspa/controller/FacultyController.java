@@ -91,6 +91,7 @@ public class FacultyController {
      */
     @PutMapping("{id}")
     public FacultyDto updateFaculty(@RequestBody FacultyDto facultyDto, @PathVariable Long id) throws NotFoundException {
+        facultyDto.setId(id);
         return facultyService.editFaculty(id, facultyDto);
     }
 }
