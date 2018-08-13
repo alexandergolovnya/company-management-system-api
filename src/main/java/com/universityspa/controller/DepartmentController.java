@@ -105,6 +105,7 @@ public class DepartmentController {
      */
     @PutMapping("/{id}")
     public DepartmentDto updateDepartment(@RequestBody DepartmentDto departmentDto, @PathVariable Long id) throws NotFoundException {
+        departmentDto.setId(id);
         return departmentService.editDepartment(id, departmentDto);
     }
 }

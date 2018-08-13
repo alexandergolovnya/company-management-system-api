@@ -73,6 +73,7 @@ public class SubjectController {
      */
     @PutMapping("{id}")
     public SubjectDto updateSubject(@RequestBody SubjectDto subjectDto, @PathVariable Long id) throws NotFoundException {
+        subjectDto.setId(id);
         return subjectService.editSubject(id, subjectDto);
     }
 }

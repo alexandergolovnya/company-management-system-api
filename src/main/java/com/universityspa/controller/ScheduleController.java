@@ -113,6 +113,7 @@ public class ScheduleController {
      */
     @PutMapping("/{id}")
     public ScheduleDto updateScheduleRecord(@RequestBody ScheduleDto scheduleDto, @PathVariable Long id) throws NotFoundException {
+        scheduleDto.setId(id);
         return scheduleService.editSchedule(id, scheduleDto);
     }
 }

@@ -88,6 +88,7 @@ public class StudentsGroupController {
      */
     @PutMapping("{id}")
     public StudentsGroupDto updateStudentsGroup(@RequestBody StudentsGroupDto studentsGroupDto, @PathVariable Long id) throws NotFoundException {
+        studentsGroupDto.setId(id);
         return studentsGroupService.editStudentsGroup(id, studentsGroupDto);
     }
 }
