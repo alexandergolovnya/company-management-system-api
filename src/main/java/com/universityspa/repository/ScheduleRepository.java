@@ -1,6 +1,8 @@
 package com.universityspa.repository;
 
 import com.universityspa.entity.Schedule;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,5 +31,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
      * @return List<Schedule>
      */
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
-    List<Schedule> getTeacherLessons(@Param("id") Long id);
+    Page<Schedule> getTeacherLessons(@Param("id") Long id, Pageable pageable);
 }
