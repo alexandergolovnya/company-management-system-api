@@ -1,11 +1,11 @@
 package com.universityspa.repository;
 
 import com.universityspa.entity.Journal;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 /**
  * Implementation of JpaRepository for Journal entity
@@ -20,7 +20,7 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      * @return List<Journal>
      */
     @Query("SELECT j FROM Journal j WHERE j.studentId=:id")
-    List<Journal> getJournalRecordsForStudent(@Param("id") Long id);
+    Page<Journal> getJournalRecordsForStudent(@Param("id") Long id, Pageable pageable);
 
     /**
      * Select all lessons from journal which student have passed
@@ -29,7 +29,7 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      * @return List<Journal>
      */
     @Query("SELECT j FROM Journal j WHERE (j.studentId=:id) AND (j.mark = 'н')")
-    List<Journal> getStudentPasses(@Param("id") Long id);
+    Page<Journal> getStudentPasses(@Param("id") Long id, Pageable pageable);
 
     /**
      * Select all the number lessons from journal which student have passed
@@ -47,7 +47,7 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      * @return List<Journal>
      */
     @Query("SELECT j FROM Journal j WHERE (j.studentId=:id) AND (j.mark IN('1', '2', '3', '4', '5'))")
-    List<Journal> getStudentMarks(@Param("id") Long id);
+    Page<Journal> getStudentMarks(@Param("id") Long id, Pageable pageable);
 
     /**
      * Get journal for the lesson in the schedule
@@ -56,5 +56,5 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      * @return List<Journal>
      */
     @Query("SELECT j FROM Journal j WHERE j.scheduleId=:id")
-    List<Journal> getJournalForScheduleRecord(@Param("id") Long id);
+    Page<Journal> getJournalForScheduleRecord(@Param("id") Long id, Pageable pageable);
 }
