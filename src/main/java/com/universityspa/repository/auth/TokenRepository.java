@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     /**
-     * Method returns one token by its value
-     * @param value of token
+     * Method returns one token by its token
+     * @param token of token
      * @return Token
      */
-    Optional<Token> findOneByValue(String value);
+    Optional<Token> findOneByToken(String token);
 }

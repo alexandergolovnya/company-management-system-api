@@ -26,7 +26,7 @@ public class Token {
      * Value of token
      */
     @Column
-    private String value;
+    private String token;
 
     /**
      * Student to which token belongs

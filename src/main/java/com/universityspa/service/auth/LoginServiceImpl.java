@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.Optional;
 
 /**
@@ -40,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
      * @throws IllegalArgumentException if such user doesn't exist
      */
     @Override
-    public TokenDto login(LoginForm loginForm) {
+    public TokenDto login(LoginForm loginForm) throws AuthenticationException {
         Optional<User> userToLogin = userRepository.findOneByEmail(loginForm.getEmail());
 
         if (userToLogin.isPresent()) {
@@ -49,11 +50,13 @@ public class LoginServiceImpl implements LoginService {
             if (passwordEncoder.matches(loginForm.getPassword(), user.getPassword())) {
                 Token token = Token.builder()
                         .user(user)
-                        .value(RandomStringUtils.random(40, true, true))
+                        .token(RandomStringUtils.random(40, true, true))
                         .build();
 
                 tokenRepository.saveAndFlush(token);
                 return TokenDto.from(token);
+            } else {
+                throw new AuthenticationException("Incorrect password");
             }
         } throw new IllegalArgumentException("User not found");
     }
