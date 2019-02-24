@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.security.auth.login.FailedLoginException;
+import javax.security.sasl.AuthenticationException;
+
 /**
  * REST controller for user sign in
  */
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api")
 public class LoginController {
 
     @Autowired
@@ -26,8 +29,8 @@ public class LoginController {
      * @param loginForm
      * @return
      */
-    @PostMapping
-    public ResponseEntity<TokenDto> login(@RequestBody LoginForm loginForm) {
+    @PostMapping("/login")
+    public ResponseEntity<TokenDto> login(@RequestBody LoginForm loginForm) throws AuthenticationException {
         return ResponseEntity.ok(loginService.login(loginForm));
     }
 }

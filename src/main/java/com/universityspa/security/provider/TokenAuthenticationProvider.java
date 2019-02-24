@@ -34,7 +34,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         TokenAuthentication tokenAuthentication = (TokenAuthentication) authentication;
 
-        Optional<Token> token = tokenRepository.findOneByValue(tokenAuthentication.getName());
+        Optional<Token> token = tokenRepository.findOneByToken(tokenAuthentication.getName());
 
         if (token.isPresent()) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(token.get().getUser().getEmail());

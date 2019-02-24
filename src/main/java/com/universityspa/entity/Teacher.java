@@ -17,18 +17,6 @@ public class Teacher {
     private Long id;
 
     /**
-     * First name of the teacher
-     */
-    @Column
-    private String firstName;
-
-    /**
-     * Last name of the teacher
-     */
-    @Column
-    private String lastName;
-
-    /**
      * Position of the teacher
      */
     @Column
