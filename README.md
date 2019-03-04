@@ -1,4 +1,5 @@
-# University SPA
+# University SPA Backend
+University's single page application REST API, provides CRUD services for faculties, departments, specialties, users, student groups.
 
 ## Build Setup
 
