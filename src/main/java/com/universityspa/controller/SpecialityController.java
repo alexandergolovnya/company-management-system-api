@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/specialties")
 public class SpecialityController {
 
-    @Autowired
-    private SpecialtyService specialtyService;
+    private final SpecialtyService specialtyService;
+    private final StudentsGroupService studentsGroupService;
 
     @Autowired
-    private StudentsGroupService studentsGroupService;
+    public SpecialityController(SpecialtyService specialtyService, StudentsGroupService studentsGroupService) {
+        this.specialtyService = specialtyService;
+        this.studentsGroupService = studentsGroupService;
+    }
 
     /**
      * Method returns all specialties with pagination

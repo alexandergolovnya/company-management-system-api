@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class FacultyController {
 
-    @Autowired
-    private FacultyService facultyService;
+    private final FacultyService facultyService;
+    private final DepartmentService departmentService;
 
     @Autowired
-    private DepartmentService departmentService;
+    public FacultyController(FacultyService facultyService, DepartmentService departmentService) {
+        this.facultyService = facultyService;
+        this.departmentService = departmentService;
+    }
 
     /**
      * Method returns all faculties with pagination

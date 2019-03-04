@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Specialty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -40,4 +40,10 @@ public class Specialty {
     @ManyToOne
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Department department;
+
+    public Specialty(String name, String description, Long departmentId) {
+        this.name = name;
+        this.description = description;
+        this.departmentId = departmentId;
+    }
 }

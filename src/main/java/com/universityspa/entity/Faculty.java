@@ -2,7 +2,10 @@ package com.universityspa.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Entity class for Faculty
@@ -13,7 +16,7 @@ import javax.persistence.*;
 public class Faculty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -27,5 +30,10 @@ public class Faculty {
      */
     @Column(length = 4096)
     private String description;
+
+    public Faculty(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }
 

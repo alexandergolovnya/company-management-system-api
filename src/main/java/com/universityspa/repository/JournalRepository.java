@@ -57,4 +57,7 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
      */
     @Query("SELECT j FROM Journal j WHERE j.scheduleId=:id")
     Page<Journal> getJournalForScheduleRecord(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT j FROM User j WHERE j.id=:id")
+    Journal getOne(@Param("id") Long id);
 }

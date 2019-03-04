@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/schedule")
 public class ScheduleController {
 
-    @Autowired
-    private ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
+    private final JournalService journalService;
 
     @Autowired
-    private JournalService journalService;
+    public ScheduleController(ScheduleService scheduleService, JournalService journalService) {
+        this.scheduleService = scheduleService;
+        this.journalService = journalService;
+    }
 
     /**
      * Method returns all records of schedule with pagination

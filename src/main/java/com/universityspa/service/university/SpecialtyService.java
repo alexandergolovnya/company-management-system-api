@@ -10,21 +10,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface SpecialtyService extends CommonCrudService<Specialty, SpecialtyDto> {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     SpecialtyDto addSpecialty(SpecialtyDto specialty);
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     void deleteSpecialty(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     SpecialtyDto editSpecialty(Long id, SpecialtyDto specialty) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<SpecialtyDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     SpecialtyDto getById(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<SpecialtyDto> getDepartmentSpecialties(Long id, Pageable pageable);
 }

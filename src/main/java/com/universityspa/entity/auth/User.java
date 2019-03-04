@@ -1,18 +1,16 @@
 package com.universityspa.entity.auth;
 
-import com.universityspa.entity.Student;
-import com.universityspa.entity.Teacher;
+import com.universityspa.entity.Department;
+import com.universityspa.entity.StudentsGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -20,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -37,6 +35,24 @@ public class User {
     private String password;
 
     /**
+     * First name of the user
+     */
+    @Column
+    private String firstName;
+
+    /**
+     * Middle name of the user
+     */
+    @Column
+    private String middleName;
+
+    /**
+     * Last name of the user
+     */
+    @Column
+    private String lastName;
+
+    /**
      * Role of this user
      */
     @Column
@@ -51,32 +67,46 @@ public class User {
     private State state;
 
     /**
-     * Id of the student to which belongs this user
-     */
-    private Long studentId;
-
-    /**
-     * Id of the teacher to which belongs this user
-     */
-    private Long teacherId;
-
-    /**
-     * Matching this user with student
-     */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studentId", insertable = false, updatable = false)
-    private Student student;
-
-    /**
-     * Matching this user with teacher
-     */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacherId", insertable = false, updatable = false)
-    private Teacher teacher;
-
-    /**
      * List of tokens for this user
      */
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    /**
+     * Id of a student group to which the
+     * user belongs
+     */
+    @Column
+    private Long studentGroupId;
+
+    /**
+     * Student group to which the
+     * user belongs
+     */
+    @ManyToOne
+    @JoinColumn(name = "studentGroupId", insertable = false, updatable = false)
+    private StudentsGroup studentGroup;
+
+    /**
+     * Id of the department to which user belongs
+     */
+    @Column
+    private Long departmentId;
+
+    /**
+     * Department to which user belongs
+     */
+    @ManyToOne
+    @JoinColumn(name = "departmentId", insertable = false, updatable = false)
+    private Department department;
+
+    public User(@NotNull String email, String password, String firstName, String middleName, String lastName, Role role, State state) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.role = role;
+        this.state = state;
+    }
 }

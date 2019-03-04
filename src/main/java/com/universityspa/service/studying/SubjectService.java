@@ -10,18 +10,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface SubjectService extends CommonCrudService<Subject, SubjectDto> {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     SubjectDto addSubject(SubjectDto subjectDto);
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     void deleteSubject(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     SubjectDto editSubject(Long id, SubjectDto subjectDto) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<SubjectDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     SubjectDto getById(Long id) throws NotFoundException;
 }

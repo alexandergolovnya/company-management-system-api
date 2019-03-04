@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/subjects")
 public class SubjectController {
 
+    private final SubjectService subjectService;
+
     @Autowired
-    private SubjectService subjectService;
+    public SubjectController(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     /**
      * Method returns all subjects with pagination

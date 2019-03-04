@@ -10,21 +10,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface DepartmentService extends CommonCrudService<Department, DepartmentDto> {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     DepartmentDto addDepartment(DepartmentDto department);
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     void deleteDepartment(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     DepartmentDto editDepartment(Long id, DepartmentDto department) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<DepartmentDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     DepartmentDto getById(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<DepartmentDto> getFacultyDepartments(Long id, Pageable pageable);
 }

@@ -1,9 +1,9 @@
 package com.universityspa.controller;
 
-import com.universityspa.dto.StudentDto;
 import com.universityspa.dto.StudentsGroupDto;
+import com.universityspa.dto.auth.UserDto;
 import com.universityspa.exception.NotFoundException;
-import com.universityspa.service.people.StudentService;
+import com.universityspa.service.auth.UserService;
 import com.universityspa.service.people.StudentsGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/groups")
 public class StudentsGroupController {
 
-    @Autowired
-    private StudentsGroupService studentsGroupService;
+    private final StudentsGroupService studentsGroupService;
+    private final UserService userService;
 
     @Autowired
-    private StudentService studentService;
+    public StudentsGroupController(StudentsGroupService studentsGroupService, UserService userService) {
+        this.studentsGroupService = studentsGroupService;
+        this.userService = userService;
+    }
 
     /**
      * Method returns all student groups with pagination
@@ -51,11 +54,11 @@ public class StudentsGroupController {
      * Method returns all students for this student group by id with pagination
      *
      * @param id of the student group
-     * @return Page<StudentDto>
+     * @return list of students from this student group
      */
     @GetMapping("/{id}/students")
-    public Page<StudentDto> getStudentGroupStudents(@PathVariable Long id, Pageable pageable) {
-        return studentService.getStudentGroupStudents(id, pageable);
+    public Page<UserDto> getStudentGroupStudents(@PathVariable Long id, Pageable pageable) {
+        return userService.getStudentGroupStudents(id, pageable);
     }
 
     /**

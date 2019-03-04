@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 /**
  * Implementation of JpaRepository for Specialty entity
  */
@@ -23,4 +21,7 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, Long> {
      */
     @Query("SELECT s FROM Specialty s WHERE s.departmentId=:id")
     Page<Specialty> getDepartmentSpecialties(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT s FROM Specialty s WHERE s.id=:id")
+    Specialty getOne(@Param("id") Long id);
 }

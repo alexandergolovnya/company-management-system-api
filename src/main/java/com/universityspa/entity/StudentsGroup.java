@@ -1,6 +1,7 @@
 package com.universityspa.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class StudentsGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -21,6 +22,10 @@ public class StudentsGroup {
     @Column
     private String groupName;
 
+    /**
+     * Id of a specialty to which a
+     * student group belongs
+     */
     @Column
     private Long specialtyId;
 
@@ -30,4 +35,9 @@ public class StudentsGroup {
     @ManyToOne
     @JoinColumn(name = "specialtyId", insertable = false, updatable = false)
     private Specialty specialty;
+
+    public StudentsGroup(String groupName, Long specialtyId) {
+        this.groupName = groupName;
+        this.specialtyId = specialtyId;
+    }
 }

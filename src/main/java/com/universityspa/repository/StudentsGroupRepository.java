@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 /**
  * Implementation of JpaRepository for Student Group entity
  */
@@ -24,4 +22,7 @@ public interface StudentsGroupRepository extends JpaRepository<StudentsGroup, Lo
      */
     @Query("SELECT g FROM StudentsGroup g WHERE g.specialtyId=:id")
     Page<StudentsGroup> getSpecialtyStudentGroups(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT s FROM StudentsGroup s WHERE s.id=:id")
+    StudentsGroup getOne(@Param("id") Long id);
 }

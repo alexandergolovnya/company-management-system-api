@@ -1,13 +1,10 @@
 package com.universityspa.dto;
 
-import com.universityspa.entity.Department;
 import com.universityspa.entity.Journal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 /**
  * DTO class for entity @link Journal
@@ -30,7 +27,6 @@ public class JournalDto {
      * Student in the journal
      */
     private Long studentId;
-
 
     /**
      * Mark for the student in the journal

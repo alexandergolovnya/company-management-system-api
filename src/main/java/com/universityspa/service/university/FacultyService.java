@@ -10,18 +10,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface FacultyService extends CommonCrudService<Faculty, FacultyDto> {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     FacultyDto addFaculty(FacultyDto facultyDto);
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     void deleteFaculty(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     FacultyDto editFaculty(Long id, FacultyDto facultyDto) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<FacultyDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     FacultyDto getById(Long id) throws NotFoundException;
 }

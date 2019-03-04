@@ -1,8 +1,11 @@
 package com.universityspa.entity;
 
 import lombok.Data;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Entity class for Subject
@@ -13,7 +16,7 @@ import java.util.List;
 public class Subject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -27,16 +30,5 @@ public class Subject {
      */
     @Column(length = 4096)
     private String description;
-
-    /**
-     * Teachers of this subject
-     */
-//    @ManyToMany
-//    @JoinTable(
-//            name = "teachers_subjects",
-//            joinColumns = { @JoinColumn(name = "subjectId", insertable = false, updatable = false) },
-//            inverseJoinColumns = { @JoinColumn(name = "teacherId", insertable = false, updatable = false) }
-//    )
-//    List<Teacher> teachers;
 }
 
