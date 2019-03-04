@@ -29,13 +29,13 @@ User credentials:
 - email: admin
 - password: admin
 
-#### Open Swagger UI
+## Swagger UI
 
 Swagger UI is running on [http:localhost:8085/swagger-ui.html](http:localhost:8085/swagger-ui.html)
 
 To authorize your requests add value 'Bearer TOKEN_RECEIVED_AFTER_LOGIN' to authorizations.
 
-#### Requirements for running Selenium tests
+## Requirements for running Selenium tests
 
 - Download [chromedriver](http://chromedriver.chromium.org/)
 - Download Selenium standalone server [selenium-server-standalone-2.53.1.jar](http://selenium-release.storage.googleapis.com/index.html?path=2.53/) 
