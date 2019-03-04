@@ -1,24 +1,25 @@
 package com.universityspa.dto.auth;
 
 import com.universityspa.entity.auth.Role;
+import com.universityspa.entity.auth.Token;
 import com.universityspa.entity.auth.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * DTO-class for entity User
+ * DTO-class for response to the login request
  */
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class UserDto {
+@AllArgsConstructor
+public class AuthLoginResponseDto {
+
+    /**
+     * Value of the token
+     */
+    private String token;
 
     /**
      * Id of the user
@@ -50,30 +51,15 @@ public class UserDto {
      */
     private Role role;
 
-    /**
-     * Id of the student to which belongs this user
-     */
-    private Long studentGroupID;
-
-    /**
-     * Id of the teacher to which belongs this user
-     */
-    private Long departmentId;
-
-    public static UserDto convertFromEntityToDTO(User user) {
-        return UserDto.builder()
+    public static AuthLoginResponseDto convertTokenAndUserEntityToDto(Token token, User user) {
+        return AuthLoginResponseDto.builder()
+                .token(token.getToken())
                 .id(user.getId())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .middleName(user.getMiddleName())
                 .lastName(user.getLastName())
                 .role(user.getRole())
-                .studentGroupID(user.getStudentGroupId())
-                .departmentId(user.getDepartmentId())
                 .build();
-    }
-
-    public static List<UserDto> convertFromEntityToDTO(List<User> users) {
-        return users.stream().map(UserDto::convertFromEntityToDTO).collect(Collectors.toList());
     }
 }

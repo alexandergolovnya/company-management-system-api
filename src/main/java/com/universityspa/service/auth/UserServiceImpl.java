@@ -1,14 +1,19 @@
 package com.universityspa.service.auth;
 
+import com.universityspa.dto.auth.AuthLoginResponseDto;
 import com.universityspa.dto.auth.UserDto;
+import com.universityspa.dto.forms.LoginForm;
+import com.universityspa.dto.forms.UserForm;
 import com.universityspa.entity.auth.Role;
 import com.universityspa.entity.auth.State;
+import com.universityspa.entity.auth.Token;
 import com.universityspa.entity.auth.User;
 import com.universityspa.exception.EmptyRequestDataException;
 import com.universityspa.exception.NotFoundException;
 import com.universityspa.exception.NotUniqueCredentialsException;
-import com.universityspa.dto.forms.UserForm;
+import com.universityspa.repository.auth.TokenRepository;
 import com.universityspa.repository.auth.UserRepository;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,129 +36,98 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TokenRepository tokenRepository;
+
     /**
-     * Method creates new user with Student role.
-     * It checks received data at userForm for not null
-     * uniqueness of the received email and parameter teacherId to be not specified
+     * Method performs an authorization of the user
+     * It checks email and password of the user
+     * and if they correspond to the data in the database
+     * method generates token for this user
      *
-     * @param userForm - data convertFromEntityToDTO the sign up form: email and password
-     * @return userDto
-     * @throws NotUniqueCredentialsException if email of the user already exist or if teacherId is specified
-     * @throws EmptyRequestDataException if email, password or studentId receiver in userForm are null
+     * @param loginForm - data convertFromEntityToDTO the form: email and password
+     * @return Token
+     * @throws IllegalArgumentException if such user doesn't exist
      */
     @Override
-    public UserDto createStudentUser(UserForm userForm) throws NotUniqueCredentialsException, EmptyRequestDataException {
+    public AuthLoginResponseDto login(LoginForm loginForm) {
+        Optional<User> userToLogin = userRepository.findOneByEmail(loginForm.getEmail());
 
-        if (userForm.getEmail() != null && userForm.getPassword() != null) {
-            Optional<User> existUser = userRepository.findOneByEmail(userForm.getEmail());
+        if (userToLogin.isPresent()) {
+            User user = userToLogin.get();
 
-            if (existUser.isPresent()) {
-                throw new NotUniqueCredentialsException("User with such email already exist");
-            } else if (userForm.getTeacherId() != null) {
-                throw new NotUniqueCredentialsException("This user already belongs to teacher");
-            } else if (userForm.getStudentId() != null){
-                String hashPassword = passwordEncoder.encode(userForm.getPassword());
-                User studentUser = User.builder()
-                        .email(userForm.getEmail())
-                        .password(hashPassword)
-                        .studentId(userForm.getStudentId())
-                        .role(Role.STUDENT)
-                        .state(State.ACTIVE)
+            if (passwordEncoder.matches(loginForm.getPassword(), user.getPassword())) {
+                Token token = Token.builder()
+                        .user(user)
+                        .token(RandomStringUtils.random(40, true, true))
                         .build();
-                userRepository.saveAndFlush(studentUser);
 
-                return convertFromEntityToDTO(studentUser);
-            } else throw new EmptyRequestDataException("There are no specified student for this user");
-        } else throw new EmptyRequestDataException("There are no specified email or password");
+                tokenRepository.saveAndFlush(token);
+                return AuthLoginResponseDto.convertTokenAndUserEntityToDto(token, user);
+            } else throw new IllegalArgumentException("Incorrect password");
+        }
+        throw new IllegalArgumentException("User not found");
     }
 
     /**
-     * Method creates new user with Teacher role.
+     * Method creates new user without admin rules.
      * It checks received data at userForm for not null
-     * uniqueness of the received email and parameter studentId to be not specified
-     *
-     * @param userForm - data convertFromEntityToDTO the sign up form: email and password
-     * @return userDto
-     * @throws NotUniqueCredentialsException if email of the user already exist or if teacherId is specified
-     * @throws EmptyRequestDataException if email, password or studentId receiver in userForm are null
-     */
-    @Override
-    public UserDto createTeacherUser(UserForm userForm) throws NotUniqueCredentialsException, EmptyRequestDataException {
-
-        if (userForm.getEmail() != null && userForm.getPassword() != null) {
-            Optional<User> existUser = userRepository.findOneByEmail(userForm.getEmail());
-
-            if (existUser.isPresent()) {
-                throw new NotUniqueCredentialsException("User with such email already exist");
-            } else if (userForm.getStudentId() != null) {
-                throw new NotUniqueCredentialsException("This user already belongs to student");
-            } else if (userForm.getTeacherId() != null){
-                String hashPassword = passwordEncoder.encode(userForm.getPassword());
-                User teacherUser = User.builder()
-                        .email(userForm.getEmail())
-                        .password(hashPassword)
-                        .teacherId(userForm.getTeacherId())
-                        .role(Role.TEACHER)
-                        .state(State.ACTIVE)
-                        .build();
-                userRepository.saveAndFlush(teacherUser);
-
-                return convertFromEntityToDTO(teacherUser);
-            } else throw new EmptyRequestDataException("There are no specified teacher for this user");
-        } else throw new EmptyRequestDataException("There are no specified email or password");
-    }
-
-    /**
-     * (!) Method for developers version, should be switch of in production
-     * Method creates new user with Admin role.
-     * It checks received data at userForm for not null and
      * uniqueness of the received email
      *
-     * @param userForm - data convertFromEntityToDTO the sign up form: email and password
+     * @param userForm - data from the sign up form: email and password, first, middle and last name
      * @return userDto
      * @throws NotUniqueCredentialsException if email of the user already exist
-     * @throws EmptyRequestDataException if email or password receiver in userForm are null
+     * @throws EmptyRequestDataException if email, password received in userForm are null
      */
     @Override
-    public UserDto createAdminUser(UserForm userForm) throws NotUniqueCredentialsException, EmptyRequestDataException {
+    public UserDto createUser(UserForm userForm) throws NotUniqueCredentialsException, EmptyRequestDataException {
 
         if (userForm.getEmail() != null && userForm.getPassword() != null) {
             Optional<User> existUser = userRepository.findOneByEmail(userForm.getEmail());
 
             if (existUser.isPresent()) {
-                throw new NotUniqueCredentialsException("User with such email already exist");
+                throw new NotUniqueCredentialsException("Пользователь с таким email уже зарегистрирован");
             } else {
                 String hashPassword = passwordEncoder.encode(userForm.getPassword());
-                User adminUser = User.builder()
+                User user = User.builder()
                         .email(userForm.getEmail())
                         .password(hashPassword)
-                        .role(Role.ADMIN)
+                        .firstName(userForm.getFirstName())
+                        .middleName(userForm.getMiddleName())
+                        .lastName(userForm.getLastName())
+                        .role(Role.ROLE_USER)
                         .state(State.ACTIVE)
                         .build();
-                userRepository.saveAndFlush(adminUser);
-                return convertFromEntityToDTO(adminUser);
+                userRepository.saveAndFlush(user);
+
+                return convertFromEntityToDTO(user);
             }
-        } else throw new EmptyRequestDataException("There are no specified email or password");
+        } else throw new EmptyRequestDataException("Для регистрации необходимо ввести email и пароль");
     }
 
     /**
-     * Method edits email and password of user
+     * Method edits email, first, middle and last name, student group and department of the user
      *
      * @param id of the user
-     * @param userForm - received data: email and password
+     * @param userDto - received data: email, first, middle and last name,
+     *                student group and department of the user
      * @return userDto
-     * @throws EmptyRequestDataException
+     * @throws NotFoundException
      */
     @Override
-    public UserDto editUser(Long id, UserForm userForm) throws NotFoundException {
+    public UserDto editUser(Long id, UserDto userDto) throws NotFoundException {
 
         User userToEdit = userRepository.getOne(id);
 
         if (userToEdit != null) {
-            String hashPassword = passwordEncoder.encode(userForm.getPassword());
             User user = User.builder()
-                    .email(userForm.getEmail())
-                    .password(hashPassword)
+                    .email(userDto.getEmail())
+                    .firstName(userDto.getFirstName())
+                    .middleName(userDto.getMiddleName())
+                    .lastName(userDto.getLastName())
+                    .role(userDto.getRole())
+                    .studentGroupId(userDto.getStudentGroupID())
+                    .departmentId(userDto.getDepartmentId())
                     .build();
             userRepository.saveAndFlush(user);
             return convertFromEntityToDTO(user);
@@ -235,5 +209,46 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new NotFoundException("Such user doesn't exist");
         }
+    }
+
+    /**
+     * Method returns all students for student group with pagination
+     *
+     * @param id       of the student group
+     * @param pageable
+     * @return list of students from student group by id
+     */
+    @Override
+    public Page<UserDto> getStudentGroupStudents(Long id, Pageable pageable) {
+        Page<User> studentPage = userRepository.findAllByStudentGroupId(id, pageable);
+        int totalElements = (int) studentPage.getTotalElements();
+        List<UserDto> studentDtoList = studentPage
+                .getContent()
+                .stream()
+                .map(student -> convertFromEntityToDTO(student))
+                .collect(Collectors.toList());
+
+        Page<UserDto> studentDtoPage = new PageImpl<>(studentDtoList, pageable, totalElements);
+        return studentDtoPage;
+    }
+
+    /**
+     * Method receives all teachers for department with pagination
+     *
+     * @param id of the department
+     * @return list of teachers from department by id
+     */
+    @Override
+    public Page<UserDto> getDepartmentTeachers(Long id, Pageable pageable) {
+        Page<User> teacherPage = userRepository.findAllByDepartmentId(id, pageable);
+        int totalElements = (int) teacherPage.getTotalElements();
+        List<UserDto> teacherDtoList = teacherPage
+                .getContent()
+                .stream()
+                .map(teacher -> convertFromEntityToDTO(teacher))
+                .collect(Collectors.toList());
+
+        Page<UserDto> teacherDtoPage = new PageImpl<>(teacherDtoList, pageable, totalElements);
+        return teacherDtoPage;
     }
 }

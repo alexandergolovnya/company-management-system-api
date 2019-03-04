@@ -10,24 +10,24 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface ScheduleService extends CommonCrudService<Schedule, ScheduleDto> {
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     ScheduleDto addSchedule(ScheduleDto scheduleDto);
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     void deleteSchedule(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     ScheduleDto editSchedule(Long id, ScheduleDto scheduleDto) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<ScheduleDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     ScheduleDto getById(Long id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Long getTeacherWorkLoad(Long id);
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<ScheduleDto> getTeacherLessons(Long id, Pageable pageable);
 }

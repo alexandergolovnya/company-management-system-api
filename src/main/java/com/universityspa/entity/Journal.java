@@ -1,5 +1,6 @@
 package com.universityspa.entity;
 
+import com.universityspa.entity.auth.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 public class Journal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -49,6 +50,6 @@ public class Journal {
      * Student in the journal
      */
     @ManyToOne
-    @JoinColumn(name = "studentId", insertable = false, updatable = false)
-    private Student student;
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    private User user;
 }

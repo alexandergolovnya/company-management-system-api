@@ -1,5 +1,6 @@
 package com.universityspa.entity;
 
+import com.universityspa.entity.auth.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.Date;
 public class Schedule {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -36,7 +37,7 @@ public class Schedule {
     private Long subjectId;
 
     /**
-     * Id of a  teacher for the subject
+     * Id of a teacher for the subject
      */
     @Column
     private Long teacherId;
@@ -59,7 +60,7 @@ public class Schedule {
      */
     @ManyToOne
     @JoinColumn(name = "teacherId", insertable = false, updatable = false)
-    private Teacher teacher;
+    private User user;
 
     /**
      * Student group that studies subject

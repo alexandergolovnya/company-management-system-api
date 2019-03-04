@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/journal")
 public class JournalController {
 
+    private final JournalService journalService;
+
     @Autowired
-    private JournalService journalService;
+    public JournalController(JournalService journalService) {
+        this.journalService = journalService;
+    }
 
     /**
      * Method returns all records of journal

@@ -21,12 +21,17 @@ public class UserForm {
     private String password;
 
     /**
-     * Id of the student to which belongs this user
+     * First name of the user
      */
-    private Long studentId;
+    private String firstName;
 
     /**
-     * Id of the teacher to which belongs this user
+     * Middle name of the user
      */
-    private Long teacherId;
+    private String middleName;
+
+    /**
+     * Last name of the user
+     */
+    private String lastName;
 }

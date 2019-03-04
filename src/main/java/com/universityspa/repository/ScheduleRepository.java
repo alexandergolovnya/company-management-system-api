@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 /**
  * Implementation of JpaRepository for Schedule entity
  */
@@ -32,4 +30,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
      */
     @Query("SELECT s FROM Schedule s WHERE s.teacherId=:id")
     Page<Schedule> getTeacherLessons(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT s FROM Schedule s WHERE s.id=:id")
+    Schedule getOne(@Param("id") Long id);
 }
