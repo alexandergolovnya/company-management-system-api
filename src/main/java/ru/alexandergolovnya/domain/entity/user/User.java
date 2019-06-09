@@ -54,7 +54,7 @@ public class User {
     private String lastName;
 
     @Column(name = "department_id", insertable = false, updatable = false)
-    private int departmentId;
+    private Integer departmentId;
 
     @Column
     @Enumerated(value = EnumType.STRING)

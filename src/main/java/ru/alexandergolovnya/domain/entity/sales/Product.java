@@ -27,12 +27,12 @@ public class Product {
 	@Column
 	private String photo;
 
-	@Column(name = "price", columnDefinition = "double")
-	private double price;
+    @Column
+    private Integer price;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_category_id", referencedColumnName = "id")
-	private ProductCategory productCategory;
+    @ManyToOne
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
 
 	@ManyToOne
 	@JoinColumn(name="order_id")

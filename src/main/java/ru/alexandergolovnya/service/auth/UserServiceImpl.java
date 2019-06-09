@@ -1,7 +1,6 @@
 package ru.alexandergolovnya.service.auth;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -62,9 +61,12 @@ public class UserServiceImpl implements UserService {
                         .token(RandomStringUtils.random(40, true, true))
                         .build();
 
-                tokenRepository.saveAndFlush(token);
-                UserDto userDto = map(user, UserDto.class);
+                tokenRepository.save(token);
+                UserDto userDto = UserDto.convertFromEntityToDTO(user);
                 userDto.setToken(token.getToken());
+                if (user.getDepartmentId() != null) {
+                    userDto.setDepartmentId(user.getDepartmentId());
+                }
                 return userDto;
             } else throw new IllegalArgumentException("Incorrect password");
         }
@@ -86,6 +88,7 @@ public class UserServiceImpl implements UserService {
 
         if (request.getEmail() != null && request.getPassword() != null) {
             Optional<User> existUser = userRepository.findOneByEmail(request.getEmail());
+//            Department department = departmentRepository.getOne(request.getDepartmentId());
 
             if (existUser.isPresent()) {
                 throw new NotUniqueCredentialsException("Пользователь с таким email уже зарегистрирован");
@@ -103,7 +106,7 @@ public class UserServiceImpl implements UserService {
                         .build();
                 userRepository.save(user);
 
-                return map(user, UserDto.class);
+                return UserDto.convertFromEntityToDTO(user);
             }
         } else throw new EmptyRequestDataException("Для регистрации необходимо ввести email и пароль");
     }

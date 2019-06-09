@@ -1,12 +1,12 @@
 package ru.alexandergolovnya.domain.entity.company;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Entity class for Department
@@ -33,12 +33,6 @@ public class Department {
      */
     @Column(length = 4096)
     private String description;
-
-    @CreationTimestamp
-    private Date createTime;
-
-    @UpdateTimestamp
-    private Date updateTime;
 
     public Department(String name, String description) {
         this.name = name;

@@ -1,8 +1,9 @@
 package ru.alexandergolovnya.domain.dto;
 
-import ru.alexandergolovnya.domain.entity.user.Role;
 import lombok.Builder;
 import lombok.Data;
+import ru.alexandergolovnya.domain.entity.user.Role;
+import ru.alexandergolovnya.domain.entity.user.User;
 
 /**
  * DTO-class for entity User
@@ -51,4 +52,16 @@ public class UserDto {
      * Id of the teacher to which belongs this user
      */
     private int departmentId;
+
+    public static UserDto convertFromEntityToDTO(User user) {
+        return UserDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .middleName(user.getMiddleName())
+                .lastName(user.getLastName())
+                .role(user.getRole())
+//                .departmentId(user.getDepartmentId())
+                .build();
+    }
 }
