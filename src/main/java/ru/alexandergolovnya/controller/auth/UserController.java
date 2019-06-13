@@ -1,6 +1,5 @@
 package ru.alexandergolovnya.controller.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import ru.alexandergolovnya.exception.NotUniqueCredentialsException;
 import ru.alexandergolovnya.service.auth.UserService;
 
 /**
- * REST controller for users sign up
+ * REST controller for users sign up and sign in.
  * Provides CRUD operations.
  */
 
@@ -22,8 +21,11 @@ import ru.alexandergolovnya.service.auth.UserService;
 @RequestMapping("api")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Method provides login operation for user
@@ -37,8 +39,8 @@ public class UserController {
     }
 
     /**
-     * Method creates new user without admin rules.
-     * It checks received data at userForm for not null
+     * Method creates new user without provided role.
+     * It checks received data at signUpRequest for not null
      * uniqueness of the received email
      *
      * @param signUpRequest - data from the sign up form: email and password, first, middle and last name
@@ -101,7 +103,7 @@ public class UserController {
      * @param userDto - received data: email, first, middle and last name,
      *                student group and department of the user
      * @return userDto
-     * @throws NotFoundException
+     * @throws NotFoundException if user doesn't exist
      */
     @PutMapping("/users/{id}")
     public UserDto editUser(@RequestBody UserDto userDto, @PathVariable int id) throws NotFoundException {

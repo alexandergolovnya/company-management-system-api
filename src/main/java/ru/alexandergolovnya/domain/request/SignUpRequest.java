@@ -44,4 +44,14 @@ public class SignUpRequest {
      * Department of the user
      */
     private int departmentId;
+
+    /**
+     * Photo of the user
+     */
+    private String photo;
+
+    /**
+     * Description of the user
+     */
+    private String description;
 }

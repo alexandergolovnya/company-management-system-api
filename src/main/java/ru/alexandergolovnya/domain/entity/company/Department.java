@@ -29,6 +29,12 @@ public class Department {
     private String name;
 
     /**
+     * Photo of this department
+     */
+    @Column
+    private String photo;
+
+    /**
      * Description of this department
      */
     @Column(length = 4096)

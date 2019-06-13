@@ -16,13 +16,13 @@ public interface UserService {
 
     UserDto createUser(SignUpRequest signUpRequest) throws NotUniqueCredentialsException, EmptyRequestDataException;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR', 'ROLE_HR_MANAGER')")
     UserDto editUser(int id, UserDto userDto) throws NotFoundException;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR', 'ROLE_HR_MANAGER')")
     void deleteUserFromDatabase(int id) throws NotFoundException;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR', 'ROLE_HR_MANAGER')")
     void setDeletedState(int id) throws NotFoundException;
 
     Page<UserDto> getAll(Pageable pageable);

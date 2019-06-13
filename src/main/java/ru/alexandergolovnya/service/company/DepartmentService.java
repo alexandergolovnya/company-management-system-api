@@ -8,18 +8,18 @@ import ru.alexandergolovnya.exception.NotFoundException;
 
 public interface DepartmentService {
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR')")
     DepartmentDto addDepartment(DepartmentDto department);
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR')")
     void deleteDepartment(int id) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR')")
     DepartmentDto editDepartment(int id, DepartmentDto department) throws NotFoundException;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     Page<DepartmentDto> getAll(Pageable pageable);
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     DepartmentDto getById(int id) throws NotFoundException;
 }
+
+

@@ -7,6 +7,10 @@ public class OrderDto {
 
 	private int id;
 
+	private String orderCategory;
+
+	private String orderDescription;
+
 	private String status;
 
 	private String customerName;

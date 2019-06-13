@@ -51,10 +51,10 @@ public class DepartmentController {
     }
 
     /**
-     * Method returns all teachers for department with pagination
+     * Method returns all employees for department with pagination
      *
      * @param id of the department
-     * @return list of teachers from this department
+     * @return list of employees from this department
      */
     @GetMapping("/{id}/employees")
     public Page<UserDto> getDepartmentEmployees(@PathVariable int id, Pageable pageable) {

@@ -5,6 +5,8 @@ import lombok.Data;
 import ru.alexandergolovnya.domain.entity.user.Role;
 import ru.alexandergolovnya.domain.entity.user.User;
 
+import javax.persistence.Column;
+
 /**
  * DTO-class for entity User
  */
@@ -53,6 +55,10 @@ public class UserDto {
      */
     private int departmentId;
 
+    private String photo;
+
+    private String description;
+
     public static UserDto convertFromEntityToDTO(User user) {
         return UserDto.builder()
                 .id(user.getId())
@@ -61,6 +67,8 @@ public class UserDto {
                 .middleName(user.getMiddleName())
                 .lastName(user.getLastName())
                 .role(user.getRole())
+                .photo(user.getPhoto())
+                .description(user.getDescription())
 //                .departmentId(user.getDepartmentId())
                 .build();
     }

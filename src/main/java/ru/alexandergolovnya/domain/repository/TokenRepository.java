@@ -1,9 +1,7 @@
 package ru.alexandergolovnya.domain.repository;
 
-import ru.alexandergolovnya.domain.entity.user.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import ru.alexandergolovnya.domain.entity.user.Token;
 
 import java.util.Optional;
 
@@ -19,7 +17,4 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
      * @return Token
      */
     Optional<Token> findOneByToken(String token);
-
-//    @Query("SELECT t FROM Token t WHERE t.id=:id")
-//    Token getOne(@Param("id") Long id);
 }

@@ -30,6 +30,12 @@ public class Product {
     @Column
     private Integer price;
 
+	@Column(name = "product_category_id", insertable = false, updatable = false)
+	private Integer productCategoryId;
+
+	@Column(name = "order_id", insertable = false, updatable = false)
+	private Integer orderId;
+
     @ManyToOne
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;

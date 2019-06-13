@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -53,6 +54,12 @@ public class User {
     @Size(min=2, message = "Length must be more than 2")
     private String lastName;
 
+    @Column(length = 1096)
+    private String photo;
+
+    @Column(length = 4096)
+    private String description;
+
     @Column(name = "department_id", insertable = false, updatable = false)
     private Integer departmentId;
 
@@ -64,8 +71,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    @OneToOne(mappedBy = "user")
-    private Token token;
+    /**
+     * List of tokens for this user
+     */
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     @ManyToOne
     @JoinColumn(name = "department_id")

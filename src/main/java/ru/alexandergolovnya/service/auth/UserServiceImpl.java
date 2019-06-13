@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Method creates new user without admin rules.
+     * Method creates new user with provided role.
      * It checks received data at userForm for not null
      * uniqueness of the received email
      *
@@ -102,6 +102,8 @@ public class UserServiceImpl implements UserService {
                         .lastName(request.getLastName())
                         .role(Role.valueOf(request.getRoleName()))
                         .departmentId(request.getDepartmentId())
+                        .photo(request.getPhoto())
+                        .description(request.getDescription())
                         .state(State.ACTIVE)
                         .build();
                 userRepository.save(user);
@@ -189,14 +191,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDto> getAll(Pageable pageable) {
         Page<User> userPage = userRepository.findAll(pageable);
-        int totalElements = (int) userPage.getTotalElements();
-        List<UserDto> userDtoList = userPage
-                .getContent()
-                .stream()
-                .map(user -> map(user, UserDto.class))
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(userDtoList, pageable, totalElements);
+        return getUserDtoList(pageable, userPage);
     }
 
     /**
@@ -211,26 +206,40 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getOne(id);
 
         if (user != null) {
-            return map(user, UserDto.class);
+            UserDto userDto = UserDto.convertFromEntityToDTO(user);
+            if (user.getDepartmentId() != null) {
+                userDto.setDepartmentId(user.getDepartmentId());
+            }
+            return userDto;
         } else {
             throw new NotFoundException("Such user doesn't exist");
         }
     }
 
     /**
-     * Method receives all teachers for department with pagination
+     * Method receives all employees for department with pagination
      *
      * @param id of the department
-     * @return list of teachers from department by id
+     * @return list of employees from department by id
      */
     @Override
     public Page<UserDto> getDepartmentEmployees(int id, Pageable pageable) {
         Page<User> departmentUsers = userRepository.findAllByDepartmentId(id, pageable);
+        return getUserDtoList(pageable, departmentUsers);
+    }
+
+    private Page<UserDto> getUserDtoList(Pageable pageable, Page<User> departmentUsers) {
         int totalElements = (int) departmentUsers.getTotalElements();
         List<UserDto> userDtoList = departmentUsers
                 .getContent()
                 .stream()
-                .map(user -> map(user, UserDto.class))
+                .map(user -> {
+                    UserDto userDto = UserDto.convertFromEntityToDTO(user);
+                    if (user.getDepartmentId() != null) {
+                        userDto.setDepartmentId(user.getDepartmentId());
+                    }
+                    return userDto;
+                })
                 .collect(Collectors.toList());
 
         return new PageImpl<>(userDtoList, pageable, totalElements);
