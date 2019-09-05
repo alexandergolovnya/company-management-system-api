@@ -1,14 +1,18 @@
 package ru.alexandergolovnya.security.details;
 
-import ru.alexandergolovnya.domain.entity.user.State;
-import ru.alexandergolovnya.domain.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.alexandergolovnya.domain.entity.user.State;
+import ru.alexandergolovnya.domain.entity.user.User;
 
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 public class UserDetailsImpl implements UserDetails {
 
     /**

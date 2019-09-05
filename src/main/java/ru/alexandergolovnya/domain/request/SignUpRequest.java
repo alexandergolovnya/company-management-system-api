@@ -5,8 +5,10 @@ import lombok.Data;
 /**
  * Class for receiving data from the sign up form
  * in order to create new user
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @Data
 public class SignUpRequest {
 

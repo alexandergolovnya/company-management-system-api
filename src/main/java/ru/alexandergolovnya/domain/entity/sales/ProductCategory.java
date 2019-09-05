@@ -11,25 +11,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Data
 @Entity
 public class ProductCategory {
 
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "id", nullable = false, unique = true, columnDefinition = "int")
-	private int id;
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id", nullable = false, unique = true, columnDefinition = "int")
+    private int id;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@Column(length = 4096)
-	private String description;
+    @Column(length = 4096)
+    private String description;
 
-	@CreationTimestamp
-	private Date createTime;
+    @CreationTimestamp
+    private Date createTime;
 
-	@UpdateTimestamp
-	private Date updateTime;
+    @UpdateTimestamp
+    private Date updateTime;
 }

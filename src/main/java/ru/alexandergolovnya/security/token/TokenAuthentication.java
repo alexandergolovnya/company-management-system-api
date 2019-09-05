@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 public class TokenAuthentication implements Authentication {
 
     /**

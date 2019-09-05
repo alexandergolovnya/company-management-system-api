@@ -1,8 +1,5 @@
 package ru.alexandergolovnya.security.provider;
 
-import ru.alexandergolovnya.domain.entity.user.Token;
-import ru.alexandergolovnya.domain.repository.TokenRepository;
-import ru.alexandergolovnya.security.token.TokenAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,9 +8,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import ru.alexandergolovnya.domain.entity.user.Token;
+import ru.alexandergolovnya.domain.repository.TokenRepository;
+import ru.alexandergolovnya.security.token.TokenAuthentication;
 
 import java.util.Optional;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Component
 public class TokenAuthenticationProvider implements AuthenticationProvider {
 

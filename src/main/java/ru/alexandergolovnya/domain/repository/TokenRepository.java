@@ -7,8 +7,10 @@ import java.util.Optional;
 
 /**
  * Implementation of JpaRepository for Token entity
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     /**

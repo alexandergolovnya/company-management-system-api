@@ -13,8 +13,10 @@ import ru.alexandergolovnya.service.company.DepartmentService;
 /**
  * REST controller for a Department.
  * Provides CRUD operations.
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @RestController
 @RequestMapping("/api/departments")
 public class DepartmentController {
@@ -42,7 +44,7 @@ public class DepartmentController {
      * Method returns department by id
      *
      * @param id of the department
-     * @return DepartmentDto
+     * @return DepartmentDtoф
      * @throws NotFoundException if department doesn't exist
      */
     @GetMapping("/{id}")

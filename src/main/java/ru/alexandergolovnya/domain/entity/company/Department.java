@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Entity class for Department
+ * Entity class for a department of a company
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @Data
 @Entity
 public class Department {

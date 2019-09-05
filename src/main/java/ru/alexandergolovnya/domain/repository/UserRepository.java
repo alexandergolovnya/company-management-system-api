@@ -10,8 +10,10 @@ import java.util.Optional;
 
 /**
  * Implementation of JpaRepository for User entity
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**

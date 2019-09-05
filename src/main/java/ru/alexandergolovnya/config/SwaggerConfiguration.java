@@ -19,6 +19,10 @@ import java.util.List;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Configuration
 @EnableSwagger2
 @Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class)

@@ -10,6 +10,10 @@ import ru.alexandergolovnya.exception.EmptyRequestDataException;
 import ru.alexandergolovnya.exception.NotFoundException;
 import ru.alexandergolovnya.exception.NotUniqueCredentialsException;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 public interface UserService {
 
     UserDto login(LoginRequest loginRequest);

@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Exception for cases when client send to server empty request
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Received data is empty")
 @SuppressWarnings("serial")
 public class EmptyRequestDataException extends Exception {

@@ -15,8 +15,10 @@ import ru.alexandergolovnya.service.auth.UserService;
 /**
  * REST controller for users sign up and sign in.
  * Provides CRUD operations.
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @RestController
 @RequestMapping("api")
 public class UserController {

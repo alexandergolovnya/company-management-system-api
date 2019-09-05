@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 
 import static ru.alexandergolovnya.utils.ObjectMapperUtils.map;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 

@@ -6,6 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import ru.alexandergolovnya.domain.dto.DepartmentDto;
 import ru.alexandergolovnya.exception.NotFoundException;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 public interface DepartmentService {
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_DIRECTOR')")

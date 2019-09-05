@@ -1,6 +1,5 @@
 package ru.alexandergolovnya.config;
 
-import ru.alexandergolovnya.security.filter.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,9 +13,14 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ru.alexandergolovnya.security.filter.TokenAuthenticationFilter;
 
 import java.util.Arrays;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @ComponentScan("ru.alexandergolovnya")
 @Configuration
 @EnableWebSecurity

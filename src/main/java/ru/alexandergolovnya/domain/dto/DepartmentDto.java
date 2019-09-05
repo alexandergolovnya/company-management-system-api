@@ -4,8 +4,10 @@ import lombok.Data;
 
 /**
  * DTO class for entity @link Department
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @Data
 public class DepartmentDto {
 

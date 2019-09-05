@@ -8,8 +8,10 @@ import ru.alexandergolovnya.domain.entity.sales.Product;
 
 /**
  * Implementation of JpaRepository for Product entity
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	/**

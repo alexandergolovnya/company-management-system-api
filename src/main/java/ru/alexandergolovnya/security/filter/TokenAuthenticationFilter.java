@@ -1,13 +1,17 @@
 package ru.alexandergolovnya.security.filter;
 
-import ru.alexandergolovnya.security.token.TokenAuthentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import ru.alexandergolovnya.security.token.TokenAuthentication;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Component
 public class TokenAuthenticationFilter implements Filter {
 

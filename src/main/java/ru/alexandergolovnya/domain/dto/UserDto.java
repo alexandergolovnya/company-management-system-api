@@ -5,12 +5,12 @@ import lombok.Data;
 import ru.alexandergolovnya.domain.entity.user.Role;
 import ru.alexandergolovnya.domain.entity.user.User;
 
-import javax.persistence.Column;
-
 /**
  * DTO-class for entity User
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @Data
 @Builder
 public class UserDto {

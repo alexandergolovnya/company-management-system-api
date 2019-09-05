@@ -9,8 +9,10 @@ import javax.persistence.*;
 
 /**
  * Entity class for Token for Spring Security
+ *
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

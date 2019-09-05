@@ -16,6 +16,10 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
+ * @created: 2019/09/04
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
