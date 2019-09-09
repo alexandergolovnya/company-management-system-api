@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ru.alexandergolovnya.utils.ObjectMapperUtils.map;
+import static ru.alexandergolovnya.utils.ModelMapperUtils.map;
 
 /**
  * @author: Alexander Golovnya <mail@alexandergolovnya.ru>

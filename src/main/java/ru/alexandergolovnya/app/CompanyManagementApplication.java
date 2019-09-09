@@ -12,10 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @created: 2019/09/04
  */
 @SpringBootApplication
-public class Application {
+public class CompanyManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(CompanyManagementApplication.class, args);
     }
 
     @Bean

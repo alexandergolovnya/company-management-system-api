@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * @created: 2019/09/04
  */
 @UtilityClass
-public class ObjectMapperUtils {
+public class ModelMapperUtils {
 
 	@SuppressWarnings("UnusedAssignment")
 	private static ModelMapper modelMapper = new ModelMapper();
