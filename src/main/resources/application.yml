@@ -10,8 +10,8 @@ spring:
     platform: postgres
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
-    url: jdbc:postgresql://localhost:5432/spring-erp-model
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/company-management-api
+    username: alexandergolovnya
     password: root
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
