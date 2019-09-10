@@ -1,4 +1,4 @@
-package ru.alexandergolovnya.domain.entity.account;
+package ru.alexandergolovnya.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package ru.alexandergolovnya.domain.entity.account;
+package ru.alexandergolovnya.domain.entity;
 
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
