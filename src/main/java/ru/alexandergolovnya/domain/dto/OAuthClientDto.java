@@ -7,7 +7,7 @@ import lombok.Data;
  * @created: 2019/09/09
  */
 @Data
-public class OAuthClient {
+public class OAuthClientDto {
 
     private int id;
     private String clientId;

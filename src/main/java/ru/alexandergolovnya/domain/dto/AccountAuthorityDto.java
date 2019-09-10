@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  */
 @Data
 @Entity
-public class AccountAuthority {
+public class AccountAuthorityDto {
 
     private int id;
     private String authorityName;
