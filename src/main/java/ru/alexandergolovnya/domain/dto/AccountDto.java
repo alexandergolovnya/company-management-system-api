@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * @author: Alexander Golovnya <mail@alexandergolovnya.ru>
@@ -31,4 +32,5 @@ public class AccountDto {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private Set<AccountAuthorityDto> accountAuthorityDtos;
 }
