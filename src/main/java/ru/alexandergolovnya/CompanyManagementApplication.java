@@ -1,4 +1,4 @@
-package ru.alexandergolovnya.app;
+package ru.alexandergolovnya;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
