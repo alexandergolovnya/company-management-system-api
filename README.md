@@ -1,5 +1,7 @@
-# University SPA Backend
-University's single page application REST API, provides CRUD services for faculties, departments, specialties, users, student groups.
+# Company management API
+Current version of API is in progress.
+Version v3 is deprecated - rest api for test erp system for IT-company.
+Version v2 is deprecated - university's single page application REST API, provides CRUD services for faculties, departments, specialties, users, student groups.
 
 ## Build Setup
 
@@ -12,7 +14,7 @@ For building and running the application you need is:
 
 ## Running the application locally
 
-#### Configure database connection
+#### Configure database connection [Deprecated]
 Specify properties for your PostgreSQL database at application.properties:
 - spring.datasource.url
 - spring.datasource.username
@@ -35,7 +37,7 @@ Swagger UI is running on [http:localhost:8085/swagger-ui.html](http:localhost:80
 
 To authorize your requests add value 'Bearer TOKEN_RECEIVED_AFTER_LOGIN' to authorizations.
 
-## Requirements for running Selenium tests
+## Requirements for running Selenium tests [Deprecated]
 
 - Download [chromedriver](http://chromedriver.chromium.org/)
 - Download Selenium standalone server [selenium-server-standalone-2.53.1.jar](http://selenium-release.storage.googleapis.com/index.html?path=2.53/) 
